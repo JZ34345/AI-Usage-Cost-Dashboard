@@ -8,7 +8,6 @@ import Cocoa
 import SwiftUI
 import Charts
 import SwiftData
-import PlaygroundSupport
 
 
 public struct file: Codable, Sendable {

@@ -8,7 +8,6 @@ import Cocoa
 import SwiftUI
 import Charts
 import SwiftData
-import PlaygroundSupport
 
 public let data2 = sampleData
 
@@ -86,7 +85,7 @@ public struct Graph2: View {
             .chartYAxis {
                 AxisMarks(values: .automatic(desiredCount: 10))
             }
-            .frame(width: 400, height: 200)
+            .frame(width: 350, height: 200)
             .chartLegend(position: .top)
         }
     }
@@ -110,7 +109,7 @@ public struct DataTable2: View {
                     Text(String(format: "%.2f", item.delta))
                 }
             }
-            .frame(width: 350, height: 200)
+            .frame(width: 300, height: 200)
         }
     }
 }

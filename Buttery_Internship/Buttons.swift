@@ -8,8 +8,8 @@ import Cocoa
 import SwiftUI
 import Charts
 import SwiftData
-import PlaygroundSupport
 
+//MARK: Filter in progress
 public struct FilterButton: View {
     @State private var showFilter = "MultiSelect"
     public init() {}
@@ -29,6 +29,7 @@ public struct FilterButton: View {
     }
 }
 
+//MARK: Date filter in progress
 public struct DateFilterButton: View {
     @State private var showFilter = "Date"
     public init() {}
@@ -48,6 +49,7 @@ public struct DateFilterButton: View {
     }
 }
 
+//MARK: Drilldown in progress
 public struct DrillDownButton: View {
     @State private var showFilter = "DrillDown: Clusters"
     public init() {}
@@ -67,6 +69,7 @@ public struct DrillDownButton: View {
     }
 }
 
+//MARK: CSV export in progress
 public struct CSVExport: View {
     public init() {}
     public var body: some View {
