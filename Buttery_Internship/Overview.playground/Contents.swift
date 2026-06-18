@@ -5,8 +5,6 @@ import Charts
 import SwiftData
 import PlaygroundSupport
 
-var greeting = "Hello, playground"
-
 struct Overview: View {
     var body: some View {
         VStack {
