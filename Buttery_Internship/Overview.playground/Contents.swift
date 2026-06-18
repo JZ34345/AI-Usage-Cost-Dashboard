@@ -50,4 +50,3 @@ struct Overview: View {
     }
     
 }
-PlaygroundPage.current.setLiveView(Overview())
