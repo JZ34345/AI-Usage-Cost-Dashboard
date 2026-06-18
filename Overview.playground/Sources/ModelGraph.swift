@@ -10,7 +10,7 @@ import Charts
 import SwiftData
 import PlaygroundSupport
 
-// MARK: Graph 3 Structure
+// MARK: Graph 4 Structure
 public struct graph4Summary: Identifiable, Sendable {
     public let id = UUID()
     public let day: Date
@@ -42,7 +42,7 @@ public func makeGraph4Data() -> [graph4Summary] {
 
 let graph4Data = makeGraph4Data()
 
-//MARK: Graph3 View
+//MARK: Graph4 View
 public struct Graph4: View {
     public init() {}
     let graph4Dates = graph4Data.map { $0.day }
@@ -79,7 +79,7 @@ public struct Graph4: View {
         }
     }
 }
-//MARK: Database 3
+//MARK: Database 4
 public struct DataTable4: View {
     public init() {}
     public var body: some View {

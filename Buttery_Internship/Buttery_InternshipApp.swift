@@ -1,6 +1,5 @@
 //
 //  Buttery_InternshipApp.swift
-//  Buttery_Internship
 //
 //  Created by Jason Zhang on 6/15/26.
 //

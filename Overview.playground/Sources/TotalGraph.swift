@@ -1,8 +1,8 @@
 //
-//  ModelGraph.swift
+//  Graph1.swift
 //  
 //
-//  Created by Jason Zhang on 6/17/26.
+//  Created by Jason Zhang on 6/16/26.
 //
 import Cocoa
 import SwiftUI
@@ -10,52 +10,44 @@ import Charts
 import SwiftData
 import PlaygroundSupport
 
-// MARK: Graph 3 Structure
-public struct graph4Summary: Identifiable, Sendable {
+
+// MARK: Graph 1 Structure
+public struct graph1Summary: Identifiable, Sendable {
     public let id = UUID()
     public let day: Date
-    public let modelId: String
     public let costCents: Double
 }
 
-public func makeGraph4Data() -> [graph4Summary] {
+public func makeGraph1Data() -> [graph1Summary] {
     let formatter = ISO8601DateFormatter()
+    let graph1Grouped = Dictionary(grouping: sampleData.records, by: { $0.day })
     
-    struct groupKey: Hashable {
-        let day: String
-        let modelId: String
+    let graph1Summed = graph1Grouped.map { day, group -> graph1Summary in
+        let total = group.reduce(0.0) { $0 + $1.costCents }
+        let date = formatter.date(from: day) ?? Date()
+        return graph1Summary(day: date, costCents: total)
     }
     
-    let graph4Grouped = Dictionary(grouping: sampleData.records) {record -> groupKey in
-        return groupKey(day: record.day, modelId: record.modelId)
-    }
-
-    let graph4Aggregated = graph4Grouped.map { key, group -> graph4Summary in
-        let date = formatter.date(from: key.day) ?? Date()
-        let total = group.reduce(0.0) {$0 + $1.costCents}
-        return graph4Summary(day: date, modelId: key.modelId, costCents: total)
-    }
-    
-    let graph4Data = graph4Aggregated.sorted { $0.day < $1.day }
-    return graph4Data.suffix(30)
+    let graph1Data = graph1Summed.sorted { $0.day < $1.day }
+    return graph1Data//.suffix(7)
 }
 
-let graph4Data = makeGraph4Data()
+let graph1Data = makeGraph1Data()
 
-//MARK: Graph3 View
-public struct Graph4: View {
+//MARK: Graph1 View
+public struct Graph1: View {
     public init() {}
-    let graph4Dates = graph4Data.map { $0.day }
+    let graph1Dates = graph1Data.map { $0.day }
     public var body: some View {
         VStack {
-            Text("Model Cost-Time Graph (2026)")
+            Text("Total Cost-Time Graph (2026)")
                 .font(.headline)
                 .padding()
-            Chart(graph4Data) { item in
+            Chart(graph1Data) { item in
                 LineMark(
                     x: .value("Day", item.day),
                     y: .value("Cost in Cents", item.costCents)
-                ).foregroundStyle(by: .value("Model", item.modelId))
+                ).foregroundStyle(by: .value("Type", "Total Cost"))
             }
             .chartXAxisLabel("Date", alignment: .center)
             .chartYAxisLabel("Cost (Cents)", position: .trailing)
@@ -79,15 +71,14 @@ public struct Graph4: View {
         }
     }
 }
-//MARK: Database 3
-public struct DataTable4: View {
+//MARK: Database1
+public struct DataTable1: View {
     public init() {}
     public var body: some View {
         VStack {
             Text("Total Cost-Time Table").font(.headline)
-            Table(graph4Data) {
+            Table(graph1Data) {
                 TableColumn("Id") { item in Text("\(item.id)")}
-                TableColumn("ModelId") { item in Text("\(item.modelId)")}
                 TableColumn("Day") { item in
                     Text(item.day, format: .dateTime.month(.abbreviated).day().year())
                 }
@@ -99,6 +90,4 @@ public struct DataTable4: View {
         }
     }
 }
-
-
 

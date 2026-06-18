@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A81274A32FE3A08600360FC4 /* Overview.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Overview.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A88A2B952FE0C225003293EE /* Buttery_Internship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buttery_Internship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BA42FE0C227003293EE /* Buttery_InternshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BAE2FE0C227003293EE /* Buttery_InternshipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +76,7 @@
 		A88A2B8C2FE0C225003293EE = {
 			isa = PBXGroup;
 			children = (
+				A81274A32FE3A08600360FC4 /* Overview.playground */,
 				A88A2B972FE0C225003293EE /* Buttery_Internship */,
 				A88A2BA72FE0C227003293EE /* Buttery_InternshipTests */,
 				A88A2BB12FE0C227003293EE /* Buttery_InternshipUITests */,
