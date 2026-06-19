@@ -20,15 +20,15 @@ public struct Overview: View {
                     DrillDownButton()
                 }.padding()
                 HStack {
-                    Graph1()
+                    totalGraph
                         .frame(maxWidth: .infinity)
                     Divider()
-                    DataTable1()
+                    totalDataTable
                         .frame(maxWidth: .infinity)
-                    Graph2()
+                    WoWGraph()
                         .frame(maxWidth: .infinity)
                     Divider()
-                    DataTable2()
+                    WoWDataTable()
                         .frame(maxWidth: .infinity)
                 }
                 VStack {
@@ -37,15 +37,15 @@ public struct Overview: View {
                 Text("Graphs Showcase").font(.title)
                 VStack {
                     HStack {
-                        Graph3()
+                        clusterGraph
                             .frame(maxWidth: .infinity)
                         Divider()
-                        DataTable3()
+                        clusterDataTable
                             .frame(maxWidth: .infinity)
-                        Graph4()
+                        modelGraph
                             .frame(maxWidth: .infinity)
                         Divider()
-                        DataTable4()
+                        modelDataTable
                             .frame(maxWidth: .infinity)
                     }
                 }

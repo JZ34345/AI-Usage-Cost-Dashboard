@@ -12,14 +12,14 @@ import SwiftData
 public let data2 = sampleData
 
 //MARK: Graph2 Structure
-public struct graph2Summary: Identifiable, Sendable {
+public struct WoWGraphSummary: Identifiable, Sendable {
     public let id = UUID()
     public let week: Date
     public let WoWCost: Double
     public let delta: Double
 }
 
-public func makeGraph2() -> [graph2Summary] {
+public func makeWoWGraph() -> [WoWGraphSummary] {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current
     
@@ -34,22 +34,22 @@ public func makeGraph2() -> [graph2Summary] {
         return (week: week, firstDate: firstDate, WoWCost: group.reduce(0.0) {$0 + $1.costCents})
     }.sorted{$0.week < $1.week}
     
-    var result: [graph2Summary] = []
+    var result: [WoWGraphSummary] = []
     
     for (index, item) in graph2Summed.enumerated() {
         if index > 0 {
-            result.append(graph2Summary(week: item.firstDate, WoWCost: item.WoWCost, delta: item.WoWCost - graph2Summed[index-1].WoWCost))
+            result.append(WoWGraphSummary(week: item.firstDate, WoWCost: item.WoWCost, delta: item.WoWCost - graph2Summed[index-1].WoWCost))
         } else {
-            result.append(graph2Summary(week: item.firstDate, WoWCost: item.WoWCost, delta: 0))
+            result.append(WoWGraphSummary(week: item.firstDate, WoWCost: item.WoWCost, delta: 0))
         }
     }
     return result
 }
 
-let graph2Data = makeGraph2()//.suffix(30)
+let graph2Data = makeWoWGraph()
 
 //MARK: Graph2 View
-public struct Graph2: View {
+public struct WoWGraph: View {
     public init() {}
     let graph2Dates = graph2Data.map { $0.week }
     public var body: some View {
@@ -92,7 +92,7 @@ public struct Graph2: View {
 }
 
 //MARK: DataTable2
-public struct DataTable2: View {
+public struct WoWDataTable: View {
     public init() {}
     public var body: some View {
         VStack {

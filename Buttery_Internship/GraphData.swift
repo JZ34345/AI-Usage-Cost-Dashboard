@@ -37,7 +37,7 @@ public struct models: Codable, Identifiable, Sendable {
     public let isLocal: Bool
 }
 
-struct records: Codable, Identifiable, Sendable {
+public struct records: Codable, Identifiable, Sendable {
     public let id: String
     public let day: String
     public let clusterId: String

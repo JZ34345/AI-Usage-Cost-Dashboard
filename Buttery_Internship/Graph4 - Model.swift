@@ -39,65 +39,17 @@ public func makeGraph4Data() -> [graph4Summary] {
     return graph4Data.suffix(30)
 }
 
-let graph4Data = makeGraph4Data()
+let modelLookUp = Dictionary(uniqueKeysWithValues: sampleData.models.map { ($0.id, $0.displayName) })
+
+
+let modelGraphData = MakeGenericGraph(groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
+                                      metric: {$0.costCents / Double($0.queryCount)})
+
 
 //MARK: Graph4 View
-public struct Graph4: View {
-    public init() {}
-    let graph4Dates = graph4Data.map { $0.day }
-    public var body: some View {
-        VStack {
-            Text("Model Cost-Time Graph (2026)")
-                .font(.headline)
-                .padding()
-            Chart(graph4Data) { item in
-                LineMark(
-                    x: .value("Day", item.day),
-                    y: .value("Cost in Cents", item.costCents)
-                ).foregroundStyle(by: .value("Model", item.modelId))
-            }
-            .chartXAxisLabel("Date", alignment: .center)
-            .chartYAxisLabel("Cost (Cents)", position: .trailing)
-            .chartXAxis {
-                AxisMarks(values: .automatic) { value in
-                    AxisGridLine()
-                    AxisTick()
-                    if let date = value.as(Date.self) {
-                        AxisValueLabel(anchor: .top) {
-                            Text(date, format: .dateTime.month(.abbreviated).day())
-                        }
-                    }
-                }
-            }
-            .chartYAxis {
-                AxisMarks(values: .automatic(desiredCount: 10))
-            }
-            .frame(width: 350, height: 200)
-            .chartLegend(position: .top)
-            
-        }
-    }
-}
+let modelGraph = GenericGraph(data: modelGraphData,
+                              title: "Model Cost-Time Graph (2026)",
+                              ylabel: "Average Cost (Cents)",
+                              dateRange: 30)
 //MARK: Database 4
-public struct DataTable4: View {
-    public init() {}
-    public var body: some View {
-        VStack {
-            Text("Model Cost-Time Table").font(.headline)
-            Table(graph4Data) {
-                TableColumn("Id") { item in Text("\(item.id)")}
-                TableColumn("ModelId") { item in Text("\(item.modelId)")}
-                TableColumn("Day") { item in
-                    Text(item.day, format: .dateTime.month(.abbreviated).day().year())
-                }
-                TableColumn("Cost (Cents)") { item in
-                    Text(String(format: "%.2f", item.costCents))
-                }
-            }
-            .frame(width: 300, height: 200)
-        }
-    }
-}
-
-
-
+let modelDataTable = GenericDataTable(data: modelGraphData, title: "Model Average Cost-Time Table", category: "ModelId")

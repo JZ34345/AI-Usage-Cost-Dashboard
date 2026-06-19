@@ -54,7 +54,7 @@ public struct DrillDownButton: View {
     @State private var showFilter = "DrillDown: Clusters"
     public init() {}
     
-    public let FilterOptions = ["US West", "US East", "Europe"]
+    public let FilterOptions = ["US West", "US East", "West Europe"]
     public var body: some View {
         Menu {
             ForEach(FilterOptions, id: \.self) { option in
