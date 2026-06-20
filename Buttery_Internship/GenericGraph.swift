@@ -26,7 +26,6 @@ public func MakeGenericGraph(
 ) -> [GenericSummary] {
     
     let formatter = ISO8601DateFormatter()
-    let calandar = Calendar.current
     
     struct GroupKey: Hashable {
         let day: String

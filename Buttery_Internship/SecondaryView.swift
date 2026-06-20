@@ -29,7 +29,7 @@ public struct Test: View {
             VStack {
                 HStack {
                     Spacer()
-                    CSVExport()
+                    CSVExport(data: graphData)
                     
                 }
                 Text("Test").font(.title)

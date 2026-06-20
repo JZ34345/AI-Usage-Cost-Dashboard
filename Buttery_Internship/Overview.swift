@@ -15,7 +15,7 @@ public struct Overview: View {
             VStack {
                 HStack {
                     Spacer()
-                    CSVExport()
+                    CSVExport(data: totalGraphData)
                     
                 }
                 Text("Overview").font(.title)
