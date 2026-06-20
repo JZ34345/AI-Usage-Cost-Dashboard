@@ -17,7 +17,7 @@ public struct FilterButton: View {
         self._showSelectFilter = showSelectFilter
     }
     
-    public let FilterOptions = ["None", "Cluster", "Query Type", "Model"]
+    public let FilterOptions = ["Total", "Cluster", "Query Type", "Model", "WoW"]
     
     public var body: some View {
         Menu {
@@ -41,6 +41,7 @@ public func groupByClosure(for category: String) -> (records) -> String {
         case "Cluster": return {record in clusterLookUp[record.clusterId] ?? "Unknown"}
         case "Query Type": return {record in record.queryType}
         case "Model": return {record in modelLookUp[record.modelId] ?? "Unknown"}
+        case "WoW": return {_ in "WoW"}
         default: return {_ in "Total"}
     }
 

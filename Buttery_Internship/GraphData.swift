@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 import SwiftData
 
-
+//MARK: File Structure
 public struct file: Codable, Sendable {
     public let clusters: [clusters]
     public let nodes: [nodes]
@@ -50,7 +50,7 @@ public struct records: Codable, Identifiable, Sendable {
     public let totalDurationMs: Int
     public let costCents: Double
 }
-//Read JSON File
+//MARK: Read JSON File
 public extension Bundle {
     func loadFile<T: Decodable>(_ fileName: String) -> T {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {

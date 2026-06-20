@@ -14,5 +14,8 @@ public let totalGraph = GenericGraph(
     data: totalGraphData,
     title: "Total Cost-Time Graph (2026)",
     ylabel: "Cost (Cents)",
+    isDelta: false
 )
-public let totalDataTable = GenericDataTable(data: totalGraphData, title: "Total Cost-Time Table", category: " ")
+public let totalDataTable = GenericDataTable(data: totalGraphData,
+                                             title: "Total Cost-Time Table",
+                                             category: " ", isDelta: false)

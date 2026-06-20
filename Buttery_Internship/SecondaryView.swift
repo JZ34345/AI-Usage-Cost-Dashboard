@@ -16,12 +16,29 @@ public struct Test: View {
     @State var startDate = "Start Date (yyyy-MM-dd)"
     @State var endDate = "End Date (yyyy-MM-dd)"
     
+    var isDelta: Bool {
+            showSelectedFilter == "WoW"
+    }
+    
     var graphData: [GenericSummary] {
-        MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                         groupBy: groupByClosure(for: showSelectedFilter),
-                         metric: {$0.costCents},
-                         dayLimit: dateByClosure(for: dateFilter),
-                         applyDayLimit: dateFilter != "Custom")
+        if showSelectedFilter != "WoW" {
+            return MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                                    groupBy: groupByClosure(for: showSelectedFilter),
+                                    metric: {$0.costCents},
+                                    dayLimit: dateByClosure(for: dateFilter),
+                                    applyDayLimit: dateFilter != "Custom"
+            )
+        } else {
+            return MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                                    groupBy: groupByClosure(for: showSelectedFilter),
+                                    metric: {$0.costCents},
+                                    dayLimit: dateByClosure(for: dateFilter),
+                                    applyDayLimit: dateFilter != "Custom",
+                                    groupWeek: true,
+                                    delta: true,
+            )
+        }
+        
     }
         
     public var body: some View {
@@ -38,12 +55,30 @@ public struct Test: View {
                     DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
                     DrillDownButton()
                 }.padding()
-                HStack {
-                    GenericGraph(data: graphData,
-                                 title: "Test",
-                                 ylabel: "Cost")
-                        .frame(maxWidth: .infinity)
-                    GenericDataTable(data: graphData, title: "Test", category: showSelectedFilter)
+                if !isDelta {
+                    HStack {
+                        GenericGraph(data: graphData,
+                                     title: "Test",
+                                     ylabel: "Cost (Cents)",
+                                     isDelta: false)
+                            .frame(maxWidth: .infinity)
+                        GenericDataTable(data: graphData,
+                                         title: "Test",
+                                         category: showSelectedFilter,
+                                         isDelta: false)
+                    }
+                } else {
+                    HStack {
+                        GenericGraph(data: graphData,
+                                     title: "Test",
+                                     ylabel: "Delta (Cents)",
+                                     isDelta: true)
+                            .frame(maxWidth: .infinity)
+                        GenericDataTable(data: graphData,
+                                         title: "Test",
+                                         category: showSelectedFilter,
+                                         isDelta: true)
+                    }
                 }
             }
         }

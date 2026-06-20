@@ -8,7 +8,8 @@ import Cocoa
 import SwiftUI
 import Charts
 import SwiftData
-//MARK: GenericDataStructure
+
+//MARK: Generic Data Structure
 public struct GenericSummary: Identifiable {
     public let id = UUID()
     public let day: Date
@@ -22,7 +23,9 @@ public func MakeGenericGraph(
     groupBy category: (records) -> String = { _ in ""},
     metric: @escaping (records) -> Double,
     dayLimit: Int,
-    applyDayLimit: Bool = true
+    applyDayLimit: Bool = true,
+    groupWeek: Bool = false,
+    delta: Bool = false
 ) -> [GenericSummary] {
     
     let formatter = ISO8601DateFormatter()
@@ -44,14 +47,31 @@ public func MakeGenericGraph(
         return GenericSummary(day: date, category: key.category, cost: total)
     }
     
+    var final = summed.sorted {$0.day < $1.day}
+    
     if applyDayLimit {
         let uniqueDays = Set(summed.map { $0.day }).sorted().suffix(dayLimit)
         let dayLimitSet = Set(uniqueDays)
         
-        return summed.filter{dayLimitSet.contains($0.day)}.sorted {$0.day < $1.day}
-    } else {
-        return summed.sorted {$0.day < $1.day}
+        final = final.filter{dayLimitSet.contains($0.day)}
     }
+    
+    if delta {
+        let categories = Dictionary(grouping: final) {$0.category}
+        var deltaResult: [GenericSummary] = []
+        
+        for (category, items) in categories {
+            let sorted = items.sorted {$0.day < $1.day}
+            for (index, item) in sorted.enumerated() {
+                let previous = index > 0 ? sorted[index - 1].cost : item.cost
+                let delta = item.cost - previous
+                deltaResult.append(GenericSummary(day: item.day, category: category, cost: delta))
+            }
+        }
+        final = deltaResult.sorted {$0.day < $1.day}
+    }
+    
+    return final
 }
 
 //MARK: Generic Graph View maker
@@ -59,11 +79,13 @@ public struct GenericGraph: View {
     let data: [GenericSummary]
     let title: String
     let ylabel: String
+    let isDelta: Bool
     
-    public init(data: [GenericSummary], title: String, ylabel: String) {
+    public init(data: [GenericSummary], title: String, ylabel: String, isDelta: Bool) {
         self.data = data
         self.title = title
         self.ylabel = ylabel
+        self.isDelta = isDelta
     }
     
     let graphDates = sampleData.records.map {$0.day}
@@ -78,9 +100,12 @@ public struct GenericGraph: View {
                     x: .value("date", item.day),
                     y: .value(ylabel, item.cost)
                 ).foregroundStyle(by: .value("Catagory", item.category))
+                
+                if isDelta {
+                    RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
+                }
             }
             .chartXAxisLabel("Date", alignment: .center)
-            
             .chartXAxis {
                 AxisMarks(values: .automatic) { value in
                     AxisGridLine()
@@ -102,16 +127,18 @@ public struct GenericGraph: View {
     }
 }
 
-//MARK: Generic DataTable function
+//MARK: Generic DataTable function (Issue with WoW seperate column names)
 public struct GenericDataTable: View {
     let data: [GenericSummary]
     let title: String
     let category: String
+    let isDelta: Bool
     
-    public init(data: [GenericSummary], title: String, category: String) {
+    public init(data: [GenericSummary], title: String, category: String, isDelta: Bool) {
         self.data = data
         self.title = title
         self.category = category
+        self.isDelta = isDelta
     }
     
     var hasCatagory: Bool {
@@ -135,12 +162,22 @@ public struct GenericDataTable: View {
                 .frame(width: 300, height: 200)
             } else {
                 Table(data) {
-                    TableColumn("Id") { item in Text("\(item.id)")}
-                    TableColumn("Day") { item in
-                        Text(item.day, format: .dateTime.month(.abbreviated).day().year())
-                    }
-                    TableColumn("Cost (Cents)") { item in
-                        Text(String(format: "%.2f", item.cost))
+                    if isDelta == false {
+                        TableColumn("Id") { item in Text("\(item.id)")}
+                        TableColumn("Day") { item in
+                            Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                        }
+                        TableColumn("Cost (Cents)") { item in
+                            Text(String(format: "%.2f", item.cost))
+                        }
+                    } else {
+                        TableColumn("Id") { item in Text("\(item.id)")}
+                        TableColumn("Week") { item in
+                            Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                        }
+                        TableColumn("Delta (Cents)") { item in
+                            Text(String(format: "%.2f", item.cost))
+                        }
                     }
                 }
                 .frame(width: 300, height: 200)

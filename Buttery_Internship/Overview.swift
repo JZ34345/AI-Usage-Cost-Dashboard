@@ -7,8 +7,8 @@ import SwiftData
 public struct Overview: View {
     @State private var mainFilter = "None"
     @State private var dateFilter = "Date"
-    @State var startDate = " "
-    @State var endDate = " "
+    @State var startDate = "Start Date (yyyy-MM-dd)"
+    @State var endDate = "End Date (yyyy-MM-dd)"
     
     public var body: some View {
         ScrollView([.horizontal, .vertical]) {

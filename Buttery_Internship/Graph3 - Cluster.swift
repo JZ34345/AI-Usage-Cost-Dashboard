@@ -7,7 +7,6 @@
 import Cocoa
 import SwiftUI
 import Charts
-import SwiftData
 
 let data3 = sampleData
 
@@ -20,8 +19,13 @@ let clusterGraphData = MakeGenericGraph(groupBy: {clusterLookUp[$0.clusterId] ??
 //MARK: Graph3 View
 let clusterGraph = GenericGraph(data: clusterGraphData,
                                 title: "Cluster Cost-Time Graph (2026)",
-                                ylabel: "Cost (Cents)")
+                                ylabel: "Cost (Cents)",
+                                isDelta: false
+)
 //MARK: Database 3
-let clusterDataTable = GenericDataTable(data: clusterGraphData, title: "Cluster Cost-Time Table", category: "Cluster")
+let clusterDataTable = GenericDataTable(data: clusterGraphData,
+                                        title: "Cluster Cost-Time Table",
+                                        category: "Cluster",
+                                        isDelta: false)
 
 
