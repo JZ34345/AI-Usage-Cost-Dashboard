@@ -43,13 +43,12 @@ let modelLookUp = Dictionary(uniqueKeysWithValues: sampleData.models.map { ($0.i
 
 
 let modelGraphData = MakeGenericGraph(groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
-                                      metric: {$0.costCents / Double($0.queryCount)})
+                                      metric: {$0.costCents / Double($0.queryCount)}, dayLimit: 30)
 
 
 //MARK: Graph4 View
 let modelGraph = GenericGraph(data: modelGraphData,
                               title: "Model Cost-Time Graph (2026)",
-                              ylabel: "Average Cost (Cents)",
-                              dateRange: 30)
+                              ylabel: "Average Cost (Cents)")
 //MARK: Database 4
 let modelDataTable = GenericDataTable(data: modelGraphData, title: "Model Average Cost-Time Table", category: "ModelId")

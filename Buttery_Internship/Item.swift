@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+//Neglected, not used in app
 @Model
 final class Item {
     var timestamp: Date

@@ -5,6 +5,8 @@ import Charts
 import SwiftData
 
 public struct Overview: View {
+    @State private var mainFilter = "None"
+    @State private var dateFilter = "Date"
     public var body: some View {
         ScrollView([.horizontal, .vertical]) {
             VStack {
@@ -15,8 +17,8 @@ public struct Overview: View {
                 }
                 Text("Overview").font(.title)
                 HStack {
-                    FilterButton()
-                    DateFilterButton()
+                    FilterButton(showSelectFilter: $mainFilter)
+                    DateFilterButton(showDateFilter: $dateFilter)
                     DrillDownButton()
                 }.padding()
                 HStack {

@@ -8,7 +8,7 @@ import Cocoa
 import SwiftUI
 import Charts
 import SwiftData
-
+//MARK: GenericDataStructure
 public struct GenericSummary: Identifiable {
     public let id = UUID()
     public let day: Date
@@ -16,10 +16,11 @@ public struct GenericSummary: Identifiable {
     public let cost: Double
 }
 
+//MARK: Generic aggregation function
 public func MakeGenericGraph(
     groupBy category: (records) -> String = { _ in ""},
     metric: @escaping (records) -> Double,
-    dayLimit: Int = 30
+    dayLimit: Int
 ) -> [GenericSummary] {
     
     let formatter = ISO8601DateFormatter()
@@ -45,21 +46,16 @@ public func MakeGenericGraph(
     return summed.filter{dayLimitSet.contains($0.day)}.sorted {$0.day < $1.day}
 }
 
+//MARK: Generic Graph View maker
 public struct GenericGraph: View {
     let data: [GenericSummary]
     let title: String
     let ylabel: String
-    let dateRange: Int
     
-    public init(data: [GenericSummary], title: String, ylabel: String, dateRange: Int) {
+    public init(data: [GenericSummary], title: String, ylabel: String) {
         self.data = data
         self.title = title
         self.ylabel = ylabel
-        self.dateRange = dateRange
-    }
-    
-    var limitedData: [GenericSummary] {
-        Array(data.suffix(dateRange))
     }
     
     let graphDates = sampleData.records.map {$0.day}
@@ -98,6 +94,7 @@ public struct GenericGraph: View {
     }
 }
 
+//MARK: Generic DataTable function
 public struct GenericDataTable: View {
     let data: [GenericSummary]
     let title: String
