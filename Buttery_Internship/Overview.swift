@@ -7,6 +7,9 @@ import SwiftData
 public struct Overview: View {
     @State private var mainFilter = "None"
     @State private var dateFilter = "Date"
+    @State var startDate = " "
+    @State var endDate = " "
+    
     public var body: some View {
         ScrollView([.horizontal, .vertical]) {
             VStack {
@@ -18,7 +21,7 @@ public struct Overview: View {
                 Text("Overview").font(.title)
                 HStack {
                     FilterButton(showSelectFilter: $mainFilter)
-                    DateFilterButton(showDateFilter: $dateFilter)
+                    DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
                     DrillDownButton()
                 }.padding()
                 HStack {

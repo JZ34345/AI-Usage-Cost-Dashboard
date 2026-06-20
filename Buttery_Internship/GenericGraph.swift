@@ -18,19 +18,24 @@ public struct GenericSummary: Identifiable {
 
 //MARK: Generic aggregation function
 public func MakeGenericGraph(
+    filter: (records) -> Bool = {_ in true},
     groupBy category: (records) -> String = { _ in ""},
     metric: @escaping (records) -> Double,
-    dayLimit: Int
+    dayLimit: Int,
+    applyDayLimit: Bool = true
 ) -> [GenericSummary] {
     
     let formatter = ISO8601DateFormatter()
+    let calandar = Calendar.current
     
     struct GroupKey: Hashable {
         let day: String
         let category: String
     }
     
-    let grouped = Dictionary(grouping: sampleData.records) { record -> GroupKey in
+    let filterRecords = sampleData.records.filter(filter)
+    
+    let grouped = Dictionary(grouping: filterRecords) { record -> GroupKey in
         GroupKey(day: record.day, category: category(record))
     }
     
@@ -40,10 +45,14 @@ public func MakeGenericGraph(
         return GenericSummary(day: date, category: key.category, cost: total)
     }
     
-    let uniqueDays = Set(summed.map { $0.day }).sorted().suffix(dayLimit)
-    let dayLimitSet = Set(uniqueDays)
-    
-    return summed.filter{dayLimitSet.contains($0.day)}.sorted {$0.day < $1.day}
+    if applyDayLimit {
+        let uniqueDays = Set(summed.map { $0.day }).sorted().suffix(dayLimit)
+        let dayLimitSet = Set(uniqueDays)
+        
+        return summed.filter{dayLimitSet.contains($0.day)}.sorted {$0.day < $1.day}
+    } else {
+        return summed.sorted {$0.day < $1.day}
+    }
 }
 
 //MARK: Generic Graph View maker

@@ -28,14 +28,3 @@ public struct DrillDownButton: View {
         }.menuStyle(.borderedButton)
     }
 }
-
-//MARK: CSV export in progress
-public struct CSVExport: View {
-    public init() {}
-    public var body: some View {
-        Button(action: {print("File exported!")}) {
-            Text("Export File").padding()
-        }
-    }
-    
-}

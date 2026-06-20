@@ -13,10 +13,15 @@ import SwiftData
 public struct Test: View {
     @State var showSelectedFilter = "None"
     @State var dateFilter = "Date"
+    @State var startDate = "Start Date (yyyy-MM-dd)"
+    @State var endDate = "End Date (yyyy-MM-dd)"
+    
     var graphData: [GenericSummary] {
-        MakeGenericGraph(groupBy: groupByClosure(for: showSelectedFilter),
+        MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                         groupBy: groupByClosure(for: showSelectedFilter),
                          metric: {$0.costCents},
-                         dayLimit: dateByClosure(for: dateFilter))
+                         dayLimit: dateByClosure(for: dateFilter),
+                         applyDayLimit: dateFilter != "Custom")
     }
         
     public var body: some View {
@@ -30,7 +35,7 @@ public struct Test: View {
                 Text("Test").font(.title)
                 HStack {
                     FilterButton(showSelectFilter: $showSelectedFilter)
-                    DateFilterButton(showDateFilter: $dateFilter)
+                    DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
                     DrillDownButton()
                 }.padding()
                 HStack {
