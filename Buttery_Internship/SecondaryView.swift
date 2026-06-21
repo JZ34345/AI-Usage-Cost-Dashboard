@@ -78,6 +78,7 @@ public struct Test: View {
                                          title: "Test",
                                          category: showSelectedFilter,
                                          isDelta: true)
+                        .frame(maxWidth: .infinity)
                     }
                 }
             }

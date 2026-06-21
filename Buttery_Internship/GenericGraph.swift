@@ -20,7 +20,7 @@ public struct GenericSummary: Identifiable {
 //MARK: Generic aggregation function
 public func MakeGenericGraph(
     filter: (records) -> Bool = {_ in true},
-    groupBy category: (records) -> String = { _ in ""},
+    groupBy category: (records) -> String = { _ in "Total"},
     metric: @escaping (records) -> Double,
     dayLimit: Int,
     applyDayLimit: Bool = true,
@@ -92,37 +92,39 @@ public struct GenericGraph: View {
     
     public var body: some View {
         VStack {
-            Text(title)
-                .font(.headline)
-                .padding()
-            Chart(data) { item in
-                LineMark(
-                    x: .value("date", item.day),
-                    y: .value(ylabel, item.cost)
-                ).foregroundStyle(by: .value("Catagory", item.category))
-                
-                if isDelta {
-                    RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
+            Text(title).font(.headline).padding()
+            if data.isEmpty {
+                Error().frame(maxWidth: .infinity, maxHeight: 300)
+            } else {
+                Chart(data) { item in
+                    LineMark(
+                        x: .value("date", item.day),
+                        y: .value(ylabel, item.cost)
+                    ).foregroundStyle(by: .value("Catagory", item.category))
+                    
+                    if isDelta {
+                        RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
+                    }
                 }
-            }
-            .chartXAxisLabel("Date", alignment: .center)
-            .chartXAxis {
-                AxisMarks(values: .automatic) { value in
-                    AxisGridLine()
-                    AxisTick()
-                    if let date = value.as(Date.self) {
-                        AxisValueLabel(anchor: .top) {
-                            Text(date, format: .dateTime.month(.abbreviated).day())
+                .chartXAxisLabel("Date", alignment: .center)
+                .chartXAxis {
+                    AxisMarks(values: .automatic) { value in
+                        AxisGridLine()
+                        AxisTick()
+                        if let date = value.as(Date.self) {
+                            AxisValueLabel(anchor: .top) {
+                                Text(date, format: .dateTime.month(.abbreviated).day())
+                            }
                         }
                     }
                 }
+                .chartYAxisLabel(ylabel, position: .trailing)
+                .chartYAxis {
+                    AxisMarks(values: .automatic(desiredCount: 10))
+                }
+                .frame(width: 350, height: 200)
+                .chartLegend(position: .top)
             }
-            .chartYAxisLabel(ylabel, position: .trailing)
-            .chartYAxis {
-                AxisMarks(values: .automatic(desiredCount: 10))
-            }
-            .frame(width: 350, height: 200)
-            .chartLegend(position: .top)
         }
     }
 }
@@ -148,39 +150,43 @@ public struct GenericDataTable: View {
     public var body: some View {
         VStack {
             Text(title).font(.headline)
-            if hasCatagory {
-                Table(data) {
-                    TableColumn("Id") { item in Text("\(item.id)")}
-                    TableColumn("Day") { item in
-                        Text(item.day, format: .dateTime.month(.abbreviated).day().year())
-                    }
-                    TableColumn(category) {item in Text("\(item.category)")}
-                    TableColumn("Cost (Cents)") { item in
-                        Text(String(format: "%.2f", item.cost))
-                    }
-                }
-                .frame(width: 300, height: 200)
+            if data.isEmpty {
+                Error().frame(maxWidth: .infinity, maxHeight: 300)
             } else {
-                Table(data) {
-                    if isDelta == false {
+                if hasCatagory {
+                    Table(data) {
                         TableColumn("Id") { item in Text("\(item.id)")}
                         TableColumn("Day") { item in
                             Text(item.day, format: .dateTime.month(.abbreviated).day().year())
                         }
+                        TableColumn(category) {item in Text("\(item.category)")}
                         TableColumn("Cost (Cents)") { item in
                             Text(String(format: "%.2f", item.cost))
                         }
-                    } else {
-                        TableColumn("Id") { item in Text("\(item.id)")}
-                        TableColumn("Week") { item in
-                            Text(item.day, format: .dateTime.month(.abbreviated).day().year())
-                        }
-                        TableColumn("Delta (Cents)") { item in
-                            Text(String(format: "%.2f", item.cost))
+                    }
+                    .frame(width: 300, height: 200)
+                } else {
+                    Table(data) {
+                        if isDelta == false {
+                            TableColumn("Id") { item in Text("\(item.id)")}
+                            TableColumn("Day") { item in
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                            }
+                            TableColumn("Cost (Cents)") { item in
+                                Text(String(format: "%.2f", item.cost))
+                            }
+                        } else {
+                            TableColumn("Id") { item in Text("\(item.id)")}
+                            TableColumn("Week") { item in
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                            }
+                            TableColumn("Delta (Cents)") { item in
+                                Text(String(format: "%.2f", item.cost))
+                            }
                         }
                     }
+                    .frame(width: 300, height: 200)
                 }
-                .frame(width: 300, height: 200)
             }
         }
     }

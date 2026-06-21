@@ -1,31 +1,27 @@
 //
-//  Graph3.swift
-//  
+//  Graph5 - Cluster.swift
+//  Buttery_Internship
 //
-//  Created by Jason Zhang on 6/17/26.
+//  Created by Jason Zhang on 6/20/26.
 //
 import Cocoa
 import SwiftUI
 import Charts
 
-let data3 = sampleData
+// MARK: Graph 5 Structure
+let clusterLookUp2 = Dictionary(uniqueKeysWithValues: sampleData.clusters.map { ($0.id, $0.region) })
 
-// MARK: Graph 3 Structure
-let clusterLookUp = Dictionary(uniqueKeysWithValues: sampleData.clusters.map { ($0.id, $0.region) })
-
-let clusterGraphData = MakeGenericGraph(groupBy: {clusterLookUp[$0.clusterId] ?? "Unknown"},
+let clustersGraphData = MakeGenericGraph(groupBy: {clusterLookUp2[$0.clusterId] ?? "Unknown"},
                                         metric: {$0.costCents}, dayLimit: 30 )
 
-//MARK: Graph3 View
-let clusterGraph = GenericGraph(data: clusterGraphData,
+//MARK: Graph5 View
+let clustersGraph = GenericGraph(data: clustersGraphData,
                                 title: "Cluster Cost-Time Graph (2026)",
                                 ylabel: "Cost (Cents)",
                                 isDelta: false
 )
-//MARK: Database 3
-let clusterDataTable = GenericDataTable(data: clusterGraphData,
+//MARK: Database 5
+let clustersDataTable = GenericDataTable(data: clustersGraphData,
                                         title: "Cluster Cost-Time Table",
                                         category: "Cluster",
                                         isDelta: false)
-
-

@@ -66,16 +66,17 @@ public func dateByClosure(for period: String) -> Int {
 public func dateRangeFilter(option: String, start: String, end: String) -> (records) -> Bool {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current
+    let mostRecentDate = sampleData.records.compactMap { formatter.date(from: $0.day) }.max() ?? Date()
     
     switch option {
     case "7 Days":
-        let cutoff = calendar.date(byAdding: .day, value: -7, to: Date())!
+        let cutoff = calendar.date(byAdding: .day, value: -7, to: mostRecentDate)!
         return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
     case "30 Days":
-        let cutoff = calendar.date(byAdding: .day, value: -30, to: Date())!
+        let cutoff = calendar.date(byAdding: .day, value: -30, to: mostRecentDate)!
         return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
     case "90 Days":
-        let cutoff = calendar.date(byAdding: .day, value: -90, to: Date())!
+        let cutoff = calendar.date(byAdding: .day, value: -90, to: mostRecentDate)!
         return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
     case "Custom":
         let dayFormatter = DateFormatter()
