@@ -24,7 +24,7 @@ let modelGraphData = MakeGenericGraph(groupBy: {modelLookUp[$0.modelId] ?? "Unkn
 
 //MARK: Graph4 View
 let modelGraph = GenericGraph(data: modelGraphData,
-                              title: "Model Cost-Time Graph (2026)",
+                              title: "Model Average Cost-Time Graph (2026)",
                               ylabel: "Average Cost (Cents)",
                               isDelta: false)
 //MARK: Database 4
