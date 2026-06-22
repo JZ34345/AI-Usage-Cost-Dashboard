@@ -66,7 +66,7 @@ public struct Overview: View {
                 }
                 VStack {
                     Divider().background(Color.black)
-                    Spacer(minLength: 80)
+                    Spacer(minLength: 500)
                 }
                 Text("Graphs Showcase").font(.title)
                 VStack {
@@ -76,36 +76,46 @@ public struct Overview: View {
                         Divider()
                         clusterDataTable
                             .frame(maxWidth: .infinity)
-                        modelGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        modelDataTable
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 80)
-                    
-                    HStack {
                         clustersGraph
                             .frame(maxWidth: .infinity)
                         Divider()
                         clustersDataTable
                             .frame(maxWidth: .infinity)
+                    }
+                    
+                    Spacer(minLength: 200)
+                    
+                    HStack {
+                        modelGraph
+                            .frame(maxWidth: .infinity)
+                        Divider()
+                        modelDataTable
+                            .frame(maxWidth: .infinity)
+                        modelsGraph
+                            .frame(maxWidth: .infinity)
+                        Divider()
+                        modelsDataTable
+                            .frame(maxWidth: .infinity)
+                    }
+                    
+                    Spacer(minLength: 150)
+                    
+                    HStack {
                         westUSGraph
                             .frame(maxWidth: .infinity)
                         Divider()
                         westUSDataTable
                             .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 80)
-                    
-                    HStack {
                         westUSQueryGraph
                             .frame(maxWidth: .infinity)
                         Divider()
                         westUSQueryDataTable
                             .frame(maxWidth: .infinity)
+                    }
+                    
+                    Spacer(minLength: 150)
+                    
+                    HStack {
                         errorGraph
                             .frame(maxWidth: .infinity)
                         Divider()

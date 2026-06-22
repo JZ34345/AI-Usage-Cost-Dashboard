@@ -8,18 +8,11 @@ import Cocoa
 import SwiftUI
 import Charts
 
-// MARK: Graph 4 Structure
-public struct graph4Summary: Identifiable, Sendable {
-    public let id = UUID()
-    public let day: Date
-    public let modelId: String
-    public let costCents: Double
-}
 let modelLookUp = Dictionary(uniqueKeysWithValues: sampleData.models.map { ($0.id, $0.displayName) })
 
 
 let modelGraphData = MakeGenericGraph(groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
-                                      metric: {$0.costCents / Double($0.queryCount)}, dayLimit: 30)
+                                      metric: {$0.costCents}, dayLimit: 30)
 
 
 //MARK: Graph4 View

@@ -28,6 +28,7 @@ public func MakeGenericGraph(
     delta: Bool = false
 ) -> [GenericSummary] {
     
+    //formatter for Date datatype
     let formatter = ISO8601DateFormatter()
     
     struct GroupKey: Hashable {
@@ -35,20 +36,25 @@ public func MakeGenericGraph(
         let category: String
     }
     
+    //apply filters
     let filterRecords = sampleData.records.filter(filter)
     
+    //grouping by a datatype
     let grouped = Dictionary(grouping: filterRecords) { record -> GroupKey in
         GroupKey(day: record.day, category: category(record))
     }
     
+    //aggregation by metric parameter input
     let summed = grouped.map {key, group -> GenericSummary in
         let date = formatter.date(from: key.day) ?? Date()
         let total  = group.reduce(0.0) {$0 + metric($1)}
         return GenericSummary(day: date, category: key.category, cost: total)
     }
     
+    //data sorted by ascending dates
     var final = summed.sorted {$0.day < $1.day}
     
+    //apply limits to dates for data for 7, 30, 90 days, or custom
     if applyDayLimit {
         let uniqueDays = Set(summed.map { $0.day }).sorted().suffix(dayLimit)
         let dayLimitSet = Set(uniqueDays)
@@ -56,6 +62,7 @@ public func MakeGenericGraph(
         final = final.filter{dayLimitSet.contains($0.day)}
     }
     
+    //special functionality for WoW delta data creation
     if delta {
         let categories = Dictionary(grouping: final) {$0.category}
         var deltaResult: [GenericSummary] = []
@@ -81,6 +88,7 @@ public struct GenericGraph: View {
     let ylabel: String
     let isDelta: Bool
     
+    //function parameters
     public init(data: [GenericSummary], title: String, ylabel: String, isDelta: Bool) {
         self.data = data
         self.title = title
@@ -92,9 +100,12 @@ public struct GenericGraph: View {
     
     public var body: some View {
         VStack {
+            //title page
             Text(title).font(.headline).padding()
+            // if statement for error message
             if data.isEmpty {
                 Error().frame(maxWidth: .infinity, maxHeight: 300)
+            //Datatable with no errors
             } else {
                 Chart(data) { item in
                     LineMark(
@@ -102,10 +113,12 @@ public struct GenericGraph: View {
                         y: .value(ylabel, item.cost)
                     ).foregroundStyle(by: .value("Catagory", item.category))
                     
+                    //Special zero x-axis line for WoW delta
                     if isDelta {
                         RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
                     }
                 }
+                //x-axis adjustments
                 .chartXAxisLabel("Date", alignment: .center)
                 .chartXAxis {
                     AxisMarks(values: .automatic) { value in
@@ -118,9 +131,10 @@ public struct GenericGraph: View {
                         }
                     }
                 }
+                //y-axis adjustments
                 .chartYAxisLabel(ylabel, position: .trailing)
                 .chartYAxis {
-                    AxisMarks(values: .automatic(desiredCount: 10))
+                    AxisMarks(values: .automatic(desiredCount: 3))
                 }
                 .frame(width: 350, height: 200)
                 .chartLegend(position: .top)
@@ -143,6 +157,7 @@ public struct GenericDataTable: View {
         self.isDelta = isDelta
     }
     
+    //Determines whether a catagory for datatype exists and is not default 'total'
     var hasCatagory: Bool {
         data.contains{!$0.category.isEmpty && $0.category != "Total"}
     }
@@ -150,9 +165,12 @@ public struct GenericDataTable: View {
     public var body: some View {
         VStack {
             Text(title).font(.headline)
+            //If statement is for error message
             if data.isEmpty {
                 Error().frame(maxWidth: .infinity, maxHeight: 300)
+            //Continues if no errors
             } else {
+                //This is for tables with groupby aggregation
                 if hasCatagory {
                     Table(data) {
                         TableColumn("Id") { item in Text("\(item.id)")}
@@ -164,9 +182,11 @@ public struct GenericDataTable: View {
                             Text(String(format: "%.2f", item.cost))
                         }
                     }
-                    .frame(width: 300, height: 200)
+                    .frame(width: 350, height: 200)
+                //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                 } else {
                     Table(data) {
+                        //datatables for non WoW delta data
                         if isDelta == false {
                             TableColumn("Id") { item in Text("\(item.id)")}
                             TableColumn("Day") { item in
@@ -175,6 +195,7 @@ public struct GenericDataTable: View {
                             TableColumn("Cost (Cents)") { item in
                                 Text(String(format: "%.2f", item.cost))
                             }
+                        //Datatable for WoW delta
                         } else {
                             TableColumn("Id") { item in Text("\(item.id)")}
                             TableColumn("Week") { item in

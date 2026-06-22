@@ -16,6 +16,7 @@ public struct Test: View {
     @State var startDate = "Start Date (yyyy-MM-dd)"
     @State var endDate = "End Date (yyyy-MM-dd)"
     
+    //variables and data structures
     var isDelta: Bool {
             showSelectedFilter == "WoW"
     }
@@ -40,7 +41,7 @@ public struct Test: View {
         }
         
     }
-        
+    //Main seocndary view
     public var body: some View {
         ScrollView([.horizontal, .vertical]) {
             VStack {
@@ -55,17 +56,19 @@ public struct Test: View {
                     DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
                     DrillDownButton()
                 }.padding()
-                if !isDelta {
+                if isDelta == false {
                     HStack {
                         GenericGraph(data: graphData,
                                      title: "Test",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
-                            .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
+                        Divider()
                         GenericDataTable(data: graphData,
                                          title: "Test",
                                          category: showSelectedFilter,
                                          isDelta: false)
+                        .frame(maxWidth: .infinity)
                     }
                 } else {
                     HStack {
@@ -73,16 +76,17 @@ public struct Test: View {
                                      title: "Test",
                                      ylabel: "Delta (Cents)",
                                      isDelta: true)
-                            .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
+                        Divider()
                         GenericDataTable(data: graphData,
-                                         title: "Test",
-                                         category: showSelectedFilter,
-                                         isDelta: true)
+                                     title: "Test",
+                                     category: showSelectedFilter,
+                                     isDelta: true)
                         .frame(maxWidth: .infinity)
                     }
                 }
             }
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
 }

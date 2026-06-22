@@ -14,20 +14,24 @@ import AppKit
 public struct CSVExport: View {
     let data: [GenericSummary]
     
+    //data parameter
     public init(data: [GenericSummary]) {
         self.data = data
     }
     
     private func exportCSV() {
+        //csv variable includes titles
         var csv = "Day,Category,Cost\n"
         let dataFormatter = DateFormatter()
         dataFormatter.dateFormat = "yyyy-MM-dd"
         
+        //writes information in csv file for each row entry in data
         for item in data {
             let day = dataFormatter.string(from: item.day)
             csv += "\(day),\(item.category),\(item.cost)\n"
         }
         
+        //creates the panel for selecting location, name, and upload status of csv file
         DispatchQueue.main.async {
             let panel = NSSavePanel()
             panel.allowedContentTypes = [.commaSeparatedText]
@@ -36,9 +40,11 @@ public struct CSVExport: View {
             panel.begin { response in
                 if  response == .OK, let url = panel.url {
                     do {
+                        //sucessful upload
                         try csv.write(to: url, atomically: true, encoding: .utf8)
                         print("Export to \(url).")
                     } catch {
+                        //error message for unsucessful upload
                         print("Export Failed: \(error)")
                     }
                 }
@@ -47,6 +53,7 @@ public struct CSVExport: View {
     }
     
     public var body: some View {
+        //Button for csv export in UI
         Button(action: {exportCSV()}) {
             Text("Export File").padding()
         }

@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 import SwiftData
 
-//MARK: Date filter in progress (Work on custom input)
+//MARK: Date filter
 public struct DateFilterButton: View {
     @Binding private var showDateFilter: String
     @Binding private var startDate: String
@@ -17,14 +17,18 @@ public struct DateFilterButton: View {
     
     @State private var showDatePicker = false
     
+    //date filter selection, start date, and end date parameters
     public init(showDateFilter: Binding<String>, startDate: Binding<String>, endDate: Binding<String>) {
         self._showDateFilter = showDateFilter
         self._startDate = startDate
         self._endDate = endDate
     }
     
+    //date filter options
     public let FilterOptions = ["7 Days", "30 Days", "90 Days", "Custom"]
+    
     public var body: some View {
+        //UI appearance for date filter
         Menu {
             ForEach(FilterOptions, id: \.self) { option in
                 Button(option) {
@@ -39,6 +43,7 @@ public struct DateFilterButton: View {
         } label: {
             Label(showDateFilter, systemImage: "⏎")
         }.menuStyle(.borderedButton)
+        //Display for custom input
             .sheet(isPresented: $showDatePicker) {
                 VStack {
                     Text("Custom Date Range").font(.headline)
@@ -53,7 +58,7 @@ public struct DateFilterButton: View {
             }
     }
 }
-
+// date closure function to rearrange date info in proper type
 public func dateByClosure(for period: String) -> Int {
     switch period {
         case "7 Days": return 7
@@ -63,11 +68,13 @@ public func dateByClosure(for period: String) -> Int {
     }
 }
 
+//Filter structure
 public func dateRangeFilter(option: String, start: String, end: String) -> (records) -> Bool {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current
     let mostRecentDate = sampleData.records.compactMap { formatter.date(from: $0.day) }.max() ?? Date()
     
+    //arranges each filter choice to a filter in format for use in makeGenericData function
     switch option {
     case "7 Days":
         let cutoff = calendar.date(byAdding: .day, value: -7, to: mostRecentDate)!
