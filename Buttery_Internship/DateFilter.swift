@@ -11,37 +11,42 @@ import SwiftData
 
 //MARK: Date filter
 public struct DateFilterButton: View {
-    @Binding private var showDateFilter: String
+    @Binding private var showDateFilter: DataFilterOptions
     @Binding private var startDate: String
     @Binding private var endDate: String
     
     @State private var showDatePicker = false
     
     //date filter selection, start date, and end date parameters
-    public init(showDateFilter: Binding<String>, startDate: Binding<String>, endDate: Binding<String>) {
+    public init(showDateFilter: Binding<DataFilterOptions>, startDate: Binding<String>, endDate: Binding<String>) {
         self._showDateFilter = showDateFilter
         self._startDate = startDate
         self._endDate = endDate
     }
     
     //date filter options
-    public let FilterOptions = ["7 Days", "30 Days", "90 Days", "Custom"]
+    public enum DataFilterOptions: String, CaseIterable {
+        case seven = "7 Days"
+        case thirty = "30 Days"
+        case ninety = "90 Days"
+        case custom = "Custom"
+    }
     
     public var body: some View {
         //UI appearance for date filter
         Menu {
-            ForEach(FilterOptions, id: \.self) { option in
-                Button(option) {
+            ForEach(DataFilterOptions.allCases, id: \.self) { option in
+                Button(option.rawValue) {
                     showDateFilter = option
                     
-                    if option == "Custom" {
+                    if option == .custom {
                         showDatePicker = true
                     }
                 }
                 
             }
         } label: {
-            Label(showDateFilter, systemImage: "⏎")
+            Text(showDateFilter.rawValue)
         }.menuStyle(.borderedButton)
         //Display for custom input
             .sheet(isPresented: $showDatePicker) {
@@ -59,38 +64,38 @@ public struct DateFilterButton: View {
     }
 }
 // date closure function to rearrange date info in proper type
-public func dateByClosure(for period: String) -> Int {
+public func dateByClosure(for period: DateFilterButton.DataFilterOptions) -> Int {
     switch period {
-        case "7 Days": return 7
-        case "30 Days": return 30
-        case "90 Days": return 90
+        case .seven: return 7
+        case .thirty: return 30
+        case .ninety: return 90
         default: return 30
     }
 }
 
 //Filter structure
-public func dateRangeFilter(option: String, start: String, end: String) -> (records) -> Bool {
+public func dateRangeFilter(option: DateFilterButton.DataFilterOptions, start: String, end: String) -> (records) -> Bool {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current
     let mostRecentDate = sampleData.records.compactMap { formatter.date(from: $0.day) }.max() ?? Date()
     
     //arranges each filter choice to a filter in format for use in makeGenericData function
     switch option {
-    case "7 Days":
+    case .seven:
         let cutoff = calendar.date(byAdding: .day, value: -7, to: mostRecentDate)!
         return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
-    case "30 Days":
+    case .thirty:
         let cutoff = calendar.date(byAdding: .day, value: -30, to: mostRecentDate)!
         return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
-    case "90 Days":
+    case .ninety:
         let cutoff = calendar.date(byAdding: .day, value: -90, to: mostRecentDate)!
         return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
-    case "Custom":
+    case .custom:
         let dayFormatter = DateFormatter()
         dayFormatter.dateFormat = "yyyy/MM/dd"
         
         guard let start = dayFormatter.date(from: start),
-                let end  = dayFormatter.date(from: end)
+              let end  = dayFormatter.date(from: end)
         else {
             return {_ in true}
         }
@@ -98,9 +103,5 @@ public func dateRangeFilter(option: String, start: String, end: String) -> (reco
             let date = formatter.date(from: record.day) ?? .distantPast
             return date >= start && date <= end
         }
-    default:
-        return {_ in true}
-
     }
-    
 }

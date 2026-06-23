@@ -18,7 +18,7 @@ public struct GenericSummary: Identifiable {
 }
 
 //MARK: Generic aggregation function
-public func MakeGenericGraph(
+public func makeGenericGraph(
     filter: (records) -> Bool = {_ in true},
     groupBy category: (records) -> String = { _ in "Total"},
     metric: @escaping (records) -> Double,
@@ -82,7 +82,7 @@ public func MakeGenericGraph(
 }
 
 //MARK: Generic Graph View maker
-public struct GenericGraph: View {
+public struct genericGraph: View {
     let data: [GenericSummary]
     let title: String
     let ylabel: String
@@ -134,7 +134,7 @@ public struct GenericGraph: View {
                 //y-axis adjustments
                 .chartYAxisLabel(ylabel, position: .trailing)
                 .chartYAxis {
-                    AxisMarks(values: .automatic(desiredCount: 3))
+                    AxisMarks(values: .automatic(desiredCount: 10))
                 }
                 .frame(width: 350, height: 200)
                 .chartLegend(position: .top)
@@ -144,7 +144,7 @@ public struct GenericGraph: View {
 }
 
 //MARK: Generic DataTable function (Issue with WoW seperate column names)
-public struct GenericDataTable: View {
+public struct genericDataTable: View {
     let data: [GenericSummary]
     let title: String
     let category: String
@@ -182,7 +182,7 @@ public struct GenericDataTable: View {
                             Text(String(format: "%.2f", item.cost))
                         }
                     }
-                    .frame(width: 350, height: 200)
+                    .frame(width: 300, height: 200)
                 //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                 } else {
                     Table(data) {

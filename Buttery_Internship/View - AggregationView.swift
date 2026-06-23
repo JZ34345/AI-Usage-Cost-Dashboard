@@ -11,30 +11,30 @@ import SwiftData
 
 
 public struct Test: View {
-    @State var showSelectedFilter = "None"
-    @State var dateFilter = "Date"
+    @State var showSelectedFilter: FilterButton.FilterOptions = .total
+    @State var dateFilter: DateFilterButton.DataFilterOptions = .seven
     @State var startDate = "Start Date (yyyy-MM-dd)"
     @State var endDate = "End Date (yyyy-MM-dd)"
     
     //variables and data structures
     var isDelta: Bool {
-            showSelectedFilter == "WoW"
+        showSelectedFilter == .wow
     }
     
     var graphData: [GenericSummary] {
-        if showSelectedFilter != "WoW" {
-            return MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+        if showSelectedFilter != .wow {
+            return makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
                                     groupBy: groupByClosure(for: showSelectedFilter),
                                     metric: {$0.costCents},
                                     dayLimit: dateByClosure(for: dateFilter),
-                                    applyDayLimit: dateFilter != "Custom"
+                                    applyDayLimit: dateFilter != .custom
             )
         } else {
-            return MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+            return makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
                                     groupBy: groupByClosure(for: showSelectedFilter),
                                     metric: {$0.costCents},
                                     dayLimit: dateByClosure(for: dateFilter),
-                                    applyDayLimit: dateFilter != "Custom",
+                                    applyDayLimit: dateFilter != .custom,
                                     groupWeek: true,
                                     delta: true,
             )
@@ -43,7 +43,7 @@ public struct Test: View {
     }
     //Main seocndary view
     public var body: some View {
-        ScrollView([.horizontal, .vertical]) {
+        ScrollView([.vertical]) {
             VStack {
                 HStack {
                     Spacer()
@@ -54,35 +54,34 @@ public struct Test: View {
                 HStack {
                     FilterButton(showSelectFilter: $showSelectedFilter)
                     DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
-                    DrillDownButton()
                 }.padding()
                 if isDelta == false {
                     HStack {
-                        GenericGraph(data: graphData,
+                        genericGraph(data: graphData,
                                      title: "Test",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
-                        GenericDataTable(data: graphData,
+                        genericDataTable(data: graphData,
                                          title: "Test",
-                                         category: showSelectedFilter,
+                                         category: showSelectedFilter.rawValue,
                                          isDelta: false)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 } else {
                     HStack {
-                        GenericGraph(data: graphData,
+                        genericGraph(data: graphData,
                                      title: "Test",
                                      ylabel: "Delta (Cents)",
                                      isDelta: true)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
-                        GenericDataTable(data: graphData,
+                        genericDataTable(data: graphData,
                                      title: "Test",
-                                     category: showSelectedFilter,
+                                         category: showSelectedFilter.rawValue,
                                      isDelta: true)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
             }

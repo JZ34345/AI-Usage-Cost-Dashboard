@@ -8,7 +8,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct Buttery_InternshipApp: App {
+struct AICostTimeUsageAnalysisDashboardApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,

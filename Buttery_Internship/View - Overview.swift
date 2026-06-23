@@ -5,19 +5,19 @@ import Charts
 import SwiftData
 
 public struct Overview: View {
-    @State private var mainFilter = "None"
-    @State private var dateFilter = "Date"
+    @State private var mainFilter: FilterButton.FilterOptions = .total
+    @State private var dateFilter: DateFilterButton.DataFilterOptions = .thirty
     @State var startDate = "Start Date (yyyy-MM-dd)"
     @State var endDate = "End Date (yyyy-MM-dd)"
     
     var totalGraphData: [GenericSummary] {
-        MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+        makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
                          metric: { $0.costCents},
                          dayLimit: dateByClosure(for: dateFilter))
     }
     
     var WoWGraphData: [GenericSummary] {
-        MakeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+        makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
                          groupBy: {_ in "WoW Delta"},
                          metric: { $0.costCents},
                          dayLimit: dateByClosure(for: dateFilter),
@@ -27,7 +27,7 @@ public struct Overview: View {
     }
     
     public var body: some View {
-        ScrollView([.horizontal, .vertical]) {
+        ScrollView([.vertical]) {
             VStack {
                 HStack {
                     Spacer()
@@ -38,27 +38,26 @@ public struct Overview: View {
                 HStack {
                     FilterButton(showSelectFilter: $mainFilter)
                     DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
-                    DrillDownButton()
                 }.padding()
                 HStack {
-                    GenericGraph(data: totalGraphData,
+                    genericGraph(data: totalGraphData,
                                  title: "Total Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
                                  isDelta: false)
                         .frame(maxWidth: .infinity)
                     Divider()
-                    GenericDataTable(data: totalGraphData,
+                    genericDataTable(data: totalGraphData,
                                      title: "Total Cost DataTable",
                                      category: "Total",
                                      isDelta: false)
                     .frame(maxWidth: .infinity)
-                    GenericGraph(data: WoWGraphData,
+                    genericGraph(data: WoWGraphData,
                                  title: "WoW Delta Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
                                  isDelta: true)
                         .frame(maxWidth: .infinity)
                     Divider()
-                    GenericDataTable(data: WoWGraphData,
+                    genericDataTable(data: WoWGraphData,
                                      title: "WoW Delta DataTable",
                                      category: "WoW",
                                      isDelta: true)

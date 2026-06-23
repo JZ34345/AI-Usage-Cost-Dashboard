@@ -9,8 +9,8 @@ import SwiftUI
 import Charts
 import SwiftData
 
-let errorData = MakeGenericGraph(metric: {$0.costCents}, dayLimit: 0)
+let errorData = makeGenericGraph(metric: {$0.costCents}, dayLimit: 0)
 
-let errorGraph = GenericGraph(data: errorData, title: " ", ylabel: " ", isDelta: false)
+let errorGraph = genericGraph(data: errorData, title: " ", ylabel: " ", isDelta: false)
 
-let errorDataTable = GenericDataTable(data: errorData, title: " ", category: " ", isDelta: false)
+let errorDataTable = genericDataTable(data: errorData, title: " ", category: " ", isDelta: false)
