@@ -10,17 +10,17 @@ import Charts
 import SwiftData
 
 //MARK: Filter
-public struct FilterButton: View {
+ struct FilterButton: View {
     //variable for what current filter choice is
-    @Binding public var showSelectFilter: FilterOptions
+    @Binding  var showSelectFilter: FilterOptions
     
     //filter parameters
-    public init(showSelectFilter: Binding<FilterOptions>) {
+     init(showSelectFilter: Binding<FilterOptions>) {
         self._showSelectFilter = showSelectFilter
     }
     
     //filter choices
-    public enum FilterOptions: String, CaseIterable {
+     enum FilterOptions: String, CaseIterable {
         case total = "Total"
         case cluster = "Cluster"
         case model = "Model"
@@ -29,7 +29,7 @@ public struct FilterButton: View {
     }
     
     //filter UI structure
-    public var body: some View {
+     var body: some View {
         Menu {
             ForEach(FilterOptions.allCases, id: \.self) { option in
                 Button(option.rawValue) {
@@ -44,7 +44,7 @@ public struct FilterButton: View {
 }
 
 //Arranges filter choice to a data format for use in groupby parameter in makeGenericData function
-public func groupByClosure(for category: FilterButton.FilterOptions) -> (records) -> String {
+ func groupByClosure(for category: FilterButton.FilterOptions) -> (records) -> String {
     let clusterLookUp = Dictionary(uniqueKeysWithValues: sampleData.clusters.map { ($0.id, $0.region) })
     let modelLookUp = Dictionary(uniqueKeysWithValues: sampleData.models.map {($0.id, $0.displayName)})
     

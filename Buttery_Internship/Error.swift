@@ -7,8 +7,8 @@
 import SwiftUI
 
 //Error message structure
-public struct Error: View {
-    public var body: some View {
+struct Error: View {
+    var body: some View {
         VStack() {
             Image(systemName: "xmark.circle")
                 .font(.largeTitle)

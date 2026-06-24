@@ -11,11 +11,11 @@ import UniformTypeIdentifiers
 import AppKit
 
 //MARK: CSV export in progress
-public struct CSVExport: View {
+struct CSVExport: View {
     let data: [GenericSummary]
     
     //data parameter
-    public init(data: [GenericSummary]) {
+    init(data: [GenericSummary]) {
         self.data = data
     }
     
@@ -52,7 +52,7 @@ public struct CSVExport: View {
         }
     }
     
-    public var body: some View {
+    var body: some View {
         //Button for csv export in UI
         Button(action: {exportCSV()}) {
             Text("Export File").padding()

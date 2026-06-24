@@ -10,7 +10,7 @@ import Charts
 import SwiftData
 
 
-public struct Test: View {
+ struct Aggregation: View {
     @State var showSelectedFilter: FilterButton.FilterOptions = .total
     @State var dateFilter: DateFilterButton.DataFilterOptions = .seven
     @State var startDate = "Start Date (yyyy-MM-dd)"
@@ -42,7 +42,7 @@ public struct Test: View {
         
     }
     //Main seocndary view
-    public var body: some View {
+     var body: some View {
         ScrollView([.vertical]) {
             VStack {
                 HStack {

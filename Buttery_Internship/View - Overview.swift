@@ -4,9 +4,8 @@ import SwiftUI
 import Charts
 import SwiftData
 
-public struct Overview: View {
-    @State private var mainFilter: FilterButton.FilterOptions = .total
-    @State private var dateFilter: DateFilterButton.DataFilterOptions = .thirty
+ struct Overview: View {
+    @State private var dateFilter: DateFilterButton.DataFilterOptions = .seven
     @State var startDate = "Start Date (yyyy-MM-dd)"
     @State var endDate = "End Date (yyyy-MM-dd)"
     
@@ -26,7 +25,7 @@ public struct Overview: View {
         )
     }
     
-    public var body: some View {
+     var body: some View {
         ScrollView([.vertical]) {
             VStack {
                 HStack {
@@ -36,7 +35,6 @@ public struct Overview: View {
                 }
                 Text("Overview").font(.title)
                 HStack {
-                    FilterButton(showSelectFilter: $mainFilter)
                     DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
                 }.padding()
                 HStack {
@@ -44,83 +42,30 @@ public struct Overview: View {
                                  title: "Total Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
                                  isDelta: false)
-                        .frame(maxWidth: .infinity)
-                    Divider()
-                    genericDataTable(data: totalGraphData,
-                                     title: "Total Cost DataTable",
-                                     category: "Total",
-                                     isDelta: false)
                     .frame(maxWidth: .infinity)
+                    Divider()
                     genericGraph(data: WoWGraphData,
                                  title: "WoW Delta Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
                                  isDelta: true)
                         .frame(maxWidth: .infinity)
+                }
+                
+                Spacer(minLength: 100)
+                
+                HStack {
+                    
+                    genericDataTable(data: totalGraphData,
+                                    title: "Total Cost DataTable",
+                                    category: "Total",
+                                    isDelta: false)
+                   .frame(maxWidth: .infinity)
                     Divider()
                     genericDataTable(data: WoWGraphData,
                                      title: "WoW Delta DataTable",
                                      category: "WoW",
                                      isDelta: true)
                     .frame(maxWidth: .infinity)
-                }
-                VStack {
-                    Divider().background(Color.black)
-                    Spacer(minLength: 500)
-                }
-                Text("Graphs Showcase").font(.title)
-                VStack {
-                    HStack {
-                        clusterGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        clusterDataTable
-                            .frame(maxWidth: .infinity)
-                        clustersGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        clustersDataTable
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 200)
-                    
-                    HStack {
-                        modelGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        modelDataTable
-                            .frame(maxWidth: .infinity)
-                        modelsGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        modelsDataTable
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 150)
-                    
-                    HStack {
-                        westUSGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        westUSDataTable
-                            .frame(maxWidth: .infinity)
-                        westUSQueryGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        westUSQueryDataTable
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 150)
-                    
-                    HStack {
-                        errorGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        errorDataTable
-                            .frame(maxWidth: .infinity)
-                    }
                 }
             }
         }

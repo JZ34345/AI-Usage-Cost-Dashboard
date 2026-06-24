@@ -10,48 +10,48 @@ import Charts
 import SwiftData
 
 //MARK: File Structure
-public struct file: Codable, Sendable {
-    public let clusters: [clusters]
-    public let nodes: [nodes]
-    public let models: [models]
+ struct file: Codable, Sendable {
+     let clusters: [clusters]
+     let nodes: [nodes]
+     let models: [models]
     let records: [records]
 }
 
-public struct clusters: Codable, Identifiable, Sendable {
-    public let id: String
-    public let name: String
-    public let region: String
+ struct clusters: Codable, Identifiable, Sendable {
+     let id: String
+     let name: String
+     let region: String
 }
 
-public struct nodes: Codable, Identifiable, Sendable {
-    public let id: String
-    public let clusterId: String
-    public let name: String
-    public let size: String
+ struct nodes: Codable, Identifiable, Sendable {
+     let id: String
+     let clusterId: String
+     let name: String
+     let size: String
 }
 
-public struct models: Codable, Identifiable, Sendable {
-    public let id: String
-    public let displayName: String
-    public let provider: String
-    public let isLocal: Bool
+ struct models: Codable, Identifiable, Sendable {
+     let id: String
+     let displayName: String
+     let provider: String
+     let isLocal: Bool
 }
 
-public struct records: Codable, Identifiable, Sendable {
-    public let id: String
-    public let day: String
-    public let clusterId: String
-    public let nodeId: String
-    public let queryType: String
-    public let modelId: String
-    public let queryCount: Int
-    public let tokensIn: Int
-    public let tokensOut: Int
-    public let totalDurationMs: Int
-    public let costCents: Double
+ struct records: Codable, Identifiable, Sendable {
+     let id: String
+     let day: String
+     let clusterId: String
+     let nodeId: String
+     let queryType: String
+     let modelId: String
+     let queryCount: Int
+     let tokensIn: Int
+     let tokensOut: Int
+     let totalDurationMs: Int
+     let costCents: Double
 }
 //MARK: Read JSON File
-public extension Bundle {
+ extension Bundle {
     func loadFile<T: Decodable>(_ fileName: String) -> T {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "json") else {
             print("Step 1 fail")
@@ -75,4 +75,4 @@ public extension Bundle {
     }
 }
 
-public let sampleData: file = Bundle.main.loadFile("sample-data")
+ let sampleData: file = Bundle.main.loadFile("sample-data")

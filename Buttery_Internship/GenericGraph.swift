@@ -10,7 +10,7 @@ import Charts
 import SwiftData
 
 //MARK: Generic Data Structure
-public struct GenericSummary: Identifiable {
+struct GenericSummary: Identifiable {
     public let id = UUID()
     public let day: Date
     public let category: String
@@ -18,7 +18,7 @@ public struct GenericSummary: Identifiable {
 }
 
 //MARK: Generic aggregation function
-public func makeGenericGraph(
+func makeGenericGraph(
     filter: (records) -> Bool = {_ in true},
     groupBy category: (records) -> String = { _ in "Total"},
     metric: @escaping (records) -> Double,
@@ -82,14 +82,14 @@ public func makeGenericGraph(
 }
 
 //MARK: Generic Graph View maker
-public struct genericGraph: View {
+struct genericGraph: View {
     let data: [GenericSummary]
     let title: String
     let ylabel: String
     let isDelta: Bool
     
     //function parameters
-    public init(data: [GenericSummary], title: String, ylabel: String, isDelta: Bool) {
+    init(data: [GenericSummary], title: String, ylabel: String, isDelta: Bool) {
         self.data = data
         self.title = title
         self.ylabel = ylabel
@@ -98,7 +98,7 @@ public struct genericGraph: View {
     
     let graphDates = sampleData.records.map {$0.day}
     
-    public var body: some View {
+    var body: some View {
         VStack {
             //title page
             Text(title).font(.headline).padding()
@@ -136,7 +136,7 @@ public struct genericGraph: View {
                 .chartYAxis {
                     AxisMarks(values: .automatic(desiredCount: 10))
                 }
-                .frame(width: 350, height: 200)
+                .frame(width: 650, height: 500)
                 .chartLegend(position: .top)
             }
         }
@@ -144,13 +144,13 @@ public struct genericGraph: View {
 }
 
 //MARK: Generic DataTable function (Issue with WoW seperate column names)
-public struct genericDataTable: View {
+struct genericDataTable: View {
     let data: [GenericSummary]
     let title: String
     let category: String
     let isDelta: Bool
     
-    public init(data: [GenericSummary], title: String, category: String, isDelta: Bool) {
+    init(data: [GenericSummary], title: String, category: String, isDelta: Bool) {
         self.data = data
         self.title = title
         self.category = category
@@ -162,7 +162,7 @@ public struct genericDataTable: View {
         data.contains{!$0.category.isEmpty && $0.category != "Total"}
     }
     
-    public var body: some View {
+    var body: some View {
         VStack {
             Text(title).font(.headline)
             //If statement is for error message
@@ -172,41 +172,46 @@ public struct genericDataTable: View {
             } else {
                 //This is for tables with groupby aggregation
                 if hasCatagory {
+                    //Datatables for non WoW delta
+                    if isDelta == false {
+                        Table(data) {
+                            TableColumn("Id") { item in Text("\(item.id)")}
+                            TableColumn("Day") { item in
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                            }
+                            TableColumn(category) {item in Text("\(item.category)")}
+                            TableColumn("Cost (Cents)") { item in
+                                Text(String(format: "%.2f", item.cost))
+                            }
+                        }
+                        .frame(width: 600, height: 500)
+                    }
+                    //Datatable for WoW delta
+                    else {
+                        Table(data) {
+                            TableColumn("Id") { item in Text("\(item.id)")}
+                            TableColumn("Day") { item in
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                            }
+                            TableColumn(category) {item in Text("\(item.category)")}
+                            TableColumn("Delta (Cents)") { item in
+                                Text(String(format: "%.2f", item.cost))
+                            }
+                        }
+                        .frame(width: 600, height: 500)
+                    }
+                //This is for tables with no grouping, only one datatype of node, model, cluster, etc
+                } else {
                     Table(data) {
                         TableColumn("Id") { item in Text("\(item.id)")}
                         TableColumn("Day") { item in
                             Text(item.day, format: .dateTime.month(.abbreviated).day().year())
                         }
-                        TableColumn(category) {item in Text("\(item.category)")}
                         TableColumn("Cost (Cents)") { item in
                             Text(String(format: "%.2f", item.cost))
                         }
                     }
-                    .frame(width: 300, height: 200)
-                //This is for tables with no grouping, only one datatype of node, model, cluster, etc
-                } else {
-                    Table(data) {
-                        //datatables for non WoW delta data
-                        if isDelta == false {
-                            TableColumn("Id") { item in Text("\(item.id)")}
-                            TableColumn("Day") { item in
-                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
-                            }
-                            TableColumn("Cost (Cents)") { item in
-                                Text(String(format: "%.2f", item.cost))
-                            }
-                        //Datatable for WoW delta
-                        } else {
-                            TableColumn("Id") { item in Text("\(item.id)")}
-                            TableColumn("Week") { item in
-                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
-                            }
-                            TableColumn("Delta (Cents)") { item in
-                                Text(String(format: "%.2f", item.cost))
-                            }
-                        }
-                    }
-                    .frame(width: 300, height: 200)
+                    .frame(width: 600, height: 500)
                 }
             }
         }

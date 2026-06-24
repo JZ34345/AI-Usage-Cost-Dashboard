@@ -10,13 +10,13 @@ import SwiftUI
 import Charts
 import SwiftData
 
-public let totalGraphData = makeGenericGraph(metric: { $0.costCents}, dayLimit: 30)
-public let totalGraph = genericGraph(
+let totalGraphData = makeGenericGraph(metric: { $0.costCents}, dayLimit: 30)
+let totalGraph = genericGraph(
     data: totalGraphData,
     title: "Total Cost-Time Graph (2026)",
     ylabel: "Cost (Cents)",
     isDelta: false
 )
-public let totalDataTable = genericDataTable(data: totalGraphData,
+let totalDataTable = genericDataTable(data: totalGraphData,
                                              title: "Total Cost-Time Table",
                                              category: " ", isDelta: false)

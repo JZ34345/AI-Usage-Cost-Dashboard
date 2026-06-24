@@ -10,17 +10,17 @@ import SwiftUI
 import Charts
 import SwiftData
 
-public let data2 = sampleData
+ let data2 = sampleData
 
 //MARK: Graph2 Structure
-public struct WoWGraphSummary: Identifiable, Sendable {
-    public let id = UUID()
-    public let week: Date
-    public let WoWCost: Double
-    public let delta: Double
+ struct WoWGraphSummary: Identifiable, Sendable {
+     let id = UUID()
+     let week: Date
+     let WoWCost: Double
+     let delta: Double
 }
 
-public func makeWoWGraph() -> [WoWGraphSummary] {
+ func makeWoWGraph() -> [WoWGraphSummary] {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current
     
@@ -50,10 +50,10 @@ public func makeWoWGraph() -> [WoWGraphSummary] {
 let graph2Data = makeWoWGraph()
 
 //MARK: Graph2 View
-public struct WoWGraph: View {
-    public init() {}
+ struct WoWGraph: View {
+     init() {}
     let graph2Dates = graph2Data.map { $0.week }
-    public var body: some View {
+     var body: some View {
         VStack {
             Text("WoW Delta Cost-Time Graph")
                 .font(.headline)
@@ -93,9 +93,9 @@ public struct WoWGraph: View {
 }
 
 //MARK: DataTable2
-public struct WoWDataTable: View {
-    public init() {}
-    public var body: some View {
+ struct WoWDataTable: View {
+     init() {}
+     var body: some View {
         VStack {
             Text("Total Cost-Time Table").font(.headline)
             Table(graph2Data) {

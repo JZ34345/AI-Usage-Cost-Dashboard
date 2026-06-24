@@ -10,7 +10,7 @@ import Charts
 import SwiftData
 
 //MARK: Date filter
-public struct DateFilterButton: View {
+ struct DateFilterButton: View {
     @Binding private var showDateFilter: DataFilterOptions
     @Binding private var startDate: String
     @Binding private var endDate: String
@@ -18,21 +18,21 @@ public struct DateFilterButton: View {
     @State private var showDatePicker = false
     
     //date filter selection, start date, and end date parameters
-    public init(showDateFilter: Binding<DataFilterOptions>, startDate: Binding<String>, endDate: Binding<String>) {
+     init(showDateFilter: Binding<DataFilterOptions>, startDate: Binding<String>, endDate: Binding<String>) {
         self._showDateFilter = showDateFilter
         self._startDate = startDate
         self._endDate = endDate
     }
     
     //date filter options
-    public enum DataFilterOptions: String, CaseIterable {
+     enum DataFilterOptions: String, CaseIterable {
         case seven = "7 Days"
         case thirty = "30 Days"
         case ninety = "90 Days"
         case custom = "Custom"
     }
     
-    public var body: some View {
+     var body: some View {
         //UI appearance for date filter
         Menu {
             ForEach(DataFilterOptions.allCases, id: \.self) { option in
@@ -64,7 +64,7 @@ public struct DateFilterButton: View {
     }
 }
 // date closure function to rearrange date info in proper type
-public func dateByClosure(for period: DateFilterButton.DataFilterOptions) -> Int {
+ func dateByClosure(for period: DateFilterButton.DataFilterOptions) -> Int {
     switch period {
         case .seven: return 7
         case .thirty: return 30
@@ -74,7 +74,7 @@ public func dateByClosure(for period: DateFilterButton.DataFilterOptions) -> Int
 }
 
 //Filter structure
-public func dateRangeFilter(option: DateFilterButton.DataFilterOptions, start: String, end: String) -> (records) -> Bool {
+ func dateRangeFilter(option: DateFilterButton.DataFilterOptions, start: String, end: String) -> (records) -> Bool {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current
     let mostRecentDate = sampleData.records.compactMap { formatter.date(from: $0.day) }.max() ?? Date()
