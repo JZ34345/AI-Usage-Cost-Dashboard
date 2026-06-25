@@ -5,46 +5,31 @@ import Charts
 import SwiftData
 
  struct Overview: View {
-    @State private var dateFilter: DateFilterButton.DataFilterOptions = .seven
-    @State var startDate = "Start Date (yyyy-MM-dd)"
-    @State var endDate = "End Date (yyyy-MM-dd)"
-    
-    var totalGraphData: [GenericSummary] {
-        makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                         metric: { $0.costCents},
-                         dayLimit: dateByClosure(for: dateFilter))
-    }
-    
-    var WoWGraphData: [GenericSummary] {
-        makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                         groupBy: {_ in "WoW Delta"},
-                         metric: { $0.costCents},
-                         dayLimit: dateByClosure(for: dateFilter),
-                         groupWeek: true,
-                         delta: true
-        )
-    }
+     @Environment(AppData.self) private var appData
+     
     
      var body: some View {
+        @Bindable var appBindData = appData
+         
         ScrollView([.vertical]) {
             VStack {
                 HStack {
                     Spacer()
-                    CSVExport(data: totalGraphData)
+                    CSVExport(data: appData.totalGraphData)
                     
                 }
                 Text("Overview").font(.title)
                 HStack {
-                    DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
+                    DateFilterButton()
                 }.padding()
                 HStack {
-                    genericGraph(data: totalGraphData,
+                    genericGraph(data: appData.totalGraphData,
                                  title: "Total Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
                                  isDelta: false)
                     .frame(maxWidth: .infinity)
                     Divider()
-                    genericGraph(data: WoWGraphData,
+                    genericGraph(data: appData.WoWGraphData,
                                  title: "WoW Delta Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
                                  isDelta: true)
@@ -55,13 +40,13 @@ import SwiftData
                 
                 HStack {
                     
-                    genericDataTable(data: totalGraphData,
+                    genericDataTable(data: appData.totalGraphData,
                                     title: "Total Cost DataTable",
                                     category: "Total",
                                     isDelta: false)
                    .frame(maxWidth: .infinity)
                     Divider()
-                    genericDataTable(data: WoWGraphData,
+                    genericDataTable(data: appData.WoWGraphData,
                                      title: "WoW Delta DataTable",
                                      category: "WoW",
                                      isDelta: true)

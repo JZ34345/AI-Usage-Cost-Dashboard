@@ -10,8 +10,10 @@ import Charts
 import UniformTypeIdentifiers
 import AppKit
 
-//MARK: CSV export in progress
+//MARK: CSV export 
 struct CSVExport: View {
+    @Environment(AppData.self) private var appData
+    
     let data: [GenericSummary]
     
     //data parameter

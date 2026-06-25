@@ -11,33 +11,18 @@ import SwiftData
 
 
  struct Aggregation: View {
-    @State var showSelectedFilter: FilterButton.FilterOptions = .total
-    @State var dateFilter: DateFilterButton.DataFilterOptions = .seven
-    @State var startDate = "Start Date (yyyy-MM-dd)"
-    @State var endDate = "End Date (yyyy-MM-dd)"
+     @Environment(AppData.self) private var appData
     
     //variables and data structures
     var isDelta: Bool {
-        showSelectedFilter == .wow
+        appData.mainFilter == .wow
     }
     
     var graphData: [GenericSummary] {
-        if showSelectedFilter != .wow {
-            return makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                                    groupBy: groupByClosure(for: showSelectedFilter),
-                                    metric: {$0.costCents},
-                                    dayLimit: dateByClosure(for: dateFilter),
-                                    applyDayLimit: dateFilter != .custom
-            )
+        if appData.mainFilter != .wow {
+            return appData.totalGraphData
         } else {
-            return makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                                    groupBy: groupByClosure(for: showSelectedFilter),
-                                    metric: {$0.costCents},
-                                    dayLimit: dateByClosure(for: dateFilter),
-                                    applyDayLimit: dateFilter != .custom,
-                                    groupWeek: true,
-                                    delta: true,
-            )
+            return appData.WoWGraphData
         }
         
     }
@@ -48,12 +33,11 @@ import SwiftData
                 HStack {
                     Spacer()
                     CSVExport(data: graphData)
-                    
                 }
                 Text("Test").font(.title)
                 HStack {
-                    FilterButton(showSelectFilter: $showSelectedFilter)
-                    DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
+                    FilterButton()
+                    DateFilterButton()
                 }.padding()
                 if isDelta == false {
                     HStack {
@@ -65,7 +49,7 @@ import SwiftData
                         Divider()
                         genericDataTable(data: graphData,
                                          title: "Test",
-                                         category: showSelectedFilter.rawValue,
+                                         category: appData.mainFilter.rawValue,
                                          isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
@@ -79,7 +63,7 @@ import SwiftData
                         Divider()
                         genericDataTable(data: graphData,
                                      title: "Test",
-                                         category: showSelectedFilter.rawValue,
+                                         category: appData.mainFilter.rawValue,
                                      isDelta: true)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }

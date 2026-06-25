@@ -11,19 +11,8 @@ import SwiftData
 
 //MARK: Date filter
  struct DateFilterButton: View {
-    @Binding private var showDateFilter: DataFilterOptions
-    @Binding private var startDate: String
-    @Binding private var endDate: String
-    
-    @State private var showDatePicker = false
-    
-    //date filter selection, start date, and end date parameters
-     init(showDateFilter: Binding<DataFilterOptions>, startDate: Binding<String>, endDate: Binding<String>) {
-        self._showDateFilter = showDateFilter
-        self._startDate = startDate
-        self._endDate = endDate
-    }
-    
+     @Environment(AppData.self) private var appData
+     
     //date filter options
      enum DataFilterOptions: String, CaseIterable {
         case seven = "7 Days"
@@ -33,36 +22,40 @@ import SwiftData
     }
     
      var body: some View {
+        @Bindable var appBindData = appData
+         
+         
         //UI appearance for date filter
         Menu {
             ForEach(DataFilterOptions.allCases, id: \.self) { option in
                 Button(option.rawValue) {
-                    showDateFilter = option
+                    appData.dateFilter = option
                     
                     if option == .custom {
-                        showDatePicker = true
+                        appData.datePicker = true
                     }
                 }
                 
             }
         } label: {
-            Text(showDateFilter.rawValue)
+            Text(appData.dateFilter.rawValue)
         }.menuStyle(.borderedButton)
         //Display for custom input
-            .sheet(isPresented: $showDatePicker) {
+             .sheet(isPresented: $appBindData.datePicker) {
                 VStack {
                     Text("Custom Date Range").font(.headline)
                     
-                    TextField("(yyyy-MM-dd)", text: $startDate)
-                    TextField("(yyyy-MM-dd)", text: $endDate)
+                    TextField("(yyyy-MM-dd)", text: $appBindData.startDate)
+                    TextField("(yyyy-MM-dd)", text: $appBindData.endDate)
                     
                     Button("Apply") {
-                        showDatePicker = false
+                        appData.datePicker = false
                     }
                 }.padding().frame(width: 300)
             }
     }
 }
+
 // date closure function to rearrange date info in proper type
  func dateByClosure(for period: DateFilterButton.DataFilterOptions) -> Int {
     switch period {
@@ -73,7 +66,7 @@ import SwiftData
     }
 }
 
-//Filter structure
+//MARK: Filter structure
  func dateRangeFilter(option: DateFilterButton.DataFilterOptions, start: String, end: String) -> (records) -> Bool {
     let formatter = ISO8601DateFormatter()
     let calendar = Calendar.current

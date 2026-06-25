@@ -12,13 +12,8 @@ import SwiftData
 //MARK: Filter
  struct FilterButton: View {
     //variable for what current filter choice is
-    @Binding  var showSelectFilter: FilterOptions
-    
-    //filter parameters
-     init(showSelectFilter: Binding<FilterOptions>) {
-        self._showSelectFilter = showSelectFilter
-    }
-    
+    @Environment(AppData.self) private var appData
+
     //filter choices
      enum FilterOptions: String, CaseIterable {
         case total = "Total"
@@ -33,12 +28,12 @@ import SwiftData
         Menu {
             ForEach(FilterOptions.allCases, id: \.self) { option in
                 Button(option.rawValue) {
-                    showSelectFilter = option
+                    appData.mainFilter = option
                 }
                 
             }
         } label: {
-            Text(showSelectFilter.rawValue)
+            Text(appData.mainFilter.rawValue)
         }.menuStyle(.borderedButton)
     }
 }

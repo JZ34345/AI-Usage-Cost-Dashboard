@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82346A72FEC9FD500D64E5C /* AppData.swift */; };
 		A8E5C1652FEC3882009AF2F4 /* Graph6 - ModelAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1592FEC3882009AF2F4 /* Graph6 - ModelAverage.swift */; };
 		A8E5C1662FEC3882009AF2F4 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1512FEC3882009AF2F4 /* Error.swift */; };
 		A8E5C1672FEC3882009AF2F4 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C15D2FEC3882009AF2F4 /* GraphData.swift */; };
@@ -22,7 +23,7 @@
 		A8E5C1712FEC3882009AF2F4 /* Graph4 - Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1572FEC3882009AF2F4 /* Graph4 - Cluster.swift */; };
 		A8E5C1722FEC3882009AF2F4 /* View - Aggregation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1602FEC3882009AF2F4 /* View - Aggregation.swift */; };
 		A8E5C1732FEC3882009AF2F4 /* Graph7 - DrillDownCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C15A2FEC3882009AF2F4 /* Graph7 - DrillDownCluster.swift */; };
-		A8E5C1742FEC3882009AF2F4 /* Graph1 - Total.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1542FEC3882009AF2F4 /* Graph1 - Total.swift */; };
+		A8E5C1742FEC3882009AF2F4 /* Graph1 - Total (Old).swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1542FEC3882009AF2F4 /* Graph1 - Total (Old).swift */; };
 		A8E5C1752FEC3882009AF2F4 /* CSVexport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C14E2FEC3882009AF2F4 /* CSVexport.swift */; };
 		A8E5C1762FEC3882009AF2F4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C15E2FEC3882009AF2F4 /* Item.swift */; };
 		A8E5C1772FEC3882009AF2F4 /* Graph3 - ClusterAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1562FEC3882009AF2F4 /* Graph3 - ClusterAverage.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A82346A72FEC9FD500D64E5C /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		A88A2B952FE0C225003293EE /* Buttery_Internship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buttery_Internship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BA42FE0C227003293EE /* Buttery_InternshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BAE2FE0C227003293EE /* Buttery_InternshipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +66,7 @@
 		A8E5C1512FEC3882009AF2F4 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A8E5C1522FEC3882009AF2F4 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		A8E5C1532FEC3882009AF2F4 /* GenericGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGraph.swift; sourceTree = "<group>"; };
-		A8E5C1542FEC3882009AF2F4 /* Graph1 - Total.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Graph1 - Total.swift"; sourceTree = "<group>"; };
+		A8E5C1542FEC3882009AF2F4 /* Graph1 - Total (Old).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Graph1 - Total (Old).swift"; sourceTree = "<group>"; };
 		A8E5C1552FEC3882009AF2F4 /* Graph2 - WoW (Old).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Graph2 - WoW (Old).swift"; sourceTree = "<group>"; };
 		A8E5C1562FEC3882009AF2F4 /* Graph3 - ClusterAverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Graph3 - ClusterAverage.swift"; sourceTree = "<group>"; };
 		A8E5C1572FEC3882009AF2F4 /* Graph4 - Cluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Graph4 - Cluster.swift"; sourceTree = "<group>"; };
@@ -147,12 +149,13 @@
 				A8E5C14C2FEC3882009AF2F4 /* Assets.xcassets */,
 				A8E5C14D2FEC3882009AF2F4 /* ContentView.swift */,
 				A8E5C14E2FEC3882009AF2F4 /* CSVexport.swift */,
+				A82346A72FEC9FD500D64E5C /* AppData.swift */,
 				A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */,
 				A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */,
 				A8E5C1512FEC3882009AF2F4 /* Error.swift */,
 				A8E5C1522FEC3882009AF2F4 /* Filter.swift */,
 				A8E5C1532FEC3882009AF2F4 /* GenericGraph.swift */,
-				A8E5C1542FEC3882009AF2F4 /* Graph1 - Total.swift */,
+				A8E5C1542FEC3882009AF2F4 /* Graph1 - Total (Old).swift */,
 				A8E5C1552FEC3882009AF2F4 /* Graph2 - WoW (Old).swift */,
 				A8E5C1562FEC3882009AF2F4 /* Graph3 - ClusterAverage.swift */,
 				A8E5C1572FEC3882009AF2F4 /* Graph4 - Cluster.swift */,
@@ -326,11 +329,12 @@
 				A8E5C16D2FEC3882009AF2F4 /* AICostTimeUsageAnalysisDashboardApp.swift in Sources */,
 				A8E5C16E2FEC3882009AF2F4 /* Filter.swift in Sources */,
 				A8E5C16F2FEC3882009AF2F4 /* ContentView.swift in Sources */,
+				A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */,
 				A8E5C1702FEC3882009AF2F4 /* Graph5 - Model.swift in Sources */,
 				A8E5C1712FEC3882009AF2F4 /* Graph4 - Cluster.swift in Sources */,
 				A8E5C1722FEC3882009AF2F4 /* View - Aggregation.swift in Sources */,
 				A8E5C1732FEC3882009AF2F4 /* Graph7 - DrillDownCluster.swift in Sources */,
-				A8E5C1742FEC3882009AF2F4 /* Graph1 - Total.swift in Sources */,
+				A8E5C1742FEC3882009AF2F4 /* Graph1 - Total (Old).swift in Sources */,
 				A8E5C1752FEC3882009AF2F4 /* CSVexport.swift in Sources */,
 				A8E5C1762FEC3882009AF2F4 /* Item.swift in Sources */,
 				A8E5C1772FEC3882009AF2F4 /* Graph3 - ClusterAverage.swift in Sources */,

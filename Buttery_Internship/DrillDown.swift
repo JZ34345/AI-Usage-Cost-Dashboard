@@ -11,11 +11,7 @@ import SwiftData
 
 //MARK: Drilldown in progress
  struct DrillDownButton: View {
-    @Binding private var showDrillFilter: DrillDownClusterOptions
-    
-     init(showDrillFilter: Binding<DrillDownClusterOptions>) {
-        self._showDrillFilter = showDrillFilter
-    }
+     @Environment(AppData.self) private var appData
     
      enum DrillDownClusterOptions: String, CaseIterable {
         case inital = "DrillDown: Clusters"
@@ -28,19 +24,18 @@ import SwiftData
         Menu {
             ForEach(DrillDownClusterOptions.allCases, id: \.self) { option in
                 Button(option.rawValue) {
-                    showDrillFilter = option
+                    appData.drillFilterCluster = option
                 }
                 
             }
         } label: {
-            Text(showDrillFilter.rawValue)
+            Text(appData.drillFilterCluster.rawValue)
         }.menuStyle(.borderedButton)
     }
 }
 
  struct DrillNodeButton: View {
-    @Binding private var showNodeFilter: DrillDownNodeOptions
-    let clusterId: String?
+    @Environment(AppData.self) private var appData
     
      enum DrillDownNodeOptions: Hashable {
         case inital
@@ -54,13 +49,8 @@ import SwiftData
         }
     }
     
-     init(showNodeFilter: Binding<DrillDownNodeOptions>, clusterId: String?) {
-            self._showNodeFilter = showNodeFilter
-            self.clusterId = clusterId
-        }
-    
     var nodeOptions: [DrillDownNodeOptions] {
-        guard let clusterId = clusterId else { return [.inital] }
+        guard let clusterId = appData.clusterId else { return [.inital] }
         let nodes = sampleData.nodes.filter { $0.clusterId == clusterId }
         return [.inital] + nodes.map {.node(id: $0.id, name: $0.name)}
         
@@ -70,13 +60,13 @@ import SwiftData
         Menu {
             ForEach(nodeOptions, id: \.self) { option in
                 Button(option.label) {
-                    showNodeFilter = option
+                    appData.drillFilterNode = option
                 }
                 
             }
         } label: {
-            Text(showNodeFilter.label)
+            Text(appData.drillFilterNode.label)
         }.menuStyle(.borderedButton)
-            .disabled(clusterId == nil)
+             .disabled(appData.clusterId == nil)
     }
 }

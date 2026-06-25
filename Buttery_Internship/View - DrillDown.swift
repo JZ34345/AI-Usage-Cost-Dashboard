@@ -77,11 +77,11 @@ public struct DrillDown: View {
                 Text("Test").font(.title)
                 //MARK: Date and drilldown buttons
                 HStack {
-                    DrillDownButton(showDrillFilter: $showDrillCluster)
+                    DrillDownButton()
                         .onChange(of: showDrillCluster) {showDrillNode = .inital}
-                    DrillNodeButton(showNodeFilter: $showDrillNode, clusterId: clusterId)
+                    DrillNodeButton()
                                         
-                    DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
+                    DateFilterButton()
                 }.padding()
                 //MARK: View data structure
                 //Graph and DataTable of a specific cluster and node in cluster

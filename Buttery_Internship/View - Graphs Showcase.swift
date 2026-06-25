@@ -16,34 +16,13 @@ import SwiftData
     @State var startDate = "Start Date (yyyy-MM-dd)"
     @State var endDate = "End Date (yyyy-MM-dd)"
     
-    var totalGraphData: [GenericSummary] {
-        makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                         metric: { $0.costCents},
-                         dayLimit: dateByClosure(for: dateFilter))
-    }
-    
-    var WoWGraphData: [GenericSummary] {
-        makeGenericGraph(filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                         groupBy: {_ in "WoW Delta"},
-                         metric: { $0.costCents},
-                         dayLimit: dateByClosure(for: dateFilter),
-                         groupWeek: true,
-                         delta: true
-        )
-    }
-    
      var body: some View {
         ScrollView([.vertical]) {
             VStack {
-                HStack {
-                    Spacer()
-                    CSVExport(data: totalGraphData)
-                    
-                }
                 Text("Graph Showcase").font(.title)
                 HStack {
-                    FilterButton(showSelectFilter: $mainFilter)
-                    DateFilterButton(showDateFilter: $dateFilter, startDate: $startDate, endDate: $endDate)
+                    FilterButton()
+                    DateFilterButton()
                 }.padding()
                 VStack {
                     HStack {

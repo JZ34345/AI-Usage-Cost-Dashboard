@@ -21,10 +21,12 @@ struct AICostTimeUsageAnalysisDashboardApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    @State private var appData = AppData()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(appData)
         }
         .modelContainer(sharedModelContainer)
     }
