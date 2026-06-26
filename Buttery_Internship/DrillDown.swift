@@ -51,7 +51,7 @@ import SwiftData
     
     var nodeOptions: [DrillDownNodeOptions] {
         guard let clusterId = appData.clusterId else { return [.inital] }
-        let nodes = sampleData.nodes.filter { $0.clusterId == clusterId }
+        let nodes = appData.source.nodes.filter { $0.clusterId == clusterId }
         return [.inital] + nodes.map {.node(id: $0.id, name: $0.name)}
         
     }

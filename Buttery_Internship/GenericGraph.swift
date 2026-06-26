@@ -17,8 +17,10 @@ struct GenericSummary: Identifiable {
     public let cost: Double
 }
 
+
 //MARK: Generic aggregation function
 func makeGenericGraph(
+    record: [records],
     filter: (records) -> Bool = {_ in true},
     groupBy category: (records) -> String = { _ in "Total"},
     metric: @escaping (records) -> Double,
@@ -27,7 +29,7 @@ func makeGenericGraph(
     groupWeek: Bool = false,
     delta: Bool = false
 ) -> [GenericSummary] {
-    
+
     //formatter for Date datatype
     let formatter = ISO8601DateFormatter()
     
@@ -37,7 +39,7 @@ func makeGenericGraph(
     }
     
     //apply filters
-    let filterRecords = sampleData.records.filter(filter)
+    let filterRecords = record.filter(filter)
     
     //grouping by a datatype
     let grouped = Dictionary(grouping: filterRecords) { record -> GroupKey in
@@ -83,6 +85,8 @@ func makeGenericGraph(
 
 //MARK: Generic Graph View maker
 struct genericGraph: View {
+    @Environment(AppData.self) private var appData
+    
     let data: [GenericSummary]
     let title: String
     let ylabel: String
@@ -96,8 +100,16 @@ struct genericGraph: View {
         self.isDelta = isDelta
     }
     
-    let graphDates = sampleData.records.map {$0.day}
-    
+    var tickStride: Int {
+        let dayCount = data.map {$0.day}.count
+        switch dayCount {
+        case 0...10: return 1
+        case 11...30: return 5
+        case 31...60: return 10
+        default: return 14
+        }
+    }
+        
     var body: some View {
         VStack {
             //title page
@@ -107,6 +119,7 @@ struct genericGraph: View {
                 Error().frame(maxWidth: .infinity, maxHeight: 300)
             //Datatable with no errors
             } else {
+                //Specific for thirty minutes to fix labeling issue
                 Chart(data) { item in
                     LineMark(
                         x: .value("date", item.day),
@@ -121,7 +134,7 @@ struct genericGraph: View {
                 //x-axis adjustments
                 .chartXAxisLabel("Date", alignment: .center)
                 .chartXAxis {
-                    AxisMarks(values: .automatic) { value in
+                    AxisMarks(values: .stride(by: .day, count: tickStride)) { value in
                         AxisGridLine()
                         AxisTick()
                         if let date = value.as(Date.self) {

@@ -11,10 +11,7 @@ import Charts
 import SwiftData
 
  struct GraphShowcase: View {
-    @State private var mainFilter: FilterButton.FilterOptions = .total
-    @State private var dateFilter: DateFilterButton.DataFilterOptions = .thirty
-    @State var startDate = "Start Date (yyyy-MM-dd)"
-    @State var endDate = "End Date (yyyy-MM-dd)"
+    @Environment(AppData.self) private var appData
     
      var body: some View {
         ScrollView([.vertical]) {
@@ -26,70 +23,128 @@ import SwiftData
                 }.padding()
                 VStack {
                     HStack {
-                        clusterGraph
-                            .frame(maxWidth: .infinity)
+                        //MARK: Cluster
+                        genericGraph(data: appData.clusterGraphData,
+                                    title: "Cluster Cost-Time Graph (2026)",
+                                    ylabel: "Cost (Cents)",
+                                    isDelta: false)
+                        .frame(maxWidth: .infinity)
+                        
                         Divider()
-                        clusterDataTable
-                            .frame(maxWidth: .infinity)
+                        
+                        genericDataTable(data: appData.clusterGraphData,
+                                        title: "Cluster Cost-Time Table",
+                                        category: "Cluster",
+                                        isDelta: false)
+                        .frame(maxWidth: .infinity)
+
                     }
                     
                     Spacer(minLength: 150)
 
                     HStack {
-                        clustersGraph
-                            .frame(maxWidth: .infinity)
+                        //MARK: Cluster Average
+                        genericGraph(data: appData.clusterAverageGraphData,
+                                    title: "Cluster Average Cost-Time Graph (2026)",
+                                    ylabel: "Cost (Cents)",
+                                    isDelta: false)
+                        .frame(maxWidth: .infinity)
+                        
                         Divider()
-                        clustersDataTable
-                            .frame(maxWidth: .infinity)
+                        
+                        genericDataTable(data: appData.clusterAverageGraphData,
+                                        title: "Cluster Average Cost-Time Table",
+                                        category: "Cluster",
+                                        isDelta: false)
+                        .frame(maxWidth: .infinity)
                     }
                     
                     Spacer(minLength: 150)
                     
                     HStack {
-                        modelGraph
-                            .frame(maxWidth: .infinity)
+                        //MARK: Model
+                        genericGraph(data: appData.modelGraphData,
+                                      title: "Model Cost-Time Graph (2026)",
+                                      ylabel: "Average Cost (Cents)",
+                                      isDelta: false)
+                        .frame(minWidth: .infinity)
+                        
                         Divider()
-                        modelDataTable
-                            .frame(maxWidth: .infinity)
+                        
+                        genericDataTable(data: appData.modelGraphData,
+                                          title: "Model Cost-Time Table",
+                                          category: "ModelId",
+                                          isDelta: false)
+                        .frame(minWidth: .infinity)
                     }
 
                     Spacer(minLength: 150)
 
                     HStack {
-                        modelsGraph
-                            .frame(maxWidth: .infinity)
+                        //MARK: Model Average
+                        genericGraph(data: appData.modelAverageGraphData,
+                                      title: "Model Average Cost-Time Graph (2026)",
+                                      ylabel: "Average Cost (Cents)",
+                                      isDelta: false)
+                        .frame(minWidth: .infinity)
+                        
                         Divider()
-                        modelsDataTable
+                        
+                        genericDataTable(data: appData.modelAverageGraphData,
+                                          title: "Model Average Cost-Time Table",
+                                          category: "ModelId",
+                                          isDelta: false)
+                        .frame(minWidth: .infinity)
+                    }
+                    
+                    Spacer(minLength: 150)
+                    
+                    HStack {
+                        //MARK: DrillDown US West Cluster
+                        genericGraph(data: appData.drillClusterData,
+                                     title: "US West Nodes Cost-Time Graph",
+                                     ylabel: "Cost (Cents)",
+                                     isDelta: false)
+
+                            .frame(maxWidth: .infinity)
+                        
+                        Divider()
+                        
+                        genericDataTable(data: appData.drillClusterData,
+                                         title: "US West Nodes DataTable",
+                                         category: "Node",
+                                         isDelta: false)
                             .frame(maxWidth: .infinity)
                     }
                     
                     Spacer(minLength: 150)
                     
                     HStack {
-                        westUSGraph
+                        //MARK: DrillDown US West Node
+                        genericGraph(data: appData.drillNodeData,
+                                     title: "US West Node Query Cost-Time Graph",
+                                     ylabel: "Cost (Cents)",
+                                     isDelta: false)
                             .frame(maxWidth: .infinity)
+                        
                         Divider()
-                        westUSDataTable
+                        
+                        genericDataTable(data: appData.drillNodeData,
+                                         title: "US West Node Query DataTable",
+                                         category: "Node", isDelta: false)
                             .frame(maxWidth: .infinity)
                     }
                     
                     Spacer(minLength: 150)
                     
                     HStack {
-                        westUSQueryGraph
+                        //MARK: Error
+                        genericGraph(data: appData.errorData, title: " ", ylabel: " ", isDelta: false)
                             .frame(maxWidth: .infinity)
+                            
                         Divider()
-                        westUSQueryDataTable
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 150)
-                    
-                    HStack {
-                        errorGraph
-                            .frame(maxWidth: .infinity)
-                        Divider()
-                        errorDataTable
+                        
+                        genericDataTable(data: appData.errorData, title: " ", category: " ", isDelta: false)
                             .frame(maxWidth: .infinity)
                     }
                 }

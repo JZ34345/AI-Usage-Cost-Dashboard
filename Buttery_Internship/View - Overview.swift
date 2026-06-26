@@ -7,7 +7,6 @@ import SwiftData
  struct Overview: View {
      @Environment(AppData.self) private var appData
      
-    
      var body: some View {
         @Bindable var appBindData = appData
          
@@ -39,7 +38,6 @@ import SwiftData
                 Spacer(minLength: 100)
                 
                 HStack {
-                    
                     genericDataTable(data: appData.totalGraphData,
                                     title: "Total Cost DataTable",
                                     category: "Total",

@@ -9,6 +9,7 @@ import SwiftData
 
 @main
 struct AICostTimeUsageAnalysisDashboardApp: App {
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -22,11 +23,18 @@ struct AICostTimeUsageAnalysisDashboardApp: App {
         }
     }()
     
-    @State private var appData = AppData()
+    @State private var appData: AppData
+    @State private var graphData: GraphDataSource
+    
+    init() {
+        let source = GraphDataSource()
+        _appData = State(initialValue: AppData(source: source))
+        _graphData = State(initialValue: source)
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environment(appData)
+            ContentView().environment(appData).environment(graphData)
         }
         .modelContainer(sharedModelContainer)
     }
