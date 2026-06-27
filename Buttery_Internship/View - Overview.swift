@@ -14,10 +14,22 @@ import SwiftData
             VStack {
                 HStack {
                     Spacer()
-                    CSVExport(data: appData.totalGraphData)
                     
+                    VStack {
+                        Text("Total Data Export")
+                        CSVExport(data: appData.totalGraphData)
+                    }
+                    VStack {
+                        Text("WoW Data Export")
+                        CSVExport(data: appData.WoWGraphData)
+                    }
+
                 }
-                Text("Overview").font(.title)
+                VStack {
+                    Text("Overview").font(.title)
+                    ViewButton()
+                }
+                
                 HStack {
                     DateFilterButton()
                 }.padding()
@@ -41,13 +53,16 @@ import SwiftData
                     genericDataTable(data: appData.totalGraphData,
                                     title: "Total Cost DataTable",
                                     category: "Total",
-                                    isDelta: false)
+                                    isDelta: false,
+                                    isAverage: false)
                    .frame(maxWidth: .infinity)
                     Divider()
                     genericDataTable(data: appData.WoWGraphData,
                                      title: "WoW Delta DataTable",
                                      category: "WoW",
-                                     isDelta: true)
+                                     isDelta: true,
+                                     isAverage: false
+                    )
                     .frame(maxWidth: .infinity)
                 }
             }

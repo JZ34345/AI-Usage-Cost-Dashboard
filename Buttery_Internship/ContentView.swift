@@ -10,15 +10,28 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(AppData.self) private var appData
     @Query private var items: [Item]
 
     var body: some View {
+
         //Overview page and graph types demostration
-        //Overview()
-        //Secondary view, filter and csv export showcase, and data patterns/anamolies
-        Aggregation()
-        //DrillDown()
-        //Future items:
+        if appData.viewSwitcher == .overview {
+            Overview()
+        //Secondary view, aggregation filter and data patterns/anamolies
+        } else if appData.viewSwitcher == .aggregation {
+            Aggregation()
+        //Secondary view: focuses on drilldown filtering
+        } else if appData.viewSwitcher == .drilldown {
+            DrillDown()
+        //Optional Graph Showcase. May be removed depending on relavance
+        } else if appData.viewSwitcher == .graphShowcase {
+            GraphShowcase()
+        //Default screen will turn to Overview
+        } else {
+            Overview()
+        }
+        
     }
 }
 

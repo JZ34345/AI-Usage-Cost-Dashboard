@@ -10,13 +10,17 @@ import SwiftUI
 import Charts
 import SwiftData
 
- struct GraphShowcase: View {
+struct GraphShowcase: View {
     @Environment(AppData.self) private var appData
     
      var body: some View {
         ScrollView([.vertical]) {
             VStack {
-                Text("Graph Showcase").font(.title)
+                VStack {
+                    Text("Graph Showcase").font(.title)
+                    ViewButton()
+                }
+                
                 HStack {
                     FilterButton()
                     DateFilterButton()
@@ -35,7 +39,8 @@ import SwiftData
                         genericDataTable(data: appData.clusterGraphData,
                                         title: "Cluster Cost-Time Table",
                                         category: "Cluster",
-                                        isDelta: false)
+                                        isDelta: false,
+                                        isAverage: false)
                         .frame(maxWidth: .infinity)
 
                     }
@@ -55,7 +60,8 @@ import SwiftData
                         genericDataTable(data: appData.clusterAverageGraphData,
                                         title: "Cluster Average Cost-Time Table",
                                         category: "Cluster",
-                                        isDelta: false)
+                                        isDelta: false,
+                                        isAverage: true)
                         .frame(maxWidth: .infinity)
                     }
                     
@@ -66,16 +72,17 @@ import SwiftData
                         genericGraph(data: appData.modelGraphData,
                                       title: "Model Cost-Time Graph (2026)",
                                       ylabel: "Average Cost (Cents)",
-                                      isDelta: false)
-                        .frame(minWidth: .infinity)
+                                      isDelta: false,)
+                        .frame(maxWidth: .infinity)
                         
                         Divider()
                         
                         genericDataTable(data: appData.modelGraphData,
                                           title: "Model Cost-Time Table",
                                           category: "ModelId",
-                                          isDelta: false)
-                        .frame(minWidth: .infinity)
+                                          isDelta: false,
+                                          isAverage: true)
+                        .frame(maxWidth: .infinity)
                     }
 
                     Spacer(minLength: 150)
@@ -86,18 +93,34 @@ import SwiftData
                                       title: "Model Average Cost-Time Graph (2026)",
                                       ylabel: "Average Cost (Cents)",
                                       isDelta: false)
-                        .frame(minWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                         
                         Divider()
                         
                         genericDataTable(data: appData.modelAverageGraphData,
                                           title: "Model Average Cost-Time Table",
                                           category: "ModelId",
-                                          isDelta: false)
-                        .frame(minWidth: .infinity)
+                                          isDelta: false,
+                                          isAverage: false)
+                        .frame(maxWidth: .infinity)
                     }
                     
                     Spacer(minLength: 150)
+                                        
+                    HStack {
+                        //MARK: Error
+                        genericGraph(data: appData.errorData, title: " ", ylabel: " ", isDelta: false)
+                            .frame(maxWidth: .infinity)
+                            
+                        Divider()
+                        
+                        genericDataTable(data: appData.errorData,
+                                         title: " ",
+                                         category: " ",
+                                         isDelta: false,
+                                         isAverage: false)
+                            .frame(maxWidth: .infinity)
+                    }
                     
                     HStack {
                         //MARK: DrillDown US West Cluster
@@ -105,16 +128,16 @@ import SwiftData
                                      title: "US West Nodes Cost-Time Graph",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
-
-                            .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                         
                         Divider()
                         
                         genericDataTable(data: appData.drillClusterData,
                                          title: "US West Nodes DataTable",
                                          category: "Node",
-                                         isDelta: false)
-                            .frame(maxWidth: .infinity)
+                                         isDelta: false,
+                                         isAverage: false)
+                        .frame(maxWidth: .infinity)
                     }
                     
                     Spacer(minLength: 150)
@@ -131,20 +154,9 @@ import SwiftData
                         
                         genericDataTable(data: appData.drillNodeData,
                                          title: "US West Node Query DataTable",
-                                         category: "Node", isDelta: false)
-                            .frame(maxWidth: .infinity)
-                    }
-                    
-                    Spacer(minLength: 150)
-                    
-                    HStack {
-                        //MARK: Error
-                        genericGraph(data: appData.errorData, title: " ", ylabel: " ", isDelta: false)
-                            .frame(maxWidth: .infinity)
-                            
-                        Divider()
-                        
-                        genericDataTable(data: appData.errorData, title: " ", category: " ", isDelta: false)
+                                         category: "Node",
+                                         isDelta: false,
+                                         isAverage: false)
                             .frame(maxWidth: .infinity)
                     }
                 }
