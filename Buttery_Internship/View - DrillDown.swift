@@ -17,7 +17,7 @@ public struct DrillDown: View {
             VStack {
                 HStack {
                     Spacer(minLength: 600)
-                    
+                    //MARK: Export buttons
                     VStack {
                         Text("Total Data Export")
                         CSVExport(data: appData.drilldownData)
@@ -28,9 +28,9 @@ public struct DrillDown: View {
                     }
 
                 }
-                
+                //MARK: View switch button
                 VStack {
-                    Text("Drilldown View").font(.title)
+                    Text("Drilldown View").font(.largeTitle)
                     ViewButton()
                 }
                 //MARK: Date and drilldown buttons
@@ -41,10 +41,12 @@ public struct DrillDown: View {
                                         
                     DateFilterButton()
                 }.padding()
-                //MARK: View data structure
+                
+                //MARK: View graph arrangement
                 //Graph and DataTable of a specific cluster and node in cluster
                 //MARK: Specific cluster's node
                 if appData.clusterId != nil && appData.nodeId != nil {
+                    //Total data on left, average data on right
                     HStack {
                         genericGraph(data: appData.drilldownData,
                                      title: "Node \(appData.drillFilterNode.label) Cost-Time Graph",
@@ -59,6 +61,9 @@ public struct DrillDown: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     
+                    Spacer(minLength: 100)
+
+                    //Total data on left, average data on right
                     HStack {
                         genericDataTable(data: appData.drilldownData,
                                          title: "Node \(appData.drillFilterNode.label) Cost DataTable",
@@ -78,6 +83,7 @@ public struct DrillDown: View {
                 //MARK: Specific cluster
                 //Graph and DataTable of a specific cluster
                 else if appData.clusterId != nil {
+                    //Total data on left, average data on right
                     HStack {
                         genericGraph(data: appData.drilldownData,
                                      title: "\(appData.drillFilterCluster.rawValue) Cluster Cost-Time Graph",
@@ -91,6 +97,10 @@ public struct DrillDown: View {
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
+                    
+                    Spacer(minLength: 100)
+
+                    //Total data on left, average data on right
                     HStack {
                         genericDataTable(data: appData.drilldownData,
                                          title: "\(appData.drillFilterCluster.rawValue) Cluster Cost DataTable",
@@ -110,6 +120,7 @@ public struct DrillDown: View {
                 //MARK: All clusters
                 //Graph and DataTable of cluster aggregation
                 else {
+                    //Total data on left, average data on right
                     HStack {
                         genericGraph(data: appData.drilldownData,
                                      title: "Cluster Cost-Time Graph",
@@ -124,7 +135,10 @@ public struct DrillDown: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
                     }
-                    Divider()
+
+                    Spacer(minLength: 100)
+
+                    //Total data on left, average data on right
                     HStack {
                         genericDataTable(data: appData.drilldownData,
                                          title: "Cluster DataTable",
@@ -141,8 +155,6 @@ public struct DrillDown: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-                
-                Spacer()
             }
             .frame(minHeight: 0, maxHeight: .infinity, alignment: .top)
         }

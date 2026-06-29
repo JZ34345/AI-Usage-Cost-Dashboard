@@ -40,6 +40,7 @@ import SwiftData
         } label: {
             Text(appData.dateFilter.rawValue)
         }.menuStyle(.borderedButton)
+         
         //Display for custom input
              .sheet(isPresented: $appBindData.datePicker) {
                 VStack {

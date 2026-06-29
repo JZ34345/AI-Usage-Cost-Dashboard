@@ -13,11 +13,11 @@ import SwiftData
  struct Aggregation: View {
      @Environment(AppData.self) private var appData
     
-    //variables and data structures
+    //MARK: Variables and data structures
     var isDelta: Bool {
         appData.mainFilter == .wow
     }
-    
+    //total cents graph data
     var graphData: [GenericSummary] {
         if appData.mainFilter != .wow {
             return appData.totalGraphData
@@ -25,21 +25,21 @@ import SwiftData
             return appData.WoWGraphData
         }
     }
-     
-     var averageGraphData: [GenericSummary] {
+    //average cents graph data
+    var averageGraphData: [GenericSummary] {
          if appData.mainFilter != .wow {
              return appData.averageTotalGraphData
          } else {
              return appData.averageWoWGraphData
          }
      }
-    //Main seocndary view
+    //Aggregation Secondary view
      var body: some View {
         ScrollView([.vertical]) {
             VStack {
                 HStack {
                     Spacer()
-                    
+                    //MARK: Export button
                     VStack {
                         Text("Total Data Export")
                         CSVExport(data: graphData)
@@ -50,17 +50,21 @@ import SwiftData
                     }
 
                 }
-                
+                //MARK: View Button
                 VStack {
-                    Text("Category Aggregation View").font(.title)
+                    Text("Category Aggregation View").font(.largeTitle)
                     ViewButton()
                 }
-                
+                //MARK: Filter and datefilter buttons
                 HStack {
                     FilterButton()
                     DateFilterButton()
                 }.padding()
+                
+                //MARK: Graph Arrangement
+                //Non delta option
                 if isDelta == false {
+                    //Total data on left, average data on right
                     HStack {
                         genericGraph(data: graphData,
                                      title: "\(appData.mainFilter.rawValue) Cost-Time Graph",
@@ -73,7 +77,10 @@ import SwiftData
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
                     }
-                    Spacer()
+
+                    Spacer(minLength: 100)
+
+                    //Total data on left, average data on right
                     HStack {
                         genericDataTable(data: graphData,
                                          title: "\(appData.mainFilter.rawValue) Cost DataTable",
@@ -88,7 +95,9 @@ import SwiftData
                                          isDelta: false,
                                          isAverage: true)
                     }
+                //Delta option
                 } else {
+                    //Total data on left, average data on right
                     HStack {
                         genericGraph(data: graphData,
                                      title: "\(appData.mainFilter.rawValue) Delta-Time Graph",
@@ -102,7 +111,10 @@ import SwiftData
                                      isDelta: true)
                         
                     }
-                    
+
+                    Spacer(minLength: 100)
+
+                    //Total data on left, average data on right
                     HStack {
                         genericDataTable(data: graphData,
                                          title: "\(appData.mainFilter.rawValue) Delta DataTable",

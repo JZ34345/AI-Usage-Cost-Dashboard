@@ -54,6 +54,7 @@ struct CSVExport: View {
         }
     }
     
+    //Export button UI structure
     var body: some View {
         //Button for csv export in UI
         Button(action: {exportCSV()}) {

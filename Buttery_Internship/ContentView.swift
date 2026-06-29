@@ -22,7 +22,7 @@ struct ContentView: View {
         } else if appData.viewSwitcher == .aggregation {
             Aggregation()
         //Secondary view: focuses on drilldown filtering
-        } else if appData.viewSwitcher == .drilldown {
+        } else if appData.viewSwitcher == .drillDown {
             DrillDown()
         //Optional Graph Showcase. May be removed depending on relavance
         } else if appData.viewSwitcher == .graphShowcase {

@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 import SwiftData
 
-//MARK: Drilldown in progress
+//MARK: Drilldown for cluster button
  struct DrillDownButton: View {
      @Environment(AppData.self) private var appData
     
@@ -20,6 +20,7 @@ import SwiftData
         case europeWest = "West Europe"
     }
     
+     //Main appearance of drilldown button
      var body: some View {
         Menu {
             ForEach(DrillDownClusterOptions.allCases, id: \.self) { option in
@@ -34,6 +35,7 @@ import SwiftData
     }
 }
 
+//MARK: Drilldown for specific node of a cluster
  struct DrillNodeButton: View {
     @Environment(AppData.self) private var appData
     
@@ -49,6 +51,7 @@ import SwiftData
         }
     }
     
+     //Selects specific node by choosing specific cluster first, filtering in process, and returning all records that match specific cluster and node
     var nodeOptions: [DrillDownNodeOptions] {
         guard let clusterId = appData.clusterId else { return [.inital] }
         let nodes = appData.source.nodes.filter { $0.clusterId == clusterId }
@@ -56,6 +59,7 @@ import SwiftData
         
     }
     
+     //Drilldown node button UI structure
      var body: some View {
         Menu {
             ForEach(nodeOptions, id: \.self) { option in

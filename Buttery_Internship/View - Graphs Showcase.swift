@@ -17,14 +17,20 @@ struct GraphShowcase: View {
         ScrollView([.vertical]) {
             VStack {
                 VStack {
-                    Text("Graph Showcase").font(.title)
+                    //MARK: View switch button
+                    Text("Graph Showcase").font(.largeTitle)
                     ViewButton()
                 }
-                
+                //MARK: Filter and date filter button
                 HStack {
                     FilterButton()
                     DateFilterButton()
                 }.padding()
+                
+                Spacer(minLength: 150)
+
+                
+                //MARK: Graph arrangement
                 VStack {
                     HStack {
                         //MARK: Cluster
@@ -108,7 +114,7 @@ struct GraphShowcase: View {
                     Spacer(minLength: 150)
                                         
                     HStack {
-                        //MARK: Error
+                        //MARK: Graph error view
                         genericGraph(data: appData.errorData, title: " ", ylabel: " ", isDelta: false)
                             .frame(maxWidth: .infinity)
                             

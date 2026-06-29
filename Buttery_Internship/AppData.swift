@@ -31,8 +31,6 @@ import Charts
     
     //Arranges filter choice to a data format for use in groupby parameter in makeGenericData function
     func groupByClosure(for category: FilterButton.FilterOptions) -> (records) -> String {
-       
-       
        switch category {
            case .cluster : return {record in self.clusterLookUp[record.clusterId] ?? "Unknown"}
            case .query: return {record in record.queryType}

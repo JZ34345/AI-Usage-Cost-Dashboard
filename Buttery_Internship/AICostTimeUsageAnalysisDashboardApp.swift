@@ -22,7 +22,7 @@ struct AICostTimeUsageAnalysisDashboardApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-    
+    //MARK: Data in use
     @State private var appData: AppData
     @State private var graphData: GraphDataSource
     
@@ -34,6 +34,7 @@ struct AICostTimeUsageAnalysisDashboardApp: App {
 
     var body: some Scene {
         WindowGroup {
+            //ContentView utilizes two observable enviornments: the source data enviornment (GraphData) and the modified data enviornment (AppData)
             ContentView().environment(appData).environment(graphData)
         }
         .modelContainer(sharedModelContainer)

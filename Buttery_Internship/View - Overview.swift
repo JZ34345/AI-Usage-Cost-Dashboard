@@ -13,6 +13,7 @@ import SwiftData
         ScrollView([.vertical]) {
             VStack {
                 HStack {
+                    //MARK: Export buttons
                     Spacer()
                     
                     VStack {
@@ -26,14 +27,19 @@ import SwiftData
 
                 }
                 VStack {
-                    Text("Overview").font(.title)
+                    Text("Overview").font(.largeTitle)
+                    //MARK: View switch button
                     ViewButton()
                 }
                 
                 HStack {
+                    //MARK: Date filter button
                     DateFilterButton()
                 }.padding()
+                
+                //MARK: Graph arrangement
                 HStack {
+                    //Total data on left, WoW data on right
                     genericGraph(data: appData.totalGraphData,
                                  title: "Total Cost-Time Graph",
                                  ylabel: "Cost (Cents)",
@@ -50,6 +56,7 @@ import SwiftData
                 Spacer(minLength: 100)
                 
                 HStack {
+                    //Total data on left, WoW data on right
                     genericDataTable(data: appData.totalGraphData,
                                     title: "Total Cost DataTable",
                                     category: "Total",

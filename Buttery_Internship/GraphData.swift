@@ -17,27 +17,27 @@ struct File: Codable, Sendable {
      let records: [records]
 }
 
- struct clusters: Codable, Identifiable, Sendable {
+struct clusters: Codable, Identifiable, Sendable {
      let id: String
      let name: String
      let region: String
 }
 
- struct nodes: Codable, Identifiable, Sendable {
+struct nodes: Codable, Identifiable, Sendable {
      let id: String
      let clusterId: String
      let name: String
      let size: String
 }
 
- struct models: Codable, Identifiable, Sendable {
+struct models: Codable, Identifiable, Sendable {
      let id: String
      let displayName: String
      let provider: String
      let isLocal: Bool
 }
 
- struct records: Codable, Identifiable, Sendable {
+struct records: Codable, Identifiable, Sendable {
      let id: String
      let day: String
      let clusterId: String
@@ -50,6 +50,7 @@ struct File: Codable, Sendable {
      let totalDurationMs: Int
      let costCents: Double
 }
+
 //MARK: Read JSON File
 @Observable class GraphDataSource {
     private(set) var fileData: File?
@@ -59,6 +60,7 @@ struct File: Codable, Sendable {
         loadFile()
     }
     
+    //Function that decodes, reads, and stores JSON file data into variable
     func loadFile() {
         guard let url = Bundle.main.url(forResource: "sample-data", withExtension: "json") else {
             dataError = "Error: couldn't find file."

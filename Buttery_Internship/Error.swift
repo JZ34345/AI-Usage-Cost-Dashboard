@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-//Error message structure
+//Error message UI structure
 struct Error: View {
     var body: some View {
         VStack() {
