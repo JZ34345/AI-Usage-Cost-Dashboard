@@ -15,6 +15,6 @@ struct Error: View {
                 .foregroundColor(.red)
             Text("No data available")
                 .font(.headline)
-        }
+        }.frame(width: 650, height: 500)
     }
 }

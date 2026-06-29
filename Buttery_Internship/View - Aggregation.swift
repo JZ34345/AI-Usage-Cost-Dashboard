@@ -124,7 +124,7 @@ import SwiftData
                         )
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
-                        genericDataTable(data: graphData,
+                        genericDataTable(data: averageGraphData,
                                          title: "\(appData.mainFilter.rawValue) Average Delta DataTable",
                                          category: appData.mainFilter.rawValue,
                                          isDelta: true,

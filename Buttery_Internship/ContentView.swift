@@ -14,7 +14,12 @@ struct ContentView: View {
     @Query private var items: [Item]
 
     var body: some View {
-
+        //TODO: Improve loading time and speed. Add a loading indicator of somesorts if it exceeds some sort of time (Done)
+        //TODO: Add a provider in graphData to handle file data usage. Add in flexibility to file lookup
+        //TODO: Start with some basic testing structure.
+        //TODO: Improve on finer design details such as titles and labels (Done, Check again)
+        
+        
         //Overview page and graph types demostration
         if appData.viewSwitcher == .overview {
             Overview()

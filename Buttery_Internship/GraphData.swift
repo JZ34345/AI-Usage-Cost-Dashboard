@@ -52,9 +52,11 @@ struct records: Codable, Identifiable, Sendable {
 }
 
 //MARK: Read JSON File
+// add a provider to the loadFile to differenciate between test and product information.
 @Observable class GraphDataSource {
     private(set) var fileData: File?
     private(set) var dataError: String?
+    private(set) var cachedDates: [String: Date] = [:]
     
     init() {
         loadFile()
@@ -62,6 +64,7 @@ struct records: Codable, Identifiable, Sendable {
     
     //Function that decodes, reads, and stores JSON file data into variable
     func loadFile() {
+        //Make this more flexible to more files
         guard let url = Bundle.main.url(forResource: "sample-data", withExtension: "json") else {
             dataError = "Error: couldn't find file."
             return
@@ -76,9 +79,21 @@ struct records: Codable, Identifiable, Sendable {
         let decoder = JSONDecoder()
         
         do {
-            fileData = try decoder.decode(File.self, from: data)
+            let decoded = try decoder.decode(File.self, from: data)
+            fileData = decoded
+            
+            let formatter = ISO8601DateFormatter()
+            let uniqueDays = Set(decoded.records.map { $0.day })
+            cachedDates = Dictionary(uniqueKeysWithValues: uniqueDays.map {($0, formatter.date(from: $0) ?? Date())})
+            
         } catch {
             dataError = "Failed to decode"
+        }
+        
+        if let fileData {
+            let formatter = ISO8601DateFormatter()
+            let uniqueDays = Set(fileData.records.map { $0.day })
+            cachedDates = Dictionary(uniqueKeysWithValues: uniqueDays.map {($0, formatter.date(from: $0) ?? Date())})
         }
     }
     

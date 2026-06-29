@@ -72,7 +72,7 @@ public struct DrillDown: View {
                                          isAverage: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
-                        genericDataTable(data: appData.drilldownData,
+                        genericDataTable(data: appData.drilldownAverageData,
                                          title: "Node \(appData.drillFilterNode.label) Average Cost DataTable",
                                          category: "Query Type",
                                          isDelta: false,
@@ -129,7 +129,7 @@ public struct DrillDown: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "Cluster Cost-Time Graph",
+                                     title: "Cluster Average Cost-Time Graph",
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -141,7 +141,7 @@ public struct DrillDown: View {
                     //Total data on left, average data on right
                     HStack {
                         genericDataTable(data: appData.drilldownData,
-                                         title: "Cluster DataTable",
+                                         title: "Cluster Cost DataTable",
                                          category: "Cluster",
                                          isDelta: false,
                                          isAverage: false)

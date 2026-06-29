@@ -58,21 +58,21 @@ import Charts
     }
 
      func dateRangeFilter(option: DateFilterButton.DataFilterOptions, start: String, end: String) -> (records) -> Bool {
-        let formatter = ISO8601DateFormatter()
-        let calendar = Calendar.current
-         let mostRecentDate = source.records.compactMap { formatter.date(from: $0.day) }.max() ?? Date()
+         var calendar = Calendar.current
+         calendar.timeZone = TimeZone(identifier: "UTC")!
+         let mostRecentDate = source.records.compactMap { source.cachedDates[$0.day] }.max() ?? Date()
         
         //arranges each filter choice to a filter in format for use in makeGenericData function
         switch option {
         case .seven:
             let cutoff = calendar.date(byAdding: .day, value: -7, to: mostRecentDate)!
-            return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
+            return {record in (self.source.cachedDates[record.day] ?? .distantPast) >= cutoff}
         case .thirty:
             let cutoff = calendar.date(byAdding: .day, value: -30, to: mostRecentDate)!
-            return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
+            return {record in (self.source.cachedDates[record.day] ?? .distantPast) >= cutoff}
         case .ninety:
             let cutoff = calendar.date(byAdding: .day, value: -90, to: mostRecentDate)!
-            return {record in (formatter.date(from: record.day) ?? .distantPast) >= cutoff}
+            return {record in (self.source.cachedDates[record.day] ?? .distantPast) >= cutoff}
         case .custom:
             let dayFormatter = DateFormatter()
             dayFormatter.dateFormat = "yyyy/MM/dd"
@@ -83,7 +83,7 @@ import Charts
                 return {_ in true}
             }
             return {record in
-                let date = formatter.date(from: record.day) ?? .distantPast
+                let date = self.source.cachedDates[record.day] ?? .distantPast
                 return date >= start && date <= end
             }
         }
@@ -116,6 +116,7 @@ import Charts
     //MARK: Graph data templates
     var totalGraphData: [GenericSummary] {
         makeGenericGraph(record: source.records,
+                         selectedDates: source.cachedDates,
                          filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
                          groupBy: groupByClosure(for: mainFilter),
                          metric: {($0.costCents * 100).rounded() / 100},
@@ -126,19 +127,21 @@ import Charts
     
     var WoWGraphData: [GenericSummary] {
         makeGenericGraph(record: source.records,
-                        filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                        groupBy: groupByClosure(for: mainFilter),
-                        metric: {($0.costCents * 100).rounded() / 100},
-                        dayLimit: dateByClosure(for: dateFilter),
-                        applyDayLimit: dateFilter != .custom,
-                        groupWeek: true,
-                        delta: true
+                         selectedDates: source.cachedDates,
+                         filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                         groupBy: groupByClosure(for: mainFilter),
+                         metric: {($0.costCents * 100).rounded() / 100},
+                         dayLimit: dateByClosure(for: dateFilter),
+                         applyDayLimit: dateFilter != .custom,
+                         groupWeek: true,
+                         delta: true
         )
     }
     
     //MARK: Average Graph data templates
     var averageTotalGraphData: [GenericSummary] {
         makeGenericGraph(record: source.records,
+                         selectedDates: source.cachedDates,
                          filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
                          groupBy: groupByClosure(for: mainFilter),
                          metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
@@ -149,13 +152,14 @@ import Charts
     
     var averageWoWGraphData: [GenericSummary] {
         makeGenericGraph(record: source.records,
-                        filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                        groupBy: groupByClosure(for: mainFilter),
-                        metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
-                        dayLimit: dateByClosure(for: dateFilter),
-                        applyDayLimit: dateFilter != .custom,
-                        groupWeek: true,
-                        delta: true
+                         selectedDates: source.cachedDates,
+                         filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                         groupBy: groupByClosure(for: mainFilter),
+                         metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
+                         dayLimit: dateByClosure(for: dateFilter),
+                         applyDayLimit: dateFilter != .custom,
+                         groupWeek: true,
+                         delta: true
         )
     }
     
@@ -169,6 +173,7 @@ import Charts
         //Filter by specific cluster and node in that cluster
         if let clusterId = clusterId, let nodeId = nodeId {
             return makeGenericGraph(record: source.records,
+                                    selectedDates: source.cachedDates,
                                     filter: {records in dates(records) &&
                                              records.clusterId == clusterId &&
                                              records.nodeId == nodeId},
@@ -181,6 +186,7 @@ import Charts
         else if let clusterId = clusterId {
             let nodeLookUp = Dictionary(uniqueKeysWithValues: source.nodes.map {($0.id, $0.name)})
             return makeGenericGraph(record: source.records,
+                                    selectedDates: source.cachedDates,
                                     filter: {records in dates(records) && records.clusterId == clusterId},
                                     groupBy: {records in nodeLookUp[records.nodeId] ?? "Unknown"},
                                     metric: {($0.costCents * 100).rounded() / 100},
@@ -190,6 +196,7 @@ import Charts
         else {
             let clusterLookUp = Dictionary(uniqueKeysWithValues: source.clusters.map { ($0.id, $0.name) })
             return makeGenericGraph(record: source.records,
+                                    selectedDates: source.cachedDates,
                                     filter: {records in dates(records)},
                                     groupBy: { record in clusterLookUp[record.clusterId] ?? "Unknown" },
                                     metric: {($0.costCents * 100).rounded() / 100},
@@ -206,6 +213,7 @@ import Charts
         //Filter by specific cluster and node in that cluster
         if let clusterId = clusterId, let nodeId = nodeId {
             return makeGenericGraph(record: source.records,
+                                    selectedDates: source.cachedDates,
                                     filter: {records in dates(records) &&
                                              records.clusterId == clusterId &&
                                              records.nodeId == nodeId},
@@ -218,6 +226,7 @@ import Charts
         else if let clusterId = clusterId {
             let nodeLookUp = Dictionary(uniqueKeysWithValues: source.nodes.map {($0.id, $0.name)})
             return makeGenericGraph(record: source.records,
+                                    selectedDates: source.cachedDates,
                                     filter: {records in dates(records) && records.clusterId == clusterId},
                                     groupBy: {records in nodeLookUp[records.nodeId] ?? "Unknown"},
                                     metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
@@ -227,6 +236,7 @@ import Charts
         else {
             let clusterLookUp = Dictionary(uniqueKeysWithValues: source.clusters.map { ($0.id, $0.name) })
             return makeGenericGraph(record: source.records,
+                                    selectedDates: source.cachedDates,
                                     filter: {records in dates(records)},
                                     groupBy: { record in clusterLookUp[record.clusterId] ?? "Unknown" },
                                     metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
@@ -239,6 +249,7 @@ import Charts
     //MARK: Graph Showcase graphs
     var clusterAverageGraphData: [GenericSummary] {
         return makeGenericGraph(record: source.records,
+                                selectedDates: source.cachedDates,
                                 groupBy: {clusterLookUp[$0.clusterId] ?? "Unknown"},
                                 metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
                                 dayLimit: 30 )
@@ -246,18 +257,21 @@ import Charts
     
     var clusterGraphData: [GenericSummary] {
         return makeGenericGraph(record: source.records,
+                                selectedDates: source.cachedDates,
                                 groupBy: {clusterLookUp[$0.clusterId] ?? "Unknown"},
                                 metric: {($0.costCents * 100).rounded() / 100}, dayLimit: 30 )
     }
     
     var modelAverageGraphData: [GenericSummary] {
         return makeGenericGraph(record: source.records,
+                                selectedDates: source.cachedDates,
                                 groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
                                 metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100}, dayLimit: 30)
     }
     
     var modelGraphData: [GenericSummary] {
         return makeGenericGraph(record: source.records,
+                                selectedDates: source.cachedDates,
                                 groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
                                 metric: {($0.costCents * 100).rounded() / 100}, dayLimit: 30)
     }
@@ -266,6 +280,7 @@ import Charts
         let target = source.clusters.first {$0.region == "us-west-1"}?.id
         
         return makeGenericGraph(record: source.records,
+                                selectedDates: source.cachedDates,
                                 filter: {record in record.clusterId == target },
                                 groupBy: {nodeLookUp[$0.nodeId] ?? "Unknown"},
                                 metric: {($0.costCents * 100).rounded() / 100},
@@ -277,6 +292,7 @@ import Charts
         let target2 = source.nodes.first {$0.name == "usw-medium-02"}?.id
 
         return makeGenericGraph(record: source.records,
+                                selectedDates: source.cachedDates,
                                 filter: {record in record.clusterId == target && record.nodeId == target2 },
                                 groupBy: {records in records.queryType},
                                 metric: {($0.costCents * 100).rounded() / 100},
@@ -284,6 +300,6 @@ import Charts
     }
     
     var errorData: [GenericSummary] {
-        return makeGenericGraph(record:source.records, metric: {$0.costCents}, dayLimit: 0)
+        return makeGenericGraph(record:source.records, selectedDates: source.cachedDates, metric: {$0.costCents}, dayLimit: 0)
     }
 }

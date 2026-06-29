@@ -21,6 +21,7 @@ struct GenericSummary: Identifiable {
 //MARK: Generic aggregation function
 func makeGenericGraph(
     record: [records],
+    selectedDates: [String: Date],
     filter: (records) -> Bool = {_ in true},
     groupBy category: (records) -> String = { _ in "Total"},
     metric: @escaping (records) -> Double,
@@ -29,12 +30,12 @@ func makeGenericGraph(
     groupWeek: Bool = false,
     delta: Bool = false
 ) -> [GenericSummary] {
-
-    //formatter for Date datatype
-    let formatter = ISO8601DateFormatter()
+    
+    var calendar = Calendar.current
+    calendar.timeZone = TimeZone(identifier: "UTC")!
     
     struct GroupKey: Hashable {
-        let day: String
+        let date: Date
         let category: String
     }
     
@@ -43,14 +44,21 @@ func makeGenericGraph(
     
     //grouping by a datatype
     let grouped = Dictionary(grouping: filterRecords) { record -> GroupKey in
-        GroupKey(day: record.day, category: category(record))
+        let date = selectedDates[record.day] ?? Date()
+        let week: Date
+        if groupWeek {
+            week = calendar.dateInterval(of: .weekOfYear, for: date)?.start ?? date
+        } else {
+            week = calendar.startOfDay(for: date)
+        }
+        
+        return GroupKey(date: week, category: category(record))
     }
     
     //aggregation by metric parameter input
     let summed = grouped.map {key, group -> GenericSummary in
-        let date = formatter.date(from: key.day) ?? Date()
         let total  = group.reduce(0.0) {$0 + metric($1)}
-        return GenericSummary(day: date, category: key.category, cost: total)
+        return GenericSummary(day: key.date, category: key.category, cost: total)
     }
     
     //data sorted by ascending dates
@@ -101,12 +109,33 @@ struct genericGraph: View {
     }
     
     var tickStride: Int {
-        let dayCount = data.map {$0.day}.count
+        let dayCount = Set(data.map {$0.day}).count
         switch dayCount {
         case 0...10: return 1
         case 11...30: return 5
         case 31...60: return 10
-        default: return 14
+        default: return max(1, dayCount / 6)
+        }
+    }
+    
+    var weekTickStride: Int {
+        let weekCount = Set(data.map {$0.day}).count
+        switch weekCount {
+        case 0...8: return 1
+        case 9...16: return 2
+        case 17...26: return 4
+        default: return max(1, weekCount / 6)
+        }
+    }
+    
+    var weekTicks: [Date] {
+        let sorted = Array(Set(data.map { $0.day })).sorted()
+        return sorted.enumerated().compactMap { index, date in
+            if index % weekTickStride == 0 {
+                date
+            } else {
+                nil
+            }
         }
     }
     
@@ -134,15 +163,30 @@ struct genericGraph: View {
                 //x-axis adjustments
                 .chartXAxisLabel("Date", alignment: .center)
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: .day, count: tickStride)) { value in
-                        AxisGridLine()
-                        AxisTick()
-                        if let date = value.as(Date.self) {
-                            AxisValueLabel(anchor: .top) {
-                                Text(date, format: .dateTime.month(.abbreviated).day())
+                    if isDelta && appData.dateFilter != .seven {
+                        AxisMarks(values: weekTicks) { value in
+                            AxisGridLine()
+                            AxisTick()
+                            if let date = value.as(Date.self) {
+                                AxisValueLabel(anchor: .top) {
+                                    Text(date, format: .dateTime.month(.abbreviated).day())
+                                }
+                            } else {
+                                AxisValueLabel()
+                            }
+                        }
+                    } else {
+                        AxisMarks(values: .stride(by: .day, count: tickStride)) { value in
+                            AxisGridLine()
+                            AxisTick()
+                            if let date = value.as(Date.self) {
+                                AxisValueLabel(anchor: .top) {
+                                    Text(date, format: .dateTime.month(.abbreviated).day())
+                                }
                             }
                         }
                     }
+                    
                 }
                 //y-axis adjustments
                 .chartYAxisLabel(ylabel, position: .trailing)
@@ -156,7 +200,7 @@ struct genericGraph: View {
     }
 }
 
-//MARK: Generic DataTable function (Issue with WoW seperate column names)
+//MARK: Generic DataTable function
 struct genericDataTable: View {
     let data: [GenericSummary]
     let title: String
