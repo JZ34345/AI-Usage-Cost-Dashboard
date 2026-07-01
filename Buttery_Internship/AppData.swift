@@ -118,7 +118,6 @@ import Charts
         makeGenericGraph(record: source.records,
                          selectedDates: source.cachedDates,
                          filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                         groupBy: groupByClosure(for: mainFilter),
                          metric: {($0.costCents * 100).rounded() / 100},
                          dayLimit: dateByClosure(for: dateFilter),
                          applyDayLimit: dateFilter != .custom
@@ -126,6 +125,29 @@ import Charts
     }
     
     var WoWGraphData: [GenericSummary] {
+        makeGenericGraph(record: source.records,
+                         selectedDates: source.cachedDates,
+                         filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                         metric: {($0.costCents * 100).rounded() / 100},
+                         dayLimit: dateByClosure(for: dateFilter),
+                         applyDayLimit: dateFilter != .custom,
+                         groupWeek: true,
+                         delta: true
+        )
+    }
+    
+    var categoryGraphData: [GenericSummary] {
+        makeGenericGraph(record: source.records,
+                         selectedDates: source.cachedDates,
+                         filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                         groupBy: groupByClosure(for: mainFilter),
+                         metric: {($0.costCents * 100).rounded() / 100},
+                         dayLimit: dateByClosure(for: dateFilter),
+                         applyDayLimit: dateFilter != .custom
+        )
+    }
+    
+    var categoryWoWGraphData: [GenericSummary] {
         makeGenericGraph(record: source.records,
                          selectedDates: source.cachedDates,
                          filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),

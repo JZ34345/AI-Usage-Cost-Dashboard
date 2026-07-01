@@ -15,7 +15,6 @@ import SwiftData
                 HStack {
                     //MARK: Export buttons
                     Spacer()
-                    
                     VStack {
                         Text("Total Data Export")
                         CSVExport(data: appData.totalGraphData)
@@ -41,13 +40,13 @@ import SwiftData
                 HStack {
                     //Total data on left, WoW data on right
                     genericGraph(data: appData.totalGraphData,
-                                 title: "Total Cost-Time Graph",
+                                 title: "Total Cost-Time Graph (2026)",
                                  ylabel: "Cost (Cents)",
                                  isDelta: false)
                     .frame(maxWidth: .infinity)
                     Divider()
                     genericGraph(data: appData.WoWGraphData,
-                                 title: "WoW Delta Cost-Time Graph",
+                                 title: "WoW Delta Cost-Time Graph (2026)",
                                  ylabel: "Cost (Cents)",
                                  isDelta: true)
                         .frame(maxWidth: .infinity)

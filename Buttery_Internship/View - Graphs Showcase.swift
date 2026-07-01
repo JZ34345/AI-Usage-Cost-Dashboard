@@ -115,7 +115,7 @@ struct GraphShowcase: View {
                                         
                     HStack {
                         //MARK: Graph error view
-                        genericGraph(data: appData.errorData, title: " ", ylabel: " ", isDelta: false)
+                        genericGraph(data: appData.errorData, title: "(2026)", ylabel: " ", isDelta: false)
                             .frame(maxWidth: .infinity)
                             
                         Divider()
@@ -131,7 +131,7 @@ struct GraphShowcase: View {
                     HStack {
                         //MARK: DrillDown US West Cluster
                         genericGraph(data: appData.drillClusterData,
-                                     title: "US West Nodes Cost-Time Graph",
+                                     title: "US West Nodes Cost-Time Graph (2026)",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity)
@@ -151,7 +151,7 @@ struct GraphShowcase: View {
                     HStack {
                         //MARK: DrillDown US West Node
                         genericGraph(data: appData.drillNodeData,
-                                     title: "US West Node Query Cost-Time Graph",
+                                     title: "US West Node Query Cost-Time Graph (2026)",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
                             .frame(maxWidth: .infinity)

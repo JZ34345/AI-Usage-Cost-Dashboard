@@ -20,9 +20,9 @@ import SwiftData
     //total cents graph data
     var graphData: [GenericSummary] {
         if appData.mainFilter != .wow {
-            return appData.totalGraphData
+            return appData.categoryGraphData
         } else {
-            return appData.WoWGraphData
+            return appData.categoryWoWGraphData
         }
     }
     //average cents graph data
@@ -38,21 +38,22 @@ import SwiftData
         ScrollView([.vertical]) {
             VStack {
                 HStack {
-                    Spacer()
+                    
                     //MARK: Export button
+                    Spacer()
                     VStack {
                         Text("Total Data Export")
                         CSVExport(data: graphData)
                     }
                     VStack {
-                        Text("Average Data Export")
+                        Text("Avg Data Export")
                         CSVExport(data: averageGraphData)
                     }
 
                 }
                 //MARK: View Button
                 VStack {
-                    Text("Category Aggregation View").font(.largeTitle)
+                    Text("\(appData.mainFilter.rawValue) Aggregation View").font(.largeTitle)
                     ViewButton()
                 }
                 //MARK: Filter and datefilter buttons
@@ -67,13 +68,13 @@ import SwiftData
                     //Total data on left, average data on right
                     HStack {
                         genericGraph(data: graphData,
-                                     title: "\(appData.mainFilter.rawValue) Cost-Time Graph",
+                                     title: "\(appData.mainFilter.rawValue) Cost-Time Graph (2026)",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
                         genericGraph(data: averageGraphData,
-                                     title: "\(appData.mainFilter.rawValue) Average Cost-Time Graph",
+                                     title: "\(appData.mainFilter.rawValue) Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
                     }
@@ -100,13 +101,13 @@ import SwiftData
                     //Total data on left, average data on right
                     HStack {
                         genericGraph(data: graphData,
-                                     title: "\(appData.mainFilter.rawValue) Delta-Time Graph",
+                                     title: "\(appData.mainFilter.rawValue) Delta-Time Graph (2026)",
                                      ylabel: "Delta (Cents)",
                                      isDelta: true)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
                         genericGraph(data: averageGraphData,
-                                     title: "\(appData.mainFilter.rawValue) Average Delta-Time Graph",
+                                     title: "\(appData.mainFilter.rawValue) Average Delta-Time Graph (2026)",
                                      ylabel: "Average Delta (Cents)",
                                      isDelta: true)
                         

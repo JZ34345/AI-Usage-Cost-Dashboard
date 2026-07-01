@@ -16,14 +16,14 @@ public struct DrillDown: View {
         ScrollView([.vertical]) {
             VStack {
                 HStack {
-                    Spacer(minLength: 600)
                     //MARK: Export buttons
+                    Spacer()
                     VStack {
                         Text("Total Data Export")
                         CSVExport(data: appData.drilldownData)
                     }
                     VStack {
-                        Text("Average Data Export")
+                        Text("Avg Data Export")
                         CSVExport(data: appData.drilldownAverageData)
                     }
 
@@ -49,13 +49,13 @@ public struct DrillDown: View {
                     //Total data on left, average data on right
                     HStack {
                         genericGraph(data: appData.drilldownData,
-                                     title: "Node \(appData.drillFilterNode.label) Cost-Time Graph",
+                                     title: "Node \(appData.drillFilterNode.label) Cost-Time Graph (2026)",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "Node \(appData.drillFilterNode.label) Cost-Time Average Graph",
+                                     title: "Node \(appData.drillFilterNode.label) Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -86,13 +86,13 @@ public struct DrillDown: View {
                     //Total data on left, average data on right
                     HStack {
                         genericGraph(data: appData.drilldownData,
-                                     title: "\(appData.drillFilterCluster.rawValue) Cluster Cost-Time Graph",
+                                     title: "\(appData.drillFilterCluster.rawValue) Cluster Cost-Time Graph (2026)",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "\(appData.drillFilterCluster.rawValue) Cluster Cost-Time Average Graph",
+                                     title: "\(appData.drillFilterCluster.rawValue) Cluster Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -123,13 +123,13 @@ public struct DrillDown: View {
                     //Total data on left, average data on right
                     HStack {
                         genericGraph(data: appData.drilldownData,
-                                     title: "Cluster Cost-Time Graph",
+                                     title: "Cluster Cost-Time Graph (2026)",
                                      ylabel: "Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         Divider()
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "Cluster Average Cost-Time Graph",
+                                     title: "Cluster Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
