@@ -134,4 +134,54 @@ class DateFilterTests: XCTestCase {
     }
 }
 
+class GraphDataTests: XCTestCase {
+    func testLoadSucess() {
+        let data = GraphDataSource()
+        XCTAssertNotNil(data.fileData, "File should load correctly")
+        XCTAssertNil(data.dataError, "Error should be nil")
+    }
+    
+    func testLoadFail() {
+        struct BadScenario: FileProvider {
+            var fileName: String {"Nil"}
+            var fileExtension: String {"json"}
+            var displayName: String {"None"}
+        }
+        
+        let data = GraphDataSource(provider: BadScenario())
+        XCTAssertNil(data.fileData, "File should not load correctly")
+        XCTAssertNotNil(data.dataError, "Error should be displayed")
+    }
+    
+    func testParsedDates() {
+        let data = GraphDataSource()
+        XCTAssertFalse(data.records.isEmpty, "{Parsed dates should not be empty")
+    }
+    
+    func testRecordsAccessible() {
+        let data = GraphDataSource()
+        XCTAssertNotNil(data.records.first, "{Records should be accessible}")
+    }
+}
 
+//Doesn't display test suceeds but the notice does show up that it works
+class UITests: XCTestCase {
+    let app = XCUIApplication()
+    
+    override func setUp() {
+        continueAfterFailure = false
+        app.launch()
+    }
+    
+    func testFilterExist() {
+        XCTAssertTrue(app.buttons["Total"].isEnabled, "Filter button should be ready for use")
+    }
+    
+    func testDateFilterExist() {
+        XCTAssertTrue(app.buttons["7 Days"].isEnabled, "Date filter should be ready for use")
+    }
+    
+    func testExportExist() {
+        XCTAssertTrue(app.buttons["Export File"].isEnabled, "Export should be ready for use")
+    }
+}
