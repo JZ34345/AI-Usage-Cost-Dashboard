@@ -14,6 +14,7 @@ import SwiftData
     //variable for what current filter choice is
     @Environment(AppData.self) private var appData
 
+        //MARK: Options
     //filter choices
      enum FilterOptions: String, CaseIterable {
         case total = "Total"
@@ -23,7 +24,7 @@ import SwiftData
         case wow = "WoW"
     }
     
-    //filter UI structure
+        //MARK: UI Structure
      var body: some View {
         Menu {
             ForEach(FilterOptions.allCases, id: \.self) { option in

@@ -1,14 +1,17 @@
 //
-//  Buttery_InternshipTests.swift
-//  Buttery_InternshipTests
+//  MakeGraphDataTests.swift
+//  Buttery_Internship
 //
-//  Created by Jason Zhang on 6/15/26.
+//  Created by Jason Zhang on 7/4/26.
 //
-
 import XCTest
 @testable import Buttery_Internship
 
+//MARK: makeGenericGraph function tests
 class MakeGenericGraphTests: XCTestCase {
+    
+    
+        //MARK: Test Records
     let testRecords: [records] = [
         records(id: "1", day: "2026-08-09T00:00:00Z", clusterId: "c1", nodeId: "n1", queryType: "chat",
                 modelId: "m1", queryCount: 500, tokensIn: 1000, tokensOut: 2000, totalDurationMs: 4566, costCents: 500.0),
@@ -18,7 +21,7 @@ class MakeGenericGraphTests: XCTestCase {
                 modelId: "m2", queryCount: 756, tokensIn: 1532, tokensOut: 3467, totalDurationMs: 1354, costCents: 1000.0)
     
     ]
-    
+        //MARK: Test Dates
     let testSelectedDates: [String: Date] = {
         let formatter = ISO8601DateFormatter()
         return ["2026-08-09T00:00:00Z": formatter.date(from: "2026-08-09T00:00:00Z")!,
@@ -26,7 +29,7 @@ class MakeGenericGraphTests: XCTestCase {
                 "2026-08-11T00:00:00Z": formatter.date(from: "2026-08-11T00:00:00Z")!
         ]
     }()
-    
+        //MARK: Tests
     func testTotalCostAggregation() {
         let result = makeGenericGraph(
             record: testRecords, selectedDates: testSelectedDates, metric: {$0.costCents}, dayLimit: 30).reduce(0) {$0 + $1.cost}
@@ -82,106 +85,5 @@ class MakeGenericGraphTests: XCTestCase {
         let dates = result.map {$0.day}
         
         XCTAssertEqual(dates, dates.sorted(), "Results should be sorted")
-    }
-}
-
-class DateFilterTests: XCTestCase {
-    var graphData: GraphDataSource!
-    var appData: AppData!
-    
-    override func setUp() {
-        graphData = GraphDataSource()
-        appData = AppData(source: graphData)
-    }
-    
-    func testDateFilterChoices() {
-        let all = appData.dateRangeFilter(option: .ninety, start: "", end: "")
-        let thirty = appData.dateRangeFilter(option: .thirty, start: "", end: "")
-        let seven = appData.dateRangeFilter(option: .seven, start: "", end: "")
-        
-        let allCount = graphData.records.filter(all).count
-        let thirtyCount = graphData.records.filter(thirty).count
-        let sevenCount = graphData.records.filter(seven).count
-        
-        XCTAssertLessThan(thirtyCount, allCount, "Thirty days should be less than ninety days")
-        XCTAssertLessThan(sevenCount, allCount, "Seven days should be less than ninety days")
-        XCTAssertLessThan(sevenCount, thirtyCount, "Seven days should be less than thirty days")
-
-    }
-    
-    func testCustomDateRange() {
-        let filter = appData.dateRangeFilter(option: .custom, start: "2026-08-09", end: "2026-08-11")
-        let filtered = graphData.records.filter(filter)
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let startDate = formatter.date(from: "2026-08-09")!
-        let endDate = formatter.date(from: "2026-08-11")!
-
-        for record in filtered {
-            let date = graphData.cachedDates[record.day] ?? .distantPast
-            XCTAssertGreaterThanOrEqual(date, startDate, "Record date should be same or after start date")
-            XCTAssertLessThanOrEqual(date, endDate, "Record date should be same or before end date")
-
-        }
-    }
-    
-    func testInvalidCustomDate() {
-        let filter = appData.dateRangeFilter(option: .custom, start: "invalid", end: "invalid")
-        let filtered = graphData.records.filter(filter)
-        
-        XCTAssertEqual(filtered.count, graphData.records.count, "Invalid custom dates should return nothing")
-    }
-}
-
-class GraphDataTests: XCTestCase {
-    func testLoadSucess() {
-        let data = GraphDataSource()
-        XCTAssertNotNil(data.fileData, "File should load correctly")
-        XCTAssertNil(data.dataError, "Error should be nil")
-    }
-    
-    func testLoadFail() {
-        struct BadScenario: FileProvider {
-            var fileName: String {"Nil"}
-            var fileExtension: String {"json"}
-            var displayName: String {"None"}
-        }
-        
-        let data = GraphDataSource(provider: BadScenario())
-        XCTAssertNil(data.fileData, "File should not load correctly")
-        XCTAssertNotNil(data.dataError, "Error should be displayed")
-    }
-    
-    func testParsedDates() {
-        let data = GraphDataSource()
-        XCTAssertFalse(data.records.isEmpty, "{Parsed dates should not be empty")
-    }
-    
-    func testRecordsAccessible() {
-        let data = GraphDataSource()
-        XCTAssertNotNil(data.records.first, "{Records should be accessible}")
-    }
-}
-
-//Doesn't display test suceeds but the notice does show up that it works
-class UITests: XCTestCase {
-    let app = XCUIApplication()
-    
-    override func setUp() {
-        continueAfterFailure = false
-        app.launch()
-    }
-    
-    func testFilterExist() {
-        XCTAssertTrue(app.buttons["Total"].isEnabled, "Filter button should be ready for use")
-    }
-    
-    func testDateFilterExist() {
-        XCTAssertTrue(app.buttons["7 Days"].isEnabled, "Date filter should be ready for use")
-    }
-    
-    func testExportExist() {
-        XCTAssertTrue(app.buttons["Export File"].isEnabled, "Export should be ready for use")
     }
 }

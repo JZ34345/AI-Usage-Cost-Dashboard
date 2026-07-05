@@ -27,7 +27,7 @@ struct AICostTimeUsageAnalysisDashboardApp: App {
     @State private var graphData: GraphDataSource
     
     init() {
-        let source = GraphDataSource(provider: FileCases.sampleData)
+        let source = GraphDataSource(provider: BundleFileProvider(fileName: "sample-data"))
         _appData = State(initialValue: AppData(source: source))
         _graphData = State(initialValue: source)
     }

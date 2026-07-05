@@ -8,8 +8,7 @@ import Cocoa
 import Cocoa
 import SwiftUI
 import Charts
-import SwiftData
-
+//MARK: Graph Showcase
 struct GraphShowcase: View {
     @Environment(AppData.self) private var appData
     
@@ -115,7 +114,7 @@ struct GraphShowcase: View {
                                         
                     HStack {
                         //MARK: Graph error view
-                        genericGraph(data: appData.errorData, title: "(2026)", ylabel: " ", isDelta: false)
+                        genericGraph(data: appData.errorData, title: " ", ylabel: " ", isDelta: false)
                             .frame(maxWidth: .infinity)
                             
                         Divider()

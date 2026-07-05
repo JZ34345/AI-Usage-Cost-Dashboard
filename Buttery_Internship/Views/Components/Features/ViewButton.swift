@@ -8,19 +8,19 @@ import Cocoa
 import SwiftUI
 import Charts
 import SwiftData
-
+//MARK: View Button
 //Button created that allows switching between overview, aggregation, drilldown, and graph showcase views
 struct ViewButton: View {
     @Environment(AppData.self) private var appData
     
+        //MARK: Options
     enum ViewSwitcher: String, CaseIterable {
         case overview = "Overview"
         case aggregation = "Aggregation"
         case drillDown = "DrillDown"
         case graphShowcase = "Graph Showcase"
     }
-    
-    //View switch UI structure
+        //MARK: UI Structure
     var body: some View {
         Menu {
             ForEach(ViewSwitcher.allCases, id: \.self) {option in

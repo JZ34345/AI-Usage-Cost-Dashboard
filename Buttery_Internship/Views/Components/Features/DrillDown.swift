@@ -9,17 +9,18 @@ import SwiftUI
 import Charts
 import SwiftData
 
-//MARK: Drilldown for cluster button
+//MARK: Drilldown for Cluster Button
  struct DrillDownButton: View {
      @Environment(AppData.self) private var appData
     
+        //MARK: Options
      enum DrillDownClusterOptions: String, CaseIterable {
         case inital = "DrillDown: Clusters"
         case usWest = "US West"
         case usEast = "US East"
         case europeWest = "West Europe"
     }
-    
+        //MARK: UI Structure
      //Main appearance of drilldown button
      var body: some View {
         Menu {
@@ -35,10 +36,11 @@ import SwiftData
     }
 }
 
-//MARK: Drilldown for specific node of a cluster
+//MARK: Drilldown for Specific Node
  struct DrillNodeButton: View {
     @Environment(AppData.self) private var appData
-    
+     
+        //MARK: Options
      enum DrillDownNodeOptions: Hashable {
         case inital
         case node(id: String, name: String)
@@ -59,7 +61,7 @@ import SwiftData
         
     }
     
-     //Drilldown node button UI structure
+        //MARK: UI Structure
      var body: some View {
         Menu {
             ForEach(nodeOptions, id: \.self) { option in

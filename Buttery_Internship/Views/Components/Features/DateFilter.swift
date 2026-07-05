@@ -13,6 +13,7 @@ import SwiftData
  struct DateFilterButton: View {
      @Environment(AppData.self) private var appData
      
+        //MARK: Options
     //date filter options
      enum DataFilterOptions: String, CaseIterable {
         case seven = "7 Days"
@@ -24,7 +25,7 @@ import SwiftData
      var body: some View {
         @Bindable var appBindData = appData
          
-         
+            //MARK: UI Structure
         //UI appearance for date filter
         Menu {
             ForEach(DataFilterOptions.allCases, id: \.self) { option in

@@ -10,7 +10,7 @@ import Charts
 import UniformTypeIdentifiers
 import AppKit
 
-//MARK: CSV export 
+//MARK: CSV Export
 struct CSVExport: View {
     @Environment(AppData.self) private var appData
     
@@ -20,7 +20,7 @@ struct CSVExport: View {
     init(data: [GenericSummary]) {
         self.data = data
     }
-    
+        //MARK: Export Function
     private func exportCSV() {
         //csv variable includes titles
         var csv = "Day,Category,Cost\n"
@@ -53,7 +53,7 @@ struct CSVExport: View {
             }
         }
     }
-    
+        //MARK: UI Structure
     //Export button UI structure
     var body: some View {
         //Button for csv export in UI

@@ -7,9 +7,7 @@
 import Cocoa
 import SwiftUI
 import Charts
-import SwiftData
-
-
+//MARK: Aggregation
  struct Aggregation: View {
      @Environment(AppData.self) private var appData
     

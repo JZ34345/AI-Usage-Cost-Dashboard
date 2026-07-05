@@ -5,9 +5,11 @@
 //  Created by Jason Zhang on 6/20/26.
 //
 import SwiftUI
-
+//MARK: Error
 //Error message UI structure
 struct Error: View {
+    
+        //MARK: UI Structure
     var body: some View {
         VStack() {
             Image(systemName: "xmark.circle")
