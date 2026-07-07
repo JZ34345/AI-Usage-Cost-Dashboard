@@ -13,7 +13,7 @@ import SwiftData
  struct DateFilterButton: View {
      @Environment(AppData.self) private var appData
      
-        //MARK: Options
+    //MARK: Options
     //date filter options
      enum DataFilterOptions: String, CaseIterable {
         case seven = "7 Days"
@@ -48,11 +48,17 @@ import SwiftData
                     Text("Custom Date Range").font(.headline)
                     
                     TextField("(yyyy-MM-dd)", text: $appBindData.startDate)
+                        .border(appData.datePickerError != nil ? Color.red : Color.clear)
                     TextField("(yyyy-MM-dd)", text: $appBindData.endDate)
+                        .border(appData.datePickerError != nil ? Color.red : Color.clear)
+                    
+                    if let error = appData.datePickerError {
+                        Text(error).foregroundColor(Color.red).font(.caption)
+                    }
                     
                     Button("Apply") {
                         appData.datePicker = false
-                    }
+                    }.disabled(appData.datePickerError != nil || appData.startDate == appData.endDate)
                 }.padding().frame(width: 300)
             }
     }

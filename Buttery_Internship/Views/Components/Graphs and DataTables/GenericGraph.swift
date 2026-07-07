@@ -61,9 +61,11 @@ struct genericGraph: View {
             //title page
             Text(title).font(.headline).padding()
             // if statement for error message
-            if data.isEmpty {
-                Error().frame(maxWidth: .infinity, maxHeight: 300)
-            //Datatable with no errors
+            if appData.datePickerError != nil {
+                Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
+            } else if data.isEmpty {
+                Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
+            //Graph with no errors
             } else {
                 //Specific for thirty minutes to fix labeling issue
                 Chart(data) { item in

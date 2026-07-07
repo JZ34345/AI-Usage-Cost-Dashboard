@@ -10,6 +10,8 @@ import SwiftUI
 
 //MARK: Generic DataTable Function
 struct genericDataTable: View {
+    @Environment(AppData.self) private var appData
+    
     let data: [GenericSummary]
     let title: String
     let category: String
@@ -33,8 +35,10 @@ struct genericDataTable: View {
         VStack {
             Text(title).font(.headline)
             //If statement is for error message
-            if data.isEmpty {
-                Error().frame(maxWidth: .infinity, maxHeight: 300)
+            if appData.datePickerError != nil {
+                Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
+            } else if data.isEmpty {
+                Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
             //Continues if no errors
             } else {
                     //MARK: Total Cost

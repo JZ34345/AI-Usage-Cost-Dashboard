@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A81B675E2FEF32A200DD1FF9 /* ViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81B675D2FEF329A00DD1FF9 /* ViewButton.swift */; };
 		A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82346A72FEC9FD500D64E5C /* AppData.swift */; };
+		A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85795CB2FFC7C04006B1DAE /* FilterState.swift */; };
 		A8AAEF2D2FF486C9003BBD38 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AAEF2C2FF486C1003BBD38 /* FileProvider.swift */; };
 		A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE52FF9D7DC00CAEB50 /* SampleProviders.swift */; };
 		A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE92FF9D8E500CAEB50 /* File.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		A81B675D2FEF329A00DD1FF9 /* ViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewButton.swift; sourceTree = "<group>"; };
 		A82346A72FEC9FD500D64E5C /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		A85795CB2FFC7C04006B1DAE /* FilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterState.swift; sourceTree = "<group>"; };
 		A88A2B952FE0C225003293EE /* Buttery_Internship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buttery_Internship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BA42FE0C227003293EE /* Buttery_InternshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BAE2FE0C227003293EE /* Buttery_InternshipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				A82346A72FEC9FD500D64E5C /* AppData.swift */,
+				A85795CB2FFC7C04006B1DAE /* FilterState.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				A8E5C16C2FEC3882009AF2F4 /* View - Graphs Showcase.swift in Sources */,
 				A8B96DEC2FF9D94600CAEB50 /* GenericSummary.swift in Sources */,
 				A8E5C16D2FEC3882009AF2F4 /* AICostTimeUsageAnalysisDashboardApp.swift in Sources */,
+				A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */,
 				A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */,
 				A8E5C16E2FEC3882009AF2F4 /* Filter.swift in Sources */,
 				A8E5C16F2FEC3882009AF2F4 /* ContentView.swift in Sources */,

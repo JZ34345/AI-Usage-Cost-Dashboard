@@ -7,6 +7,12 @@
 import XCTest
 @testable import Buttery_Internship
 
+//MARK: Segmented control for total/average switching (possibly for view switching as well)
+    //Look into tabview
+//MARK: Optimization improvement when switching views (particularly for switching drilldown to other views)
+//MARK: Reference human interface guide for segmented controls or implementing toolbars
+//MARK: Make GraphShowcase view more standardized with the other views
+
 //MARK: App UI Tests
 //Tests whether the filters and buttons load in properly after app launches.
 //Doesn't display test suceeds but the notice does show up that it works.
