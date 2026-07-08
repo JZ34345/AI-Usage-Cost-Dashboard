@@ -40,19 +40,21 @@ import Charts
                     //MARK: Export button
                     Spacer()
                     VStack {
-                        Text("Total Data Export")
-                        CSVExport(data: graphData)
+                        Text("CSV Export")
+                        if appData.costType == .total {
+                            CSVExport(data: graphData)
+                        } else {
+                            CSVExport(data: averageGraphData)
+                        }
                     }
-                    VStack {
-                        Text("Avg Data Export")
-                        CSVExport(data: averageGraphData)
-                    }
-
                 }
                 //MARK: View Button
                 VStack {
                     Text("\(appData.mainFilter.rawValue) Aggregation View").font(.largeTitle)
-                    ViewButton()
+                    HStack() {
+                        CostTypeSwitch()
+                        ViewButton()
+                    }.padding(.top)
                 }
                 //MARK: Filter and datefilter buttons
                 HStack {
@@ -62,73 +64,82 @@ import Charts
                 
                 //MARK: Graph Arrangement
                 //Non delta option
-                if isDelta == false {
-                    //Total data on left, average data on right
-                    HStack {
-                        genericGraph(data: graphData,
-                                     title: "\(appData.mainFilter.rawValue) Cost-Time Graph (2026)",
-                                     ylabel: "Cost (Cents)",
-                                     isDelta: false)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Divider()
+                if appData.costType == .total {
+                    if isDelta == false {
+                        HStack {
+                            genericGraph(data: graphData,
+                                         title: "\(appData.mainFilter.rawValue) Cost-Time Graph (2026)",
+                                         ylabel: "Cost (Cents)",
+                                         isDelta: false)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+
+                        Spacer(minLength: 100)
+
+                        //Total data on left, average data on right
+                        HStack {
+                            genericDataTable(data: graphData,
+                                             title: "\(appData.mainFilter.rawValue) Cost DataTable",
+                                             category: appData.mainFilter.rawValue,
+                                             isDelta: false,
+                                             isAverage: false)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                    //Delta option
+                    } else {
+                        //Total data on left, average data on right
+                        HStack {
+                            genericGraph(data: graphData,
+                                         title: "\(appData.mainFilter.rawValue) Delta-Time Graph (2026)",
+                                         ylabel: "Delta (Cents)",
+                                         isDelta: true)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+
+                        Spacer(minLength: 100)
+
+                        //Total data on left, average data on right
+                        HStack {
+                            genericDataTable(data: graphData,
+                                             title: "\(appData.mainFilter.rawValue) Delta DataTable",
+                                             category: appData.mainFilter.rawValue,
+                                             isDelta: true,
+                                             isAverage: false)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                    }
+                } else {
+                    if isDelta == false {
                         genericGraph(data: averageGraphData,
                                      title: "\(appData.mainFilter.rawValue) Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (Cents)",
                                      isDelta: false)
-                    }
-
-                    Spacer(minLength: 100)
-
-                    //Total data on left, average data on right
-                    HStack {
-                        genericDataTable(data: graphData,
-                                         title: "\(appData.mainFilter.rawValue) Cost DataTable",
-                                         category: appData.mainFilter.rawValue,
-                                         isDelta: false,
-                                         isAverage: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Divider()
+                        
+                        Spacer(minLength: 100)
+
+                        //Total data on left, average data on right
                         genericDataTable(data: averageGraphData,
                                          title: "\(appData.mainFilter.rawValue) Average Cost DataTable",
                                          category: appData.mainFilter.rawValue,
                                          isDelta: false,
                                          isAverage: true)
-                    }
-                //Delta option
-                } else {
-                    //Total data on left, average data on right
-                    HStack {
-                        genericGraph(data: graphData,
-                                     title: "\(appData.mainFilter.rawValue) Delta-Time Graph (2026)",
-                                     ylabel: "Delta (Cents)",
-                                     isDelta: true)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Divider()
+                    } else {
                         genericGraph(data: averageGraphData,
                                      title: "\(appData.mainFilter.rawValue) Average Delta-Time Graph (2026)",
                                      ylabel: "Average Delta (Cents)",
                                      isDelta: true)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
-                    }
+                        Spacer(minLength: 100)
 
-                    Spacer(minLength: 100)
-
-                    //Total data on left, average data on right
-                    HStack {
-                        genericDataTable(data: graphData,
-                                         title: "\(appData.mainFilter.rawValue) Delta DataTable",
-                                         category: appData.mainFilter.rawValue,
-                                         isDelta: true,
-                                         isAverage: false
-                        )
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Divider()
                         genericDataTable(data: averageGraphData,
                                          title: "\(appData.mainFilter.rawValue) Average Delta DataTable",
                                          category: appData.mainFilter.rawValue,
                                          isDelta: true,
-                                         isAverage: false
-                        )
+                                         isAverage: false)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
             }

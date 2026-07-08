@@ -60,6 +60,9 @@ import Charts
         return generic
     }
     
+    var costType: CostTypeSwitch.CostType = .total
+    var dataType: DataTypeSwitch.DataType = .total
+    
     //MARK: View switcher
     var viewSwitcher: ViewButton.ViewSwitcher = .overview
 

@@ -7,7 +7,6 @@
 import Cocoa
 import SwiftUI
 import Charts
-import SwiftData
 //MARK: View Button
 //Button created that allows switching between overview, aggregation, drilldown, and graph showcase views
 struct ViewButton: View {
@@ -22,14 +21,17 @@ struct ViewButton: View {
     }
         //MARK: UI Structure
     var body: some View {
-        Menu {
-            ForEach(ViewSwitcher.allCases, id: \.self) {option in
-                Button(option.rawValue) {
-                    appData.viewSwitcher = option
+        VStack {
+            Text("View Type")
+            Menu {
+                ForEach(ViewSwitcher.allCases, id: \.self) {option in
+                    Button(option.rawValue) {
+                        appData.viewSwitcher = option
+                    }
                 }
-            }
-        } label: {
-            Text(appData.viewSwitcher.rawValue)
-        }.menuStyle(.button)
+            } label: {
+                Text(appData.viewSwitcher.rawValue)
+            }.menuStyle(.button)
+        }
     }
 }
