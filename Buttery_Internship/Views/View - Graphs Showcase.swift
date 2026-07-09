@@ -15,18 +15,14 @@ struct GraphShowcase: View {
      var body: some View {
         ScrollView([.vertical]) {
             VStack {
-                VStack {
-                    //MARK: View switch button
-                    Text("Graph Showcase").font(.largeTitle)
-                    ViewButton()
-                }
+                Text("Graph Showcase").font(.largeTitle)
                 //MARK: Filter and date filter button
                 HStack {
                     FilterButton()
                     DateFilterButton()
                 }.padding()
                 
-                Spacer(minLength: 150)
+                Spacer(minLength: 50)
 
                 
                 //MARK: Graph arrangement

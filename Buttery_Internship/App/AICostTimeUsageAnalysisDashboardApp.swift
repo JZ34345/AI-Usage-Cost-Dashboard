@@ -9,19 +9,6 @@ import SwiftData
 
 @main
 struct AICostTimeUsageAnalysisDashboardApp: App {
-
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
     //MARK: Data in use
     @State private var appData: AppData
     @State private var graphData: GraphDataSource
@@ -36,7 +23,7 @@ struct AICostTimeUsageAnalysisDashboardApp: App {
         WindowGroup {
             //ContentView utilizes two observable enviornments: the source data enviornment (GraphData) and the modified data enviornment (AppData)
             ContentView().environment(appData).environment(graphData)
-        }
-        .modelContainer(sharedModelContainer)
+        }.defaultSize(width: 1200, height: 900)
+            .windowResizability(.contentMinSize)
     }
 }

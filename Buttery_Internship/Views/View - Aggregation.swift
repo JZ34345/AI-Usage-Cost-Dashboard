@@ -36,11 +36,10 @@ import Charts
         ScrollView([.vertical]) {
             VStack {
                 HStack {
-                    
-                    //MARK: Export button
+                    //MARK: Buttons
                     Spacer()
+                    //Export Button
                     VStack {
-                        Text("CSV Export")
                         if appData.costType == .total {
                             CSVExport(data: graphData)
                         } else {
@@ -48,19 +47,18 @@ import Charts
                         }
                     }
                 }
-                //MARK: View Button
+                
                 VStack {
                     Text("\(appData.mainFilter.rawValue) Aggregation View").font(.largeTitle)
                     HStack() {
+                        //Cost type button
                         CostTypeSwitch()
-                        ViewButton()
+                        //Date filter button
+                        DateFilterButton()
                     }.padding(.top)
-                }
-                //MARK: Filter and datefilter buttons
-                HStack {
+                    //Filter Button
                     FilterButton()
-                    DateFilterButton()
-                }.padding()
+                }
                 
                 //MARK: Graph Arrangement
                 //Non delta option

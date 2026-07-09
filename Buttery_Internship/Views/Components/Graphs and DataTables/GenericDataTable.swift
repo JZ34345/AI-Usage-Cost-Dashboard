@@ -57,7 +57,7 @@ struct genericDataTable: View {
                                     Text(String(format: "%.2f", item.cost))
                                 }
                             }
-                            .frame(width: 600, height: 500)
+                            .frame(width: 680, height: 500)
                         }
                         //Datatable for WoW delta
                         else {
@@ -71,7 +71,7 @@ struct genericDataTable: View {
                                     Text(String(format: "%.2f", item.cost))
                                 }
                             }
-                            .frame(width: 600, height: 500)
+                            .frame(width: 680, height: 500)
                         }
                     //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                     } else {
@@ -84,7 +84,7 @@ struct genericDataTable: View {
                                 Text(String(format: "%.2f", item.cost))
                             }
                         }
-                        .frame(width: 600, height: 500)
+                        .frame(width: 680, height: 500)
                     }
                     //MARK: Average Cost
                 } else {
@@ -102,7 +102,7 @@ struct genericDataTable: View {
                                     Text(String(format: "%.2f", item.cost))
                                 }
                             }
-                            .frame(width: 600, height: 500)
+                            .frame(width: 680, height: 500)
                         }
                         //Datatable for WoW delta
                         else {
@@ -116,7 +116,7 @@ struct genericDataTable: View {
                                     Text(String(format: "%.2f", item.cost))
                                 }
                             }
-                            .frame(width: 600, height: 500)
+                            .frame(width: 680, height: 500)
                         }
                     //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                     } else {
@@ -129,7 +129,7 @@ struct genericDataTable: View {
                                 Text(String(format: "%.2f", item.cost))
                             }
                         }
-                        .frame(width: 600, height: 500)
+                        .frame(width: 680, height: 500)
                     }
                 }
             }

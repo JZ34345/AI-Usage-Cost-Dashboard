@@ -58,8 +58,14 @@ struct CSVExport: View {
     var body: some View {
         //Button for csv export in UI
         Button(action: {exportCSV()}) {
-            Text("Export File").padding()
+            Text("\(Image(systemName: "square.and.arrow.up"))")
+                .font(.largeTitle)
+                .fontWeight(.regular)
+                .padding(.horizontal, 10)
         }
+        .foregroundStyle(.blue)
+        .buttonBorderShape(.capsule)
+        
     }
     
 }

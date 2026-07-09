@@ -19,13 +19,14 @@ struct CostTypeSwitch: View {
     var body: some View {
         @Bindable var appData = appData
         VStack{
-            Text("Cost Type")
+            Text("Cost")
             Picker("", selection: $appData.costType) {
                 ForEach(CostType.allCases, id: \.self) { option in
                     Text(option.rawValue).tag(option)
                     
                 }
             }.pickerStyle(.segmented)
+                .tint(.green)
         }
     }
 }

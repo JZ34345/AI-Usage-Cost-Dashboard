@@ -24,15 +24,15 @@ import Charts
     }
     
     
-    private var _totalGraphDataCache: [GenericSummary]?
-    private var _drillDownGraphDataCache: [GenericSummary]?
-    private var _categoryGraphDataCache: [GenericSummary]?
-    private var _WoWGraphDataCache: [GenericSummary]?
-    private var _categorytWoWGraphDataCache: [GenericSummary]?
-    private var _totalGraphAverageDataCache: [GenericSummary]?
-    private var _drillDownGraphAverageDataCache: [GenericSummary]?
-    private var _categoryGraphAverageDataCache: [GenericSummary]?
-    private var _WoWGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _totalGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _drillDownGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _categoryGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _WoWGraphDataCache: [GenericSummary]?
+    @ObservationIgnored  private var _categorytWoWGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _totalGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _drillDownGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _categoryGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _WoWGraphAverageDataCache: [GenericSummary]?
     
     private var currentFilters: FilterState {
         FilterState(mainFilter: mainFilter, dateFilter: dateFilter, startDate: startDate, endDate: endDate,                      drillCluster: drillFilterCluster, drillNode: drillFilterNode)
@@ -59,16 +59,12 @@ import Charts
         let generic = compute()
         return generic
     }
-    
+    //MARK: Cost and Data types
     var costType: CostTypeSwitch.CostType = .total
     var dataType: DataTypeSwitch.DataType = .total
-    
-    //MARK: View switcher
-    var viewSwitcher: ViewButton.ViewSwitcher = .overview
 
     //MARK: Filters
     var mainFilter: FilterButton.FilterOptions = .total {didSet {invalidateCache()}}
-    
     //Arranges filter choice to a data format for use in groupby parameter in makeGenericData function
     func groupByClosure(for category: FilterButton.FilterOptions) -> (records) -> String {
        switch category {

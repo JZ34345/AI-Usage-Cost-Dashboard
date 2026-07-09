@@ -26,19 +26,18 @@ import SwiftData
     
         //MARK: UI Structure
      var body: some View {
-        Menu {
-            ForEach(FilterOptions.allCases, id: \.self) { option in
-                Button(option.rawValue) {
-                    appData.mainFilter = option
-                }
-                
-            }
-        } label: {
-            Text(appData.mainFilter.rawValue)
-        }.menuStyle(.borderedButton)
+         VStack {
+             Menu {
+                 ForEach(FilterOptions.allCases, id: \.self) { option in
+                     Button(option.rawValue) {
+                         appData.mainFilter = option
+                     }
+                     
+                 }
+             } label: {
+                 Label(appData.mainFilter.rawValue, systemImage: "line.3.horizontal.decrease")
+             }.menuStyle(.borderedButton)
+                 .tint(.orange)
+         }
     }
 }
-
-
-
-//Checklist: add protocol enviornment for data

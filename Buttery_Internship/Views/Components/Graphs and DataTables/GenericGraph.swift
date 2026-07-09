@@ -112,7 +112,7 @@ struct genericGraph: View {
                 .chartYAxis {
                     AxisMarks(values: .automatic(desiredCount: 10))
                 }
-                .frame(width: 650, height: 500)
+                .frame(width: 750, height: 500)
                 .chartLegend(position: .top)
             }
         }

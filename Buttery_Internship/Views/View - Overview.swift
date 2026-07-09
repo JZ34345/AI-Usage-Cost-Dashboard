@@ -9,12 +9,12 @@ import Charts
         @Bindable var appBindData = appData
          
         ScrollView([.vertical]) {
-            VStack {
+            VStack(spacing: 8) {
                 HStack {
-                    //MARK: Export buttons
+                    //MARK: Buttons
                     Spacer()
+                    //Export button
                     VStack {
-                        Text("CSV Export")
                         if appData.dataType == .total {
                             CSVExport(data: appData.totalGraphData)
                         } else {
@@ -25,18 +25,14 @@ import Charts
                 VStack {
                     Text("Overview").font(.largeTitle)
                     HStack {
+                        //Data type button
                         DataTypeSwitch()
-                        //MARK: View switch button
-                        ViewButton()
+                        //Date filter button
+                        DateFilterButton()
                     }.padding(.top)
                     
                 }
-                
-                HStack {
-                    //MARK: Date filter button
-                    DateFilterButton()
-                }.padding()
-                
+
                 //MARK: Graph arrangement
                 if appData.dataType == .total {
                     

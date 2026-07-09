@@ -11,32 +11,25 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppData.self) private var appData
-    @Query private var items: [Item]
 
     var body: some View {
-    
-        //MARK: Implements view switching
-        //Overview page and graph types demostration
-        if appData.viewSwitcher == .overview {
-            Overview()
-        //Secondary view, aggregation filter and data patterns/anamolies
-        } else if appData.viewSwitcher == .aggregation {
-            Aggregation()
-        //Secondary view: focuses on drilldown filtering
-        } else if appData.viewSwitcher == .drillDown {
-            DrillDown()
-        //Optional Graph Showcase. May be removed depending on relavance
-        } else if appData.viewSwitcher == .graphShowcase {
-            GraphShowcase()
-        //Default screen will turn to Overview
-        } else {
-            Overview()
-        }
-        
+        TabView {
+            Tab("Overview", systemImage: "chart.line.uptrend.xyaxis") {
+                //Overview page and graph types demostration
+                Overview()
+            }
+            Tab("Aggregation", systemImage: "slider.horizontal.3") {
+                //Secondary view, aggregation filter and data patterns/anamolies
+                Aggregation()
+            }
+            Tab("Drilldown", systemImage: "arrow.down.right.circle") {
+                //Secondary view: focuses on drilldown filtering
+                DrillDown()
+            }
+            //Tab("Showcase", systemImage: "star") {
+                //Optional Graph Showcase. May be removed depending on relavance
+            //    GraphShowcase()
+            //}
+        }.tabViewStyle(.automatic)
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

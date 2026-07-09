@@ -15,10 +15,10 @@ public struct DrillDown: View {
         ScrollView([.vertical]) {
             VStack {
                 HStack {
-                    //MARK: Export buttons
+                    //MARK: Buttons
                     Spacer()
+                    //Export button
                     VStack {
-                        Text("Total Data Export")
                         if appData.costType == .total {
                             CSVExport(data: appData.drilldownData)
                         } else {
@@ -28,22 +28,25 @@ public struct DrillDown: View {
                     
 
                 }
-                //MARK: View switch button
                 VStack {
-                    Text("Drilldown View").font(.largeTitle)
+                    Text("Drilldown (Drill) View").font(.largeTitle)
                     HStack() {
+                        //Cost type button
                         CostTypeSwitch()
-                        ViewButton()
+                        //Date button
+                        DateFilterButton()
+
                     }.padding(.top)
+                    //Drilldown buttons
+                    HStack {
+                        DrillDownButton()
+                            .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
+                        DrillNodeButton()
+                    }
                 }
-                //MARK: Date and drilldown buttons
                 HStack {
-                    DrillDownButton()
-                        .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
-                    DrillNodeButton()
-                                        
-                    DateFilterButton()
-                }.padding()
+                    
+                }
                 //MARK: Total Cost
                 //Graph and DataTable of a specific cluster and node in cluster
                 if appData.costType == .total {

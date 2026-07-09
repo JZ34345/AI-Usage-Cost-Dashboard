@@ -28,9 +28,7 @@ import SwiftUI
             
             //Dates from decoded file cached for quicker loading formatted to unique days.
             self.cachedDates = Dictionary(
-                uniqueKeysWithValues: uniqueDays.map {($0, formatter.date(from: $0) ?? Date())})
-            //If there is a file avaliable, format the cached dates to unique days for the data's date range.
-            
+                uniqueKeysWithValues: uniqueDays.map {($0, formatter.date(from: $0) ?? Date())})            
         }
         //Gives error if an issue occurs
         catch let providerError {

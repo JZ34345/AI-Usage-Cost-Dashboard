@@ -15,7 +15,7 @@ import SwiftData
     
         //MARK: Options
      enum DrillDownClusterOptions: String, CaseIterable {
-        case inital = "DrillDown: Clusters"
+        case inital = "Drill Clusters"
         case usWest = "US West"
         case usEast = "US East"
         case europeWest = "West Europe"
@@ -31,8 +31,9 @@ import SwiftData
                 
             }
         } label: {
-            Text(appData.drillFilterCluster.rawValue)
+            Label(appData.drillFilterCluster.rawValue, systemImage: "arrow.down.right.circle")
         }.menuStyle(.borderedButton)
+             .tint(.orange)
     }
 }
 
@@ -47,7 +48,7 @@ import SwiftData
         
         var label: String {
             switch self {
-            case .inital: return "DrillDown: Nodes"
+            case .inital: return "Drill Nodes"
             case .node(id: _, let name): return name
             }
         }
@@ -71,8 +72,9 @@ import SwiftData
                 
             }
         } label: {
-            Text(appData.drillFilterNode.label)
+            Label(appData.drillFilterNode.label, systemImage: "arrow.down.right.circle")
         }.menuStyle(.borderedButton)
              .disabled(appData.clusterId == nil)
+             .tint(.orange)
     }
 }
