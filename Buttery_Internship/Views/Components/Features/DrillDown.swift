@@ -15,7 +15,7 @@ import SwiftData
     
         //MARK: Options
      enum DrillDownClusterOptions: String, CaseIterable {
-        case inital = "Drill Clusters"
+        case inital = "All"
         case usWest = "US West"
         case usEast = "US East"
         case europeWest = "West Europe"
@@ -23,17 +23,22 @@ import SwiftData
         //MARK: UI Structure
      //Main appearance of drilldown button
      var body: some View {
-        Menu {
-            ForEach(DrillDownClusterOptions.allCases, id: \.self) { option in
-                Button(option.rawValue) {
-                    appData.drillFilterCluster = option
-                }
-                
-            }
-        } label: {
-            Label(appData.drillFilterCluster.rawValue, systemImage: "arrow.down.right.circle")
-        }.menuStyle(.borderedButton)
-             .tint(.orange)
+         VStack {
+             Text("Drill Cluster (\(appData.drillFilterCluster.rawValue))")
+             Menu {
+                 ForEach(DrillDownClusterOptions.allCases, id: \.self) { option in
+                     Button {
+                         appData.drillFilterCluster = option
+                     } label: {
+                         Label(option.rawValue, systemImage: appData.drillFilterCluster == option ? "checkmark" : " ")
+                     }
+                     
+                 }
+             } label: {
+                 Label("", systemImage: "arrow.down.right.circle")
+             }.menuStyle(.borderedButton)
+                 .tint(.orange)
+         }
     }
 }
 
@@ -48,7 +53,7 @@ import SwiftData
         
         var label: String {
             switch self {
-            case .inital: return "Drill Nodes"
+            case .inital: return "All"
             case .node(id: _, let name): return name
             }
         }
@@ -64,17 +69,22 @@ import SwiftData
     
         //MARK: UI Structure
      var body: some View {
-        Menu {
-            ForEach(nodeOptions, id: \.self) { option in
-                Button(option.label) {
-                    appData.drillFilterNode = option
-                }
-                
-            }
-        } label: {
-            Label(appData.drillFilterNode.label, systemImage: "arrow.down.right.circle")
-        }.menuStyle(.borderedButton)
-             .disabled(appData.clusterId == nil)
-             .tint(.orange)
+         VStack {
+             Text("Drill Node (\(appData.drillFilterNode.label))").disabled(appData.clusterId == nil)
+             Menu {
+                 ForEach(nodeOptions, id: \.self) { option in
+                     Button {
+                         appData.drillFilterNode = option
+                     } label: {
+                         Label(option.label, systemImage: appData.drillFilterNode == option ? "checkmark" : "")
+                     }
+                     
+                 }
+             } label: {
+                 Label("", systemImage: "arrow.down.right.circle")
+             }.menuStyle(.borderedButton)
+                 .disabled(appData.clusterId == nil)
+                 .tint(.orange)
+         }
     }
 }

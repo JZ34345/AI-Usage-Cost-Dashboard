@@ -27,17 +27,20 @@ import SwiftData
         //MARK: UI Structure
      var body: some View {
          VStack {
+             Text(appData.mainFilter.rawValue)
              Menu {
                  ForEach(FilterOptions.allCases, id: \.self) { option in
-                     Button(option.rawValue) {
+                     Button {
                          appData.mainFilter = option
+                     } label: {
+                         Label(option.rawValue, systemImage: appData.mainFilter == option ? "checkmark" : "")
                      }
                      
                  }
              } label: {
-                 Label(appData.mainFilter.rawValue, systemImage: "line.3.horizontal.decrease")
+                 Label("", systemImage: "line.3.horizontal.decrease")
              }.menuStyle(.borderedButton)
-                 .tint(.orange)
+                 .tint(.red)
          }
     }
 }

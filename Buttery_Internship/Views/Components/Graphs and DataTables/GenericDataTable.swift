@@ -33,7 +33,7 @@ struct genericDataTable: View {
             //MARK: UI Structure
     var body: some View {
         VStack {
-            Text(title).font(.headline)
+            Text(title).font(.title2)
             //If statement is for error message
             if appData.datePickerError != nil {
                 Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
@@ -48,13 +48,13 @@ struct genericDataTable: View {
                         //Datatables for non WoW delta
                         if isDelta == false {
                             Table(data) {
-                                TableColumn("Id") { item in Text("\(item.id)")}
+                                TableColumn("Id") { item in Text("\(item.id)").font(.title3)}
                                 TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                                 }
-                                TableColumn(category) {item in Text("\(item.category)")}
-                                TableColumn("Cost (Cents)") { item in
-                                    Text(String(format: "%.2f", item.cost))
+                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}
+                                TableColumn("Cost (¢)") { item in
+                                    Text(String(format: "%.2f", item.cost)).font(.title3)
                                 }
                             }
                             .frame(width: 680, height: 500)
@@ -62,13 +62,13 @@ struct genericDataTable: View {
                         //Datatable for WoW delta
                         else {
                             Table(data) {
-                                TableColumn("Id") { item in Text("\(item.id)")}
+                                TableColumn("Id") { item in Text("\(item.id)").font(.title3)}
                                 TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                                 }
-                                TableColumn(category) {item in Text("\(item.category)")}
-                                TableColumn("Delta (Cents)") { item in
-                                    Text(String(format: "%.2f", item.cost))
+                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}
+                                TableColumn("Delta (¢)") { item in
+                                    Text(String(format: "%.2f", item.cost)).font(.title3)
                                 }
                             }
                             .frame(width: 680, height: 500)
@@ -76,12 +76,12 @@ struct genericDataTable: View {
                     //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                     } else {
                         Table(data) {
-                            TableColumn("Id") { item in Text("\(item.id)")}
+                            TableColumn("Id") { item in Text("\(item.id)").font(.title3)}
                             TableColumn("Day") { item in
-                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                             }
-                            TableColumn("Cost (Cents)") { item in
-                                Text(String(format: "%.2f", item.cost))
+                            TableColumn("Cost (¢)") { item in
+                                Text(String(format: "%.2f", item.cost)).font(.title3)
                             }
                         }
                         .frame(width: 680, height: 500)
@@ -93,13 +93,13 @@ struct genericDataTable: View {
                         //Datatables for non WoW delta
                         if isDelta == false {
                             Table(data) {
-                                TableColumn("Id") { item in Text("\(item.id)")}
+                                TableColumn("Id") { item in Text("\(item.id)").font(.title3)}
                                 TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                                 }
-                                TableColumn(category) {item in Text("\(item.category)")}
-                                TableColumn("Average Cost (Cents)") { item in
-                                    Text(String(format: "%.2f", item.cost))
+                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}
+                                TableColumn("Average Cost (¢)") { item in
+                                    Text(String(format: "%.2f", item.cost)).font(.title3)
                                 }
                             }
                             .frame(width: 680, height: 500)
@@ -107,13 +107,13 @@ struct genericDataTable: View {
                         //Datatable for WoW delta
                         else {
                             Table(data) {
-                                TableColumn("Id") { item in Text("\(item.id)")}
+                                TableColumn("Id") { item in Text("\(item.id)").font(.title3)}
                                 TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                                 }
-                                TableColumn(category) {item in Text("\(item.category)")}
-                                TableColumn("Average Delta (Cents)") { item in
-                                    Text(String(format: "%.2f", item.cost))
+                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}
+                                TableColumn("Average Delta (¢)") { item in
+                                    Text(String(format: "%.2f", item.cost)).font(.title3)
                                 }
                             }
                             .frame(width: 680, height: 500)
@@ -121,12 +121,12 @@ struct genericDataTable: View {
                     //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                     } else {
                         Table(data) {
-                            TableColumn("Id") { item in Text("\(item.id)")}
+                            TableColumn("Id") { item in Text("\(item.id)").font(.title3)}
                             TableColumn("Day") { item in
-                                Text(item.day, format: .dateTime.month(.abbreviated).day().year())
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                             }
-                            TableColumn("Average Cost (Cents)") { item in
-                                Text(String(format: "%.2f", item.cost))
+                            TableColumn("Average Cost (¢)") { item in
+                                Text(String(format: "%.2f", item.cost)).font(.title3)
                             }
                         }
                         .frame(width: 680, height: 500)

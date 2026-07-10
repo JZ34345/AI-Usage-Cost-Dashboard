@@ -50,16 +50,21 @@ import Charts
                 
                 VStack {
                     Text("\(appData.mainFilter.rawValue) Aggregation View").font(.largeTitle)
+                    
                     HStack() {
+                        Spacer()
                         //Cost type button
                         CostTypeSwitch()
+                        
                         //Date filter button
                         DateFilterButton()
+                        
+                        //Filter Button
+                        FilterButton()
+                        Spacer()
                     }.padding(.top)
-                    //Filter Button
-                    FilterButton()
-                }
-                
+                }.padding(.bottom)
+
                 //MARK: Graph Arrangement
                 //Non delta option
                 if appData.costType == .total {
@@ -67,7 +72,7 @@ import Charts
                         HStack {
                             genericGraph(data: graphData,
                                          title: "\(appData.mainFilter.rawValue) Cost-Time Graph (2026)",
-                                         ylabel: "Cost (Cents)",
+                                         ylabel: "Cost (¢)",
                                          isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
@@ -89,7 +94,7 @@ import Charts
                         HStack {
                             genericGraph(data: graphData,
                                          title: "\(appData.mainFilter.rawValue) Delta-Time Graph (2026)",
-                                         ylabel: "Delta (Cents)",
+                                         ylabel: "Delta (¢)",
                                          isDelta: true)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
@@ -110,7 +115,7 @@ import Charts
                     if isDelta == false {
                         genericGraph(data: averageGraphData,
                                      title: "\(appData.mainFilter.rawValue) Average Cost-Time Graph (2026)",
-                                     ylabel: "Average Cost (Cents)",
+                                     ylabel: "Average Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
@@ -126,7 +131,7 @@ import Charts
                     } else {
                         genericGraph(data: averageGraphData,
                                      title: "\(appData.mainFilter.rawValue) Average Delta-Time Graph (2026)",
-                                     ylabel: "Average Delta (Cents)",
+                                     ylabel: "Average Delta (¢)",
                                      isDelta: true)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         

@@ -28,9 +28,9 @@ struct genericGraph: View {
     var tickStride: Int {
         let dayCount = Set(data.map {$0.day}).count
         switch dayCount {
-        case 0...10: return 1
-        case 11...30: return 5
-        case 31...60: return 10
+        case 0...8: return 1
+        case 9...30: return 3
+        case 31...40: return 4
         default: return max(1, dayCount / 6)
         }
     }
@@ -40,7 +40,7 @@ struct genericGraph: View {
         switch weekCount {
         case 0...8: return 1
         case 9...16: return 2
-        case 17...26: return 4
+        case 17...26: return 2
         default: return max(1, weekCount / 6)
         }
     }
@@ -59,7 +59,7 @@ struct genericGraph: View {
     var body: some View {
         VStack {
             //title page
-            Text(title).font(.headline).padding()
+            Text(title).font(.title2)
             // if statement for error message
             if appData.datePickerError != nil {
                 Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
@@ -67,53 +67,54 @@ struct genericGraph: View {
                 Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
             //Graph with no errors
             } else {
-                //Specific for thirty minutes to fix labeling issue
-                Chart(data) { item in
-                    LineMark(
-                        x: .value("date", item.day),
-                        y: .value(ylabel, item.cost)
-                    ).foregroundStyle(by: .value("Catagory", item.category))
-                    
-                    //Special zero x-axis line for WoW delta
-                    if isDelta {
-                        RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
-                    }
-                }
-                //x-axis adjustments
-                .chartXAxisLabel("Date", alignment: .center)
-                .chartXAxis {
-                    if isDelta && appData.dateFilter != .seven {
-                        AxisMarks(values: weekTicks) { value in
-                            AxisGridLine()
-                            AxisTick()
-                            if let date = value.as(Date.self) {
-                                AxisValueLabel(anchor: .top) {
-                                    Text(date, format: .dateTime.month(.abbreviated).day())
-                                }
-                            } else {
-                                AxisValueLabel()
-                            }
-                        }
-                    } else {
-                        AxisMarks(values: .stride(by: .day, count: tickStride)) { value in
-                            AxisGridLine()
-                            AxisTick()
-                            if let date = value.as(Date.self) {
-                                AxisValueLabel(anchor: .top) {
-                                    Text(date, format: .dateTime.month(.abbreviated).day())
-                                }
-                            }
+                HStack {
+                    Chart(data) { item in
+                        LineMark(
+                            x: .value("date", item.day),
+                            y: .value(ylabel, item.cost)
+                        ).foregroundStyle(by: .value("Catagory", item.category))
+                        
+                        //Special zero x-axis line for WoW delta
+                        if isDelta {
+                            RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
                         }
                     }
-                    
+                    //x-axis adjustments
+                    .chartXAxisLabel("Date", alignment: .center)
+                    .chartXAxis {
+                        if isDelta && appData.dateFilter != .seven {
+                            AxisMarks(values: weekTicks) { value in
+                                AxisGridLine()
+                                AxisTick()
+                                if let date = value.as(Date.self) {
+                                    AxisValueLabel(anchor: .top) {
+                                        Text(date, format: .dateTime.month(.abbreviated).day())
+                                    }
+                                } else {
+                                    AxisValueLabel()
+                                }
+                            }
+                        } else {
+                            AxisMarks(values: .stride(by: .day, count: tickStride)) { value in
+                                AxisGridLine()
+                                AxisTick()
+                                if let date = value.as(Date.self) {
+                                    AxisValueLabel(anchor: .top) {
+                                        Text(date, format: .dateTime.month(.abbreviated).day())
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                    //y-axis adjustments
+                    .chartYAxisLabel(ylabel, position: .topTrailing)
+                    .chartYAxis {
+                        AxisMarks(values: .automatic(desiredCount: 10))
+                    }
+                    .frame(maxWidth: 1200, minHeight: 500)
+                    .chartLegend(position: .top)
                 }
-                //y-axis adjustments
-                .chartYAxisLabel(ylabel, position: .trailing)
-                .chartYAxis {
-                    AxisMarks(values: .automatic(desiredCount: 10))
-                }
-                .frame(width: 750, height: 500)
-                .chartLegend(position: .top)
             }
         }
     }

@@ -25,13 +25,15 @@ import Charts
                 VStack {
                     Text("Overview").font(.largeTitle)
                     HStack {
+                        Spacer()
                         //Data type button
                         DataTypeSwitch()
+                        
                         //Date filter button
                         DateFilterButton()
+                        Spacer()
                     }.padding(.top)
-                    
-                }
+                }.padding(.bottom)
 
                 //MARK: Graph arrangement
                 if appData.dataType == .total {
@@ -39,7 +41,7 @@ import Charts
                     //MARK: Total Cost
                     genericGraph(data: appData.totalGraphData,
                                  title: "Total Cost-Time Graph (2026)",
-                                 ylabel: "Cost (Cents)",
+                                 ylabel: "Cost (¢)",
                                  isDelta: false)
                     .frame(maxWidth: .infinity)
                     
@@ -56,7 +58,7 @@ import Charts
                     //MARK: WoW Delta
                     genericGraph(data: appData.WoWGraphData,
                                  title: "WoW Delta Cost-Time Graph (2026)",
-                                 ylabel: "Cost (Cents)",
+                                 ylabel: "Delta (¢)",
                                  isDelta: true)
                         .frame(maxWidth: .infinity)
                     
@@ -71,7 +73,7 @@ import Charts
                 }
                 
             }
-        }
+        }.frame(maxWidth:.infinity, maxHeight: .infinity)
     }
     
 }

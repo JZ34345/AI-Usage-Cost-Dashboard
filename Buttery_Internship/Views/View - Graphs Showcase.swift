@@ -18,12 +18,10 @@ struct GraphShowcase: View {
                 Text("Graph Showcase").font(.largeTitle)
                 //MARK: Filter and date filter button
                 HStack {
-                    FilterButton()
+                    Spacer()
                     DateFilterButton()
+                    Spacer()
                 }.padding()
-                
-                Spacer(minLength: 50)
-
                 
                 //MARK: Graph arrangement
                 VStack {

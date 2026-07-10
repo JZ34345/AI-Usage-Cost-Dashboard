@@ -28,20 +28,22 @@ import SwiftData
         //MARK: UI Structure
         //UI appearance for date filter
          VStack {
-             Text("Time Range")
+             Text("Date Range (\(appData.dateFilter.rawValue))")
              Menu {
                  ForEach(DataFilterOptions.allCases, id: \.self) { option in
-                     Button(option.rawValue) {
+                     Button {
                          appData.dateFilter = option
                          
                          if option == .custom {
                              appData.datePicker = true
                          }
+                     } label: {
+                         Label(option.rawValue, systemImage: appData.dateFilter == option ? "checkmark" : " ")
                      }
                      
                  }
              } label: {
-                 Label(appBindData.dateFilter.rawValue, systemImage: "line.3.horizontal.decrease")
+                 Label("", systemImage: "line.3.horizontal.decrease")
              }.menuStyle(.borderedButton)
                  .tint(.green)
              

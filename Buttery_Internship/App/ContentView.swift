@@ -13,23 +13,29 @@ struct ContentView: View {
     @Environment(AppData.self) private var appData
 
     var body: some View {
-        TabView {
-            Tab("Overview", systemImage: "chart.line.uptrend.xyaxis") {
-                //Overview page and graph types demostration
-                Overview()
-            }
-            Tab("Aggregation", systemImage: "slider.horizontal.3") {
-                //Secondary view, aggregation filter and data patterns/anamolies
-                Aggregation()
-            }
-            Tab("Drilldown", systemImage: "arrow.down.right.circle") {
-                //Secondary view: focuses on drilldown filtering
-                DrillDown()
-            }
-            //Tab("Showcase", systemImage: "star") {
+        HStack {
+            Spacer()
+            
+            TabView {
+                Tab("Overview", systemImage: "chart.line.uptrend.xyaxis") {
+                    //Overview page and graph types demostration
+                    Overview()
+                }
+                Tab("Aggregation", systemImage: "slider.horizontal.3") {
+                    //Secondary view, aggregation filter and data patterns/anamolies
+                    Aggregation()
+                }
+                Tab("Drilldown", systemImage: "arrow.down.right.circle") {
+                    //Secondary view: focuses on drilldown filtering
+                    DrillDown()
+                }
+                //Tab("Showcase", systemImage: "star") {
                 //Optional Graph Showcase. May be removed depending on relavance
-            //    GraphShowcase()
-            //}
-        }.tabViewStyle(.automatic)
+                //    GraphShowcase()
+                //}
+            }.tabViewStyle(.automatic)
+            
+            Spacer()
+        }
     }
 }
