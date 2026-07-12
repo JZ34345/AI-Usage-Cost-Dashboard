@@ -8,7 +8,7 @@ import Cocoa
 import SwiftUI
 
 struct FilterState: Equatable {
-    let mainFilter: FilterButton.FilterOptions
+    let multiSelect: Set<MultiSelectFilterButton.FilterOptions>
     let dateFilter: DateFilterButton.DataFilterOptions
     let startDate: String
     let endDate: String

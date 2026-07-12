@@ -9,9 +9,9 @@ import SwiftUI
 
 //MARK: Generic Data Model
 struct GenericSummary: Identifiable {
-    public let id = UUID()
-    public let day: Date
-    public let category: String
-    public let cost: Double
+    let id = UUID()
+    let day: Date
+    let category: String
+    let cost: Double
 }
 

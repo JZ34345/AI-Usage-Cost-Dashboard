@@ -28,35 +28,15 @@ public struct DrillDown: View {
                     
 
                 }
-                VStack {
-                    Text("Drilldown (Drill) View").font(.largeTitle)
-                    HStack() {
-                        Spacer()
-                        //Cost type button
-                        CostTypeSwitch()
-                        
-                        //Date button
-                        DateFilterButton()
-                        Spacer()
-                    }.padding(.top)
-                    HStack {
-                        Spacer()
-                        //Drilldown buttons
-                       DrillDownButton()
-                           .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
-                       DrillNodeButton()
-                        Spacer()
-                    }.padding(.top)
-                }.padding(.bottom)
                 //MARK: Total Cost
                 //Graph and DataTable of a specific cluster and node in cluster
                 if appData.costType == .total {
-                    
                             //MARK: Specific cluster's node
                     if appData.clusterId != nil && appData.nodeId != nil {
-                        //Total data on left, average data on right
+                        DrillDownTitleAndButtonLayout(
+                            title: "Node \(appData.drillFilterNode.label) Cost-Time Graph (2026)")
+                        
                         genericGraph(data: appData.drilldownData,
-                                     title: "Node \(appData.drillFilterNode.label) Cost-Time Graph (2026)",
                                      ylabel: "Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -73,8 +53,10 @@ public struct DrillDown: View {
                             //MARK: Specific cluster
                     //Graph and DataTable of a specific cluster
                     else if appData.clusterId != nil {
+                        DrillDownTitleAndButtonLayout(
+                            title: "\(appData.drillFilterCluster.rawValue) Cluster Cost-Time Graph (2026)")
+                        
                         genericGraph(data: appData.drilldownData,
-                                     title: "\(appData.drillFilterCluster.rawValue) Cluster Cost-Time Graph (2026)",
                                      ylabel: "Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -91,9 +73,9 @@ public struct DrillDown: View {
                             //MARK: All clusters
                     //Graph and DataTable of cluster aggregation
                     else {
-                        //Total data on left, average data on right
+                        DrillDownTitleAndButtonLayout(title: "Cluster Cost-Time Graph (2026)")
+                        
                         genericGraph(data: appData.drilldownData,
-                                     title: "Cluster Cost-Time Graph (2026)",
                                      ylabel: "Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -109,12 +91,12 @@ public struct DrillDown: View {
                     }
                 //MARK: Average Cost
                 } else {
-                        
-                        
                         //MARK: Specific cluster's node
                     if appData.clusterId != nil && appData.nodeId != nil {
+                        DrillDownTitleAndButtonLayout(
+                            title: "Node \(appData.drillFilterNode.label) Average Cost-Time Graph (2026)")
+                        
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "Node \(appData.drillFilterNode.label) Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -129,8 +111,10 @@ public struct DrillDown: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //MARK: Specific cluster
                     } else if appData.clusterId != nil {
+                        DrillDownTitleAndButtonLayout(
+                            title: "\(appData.drillFilterCluster.rawValue) Cluster Average Cost-Time Graph (2026)")
+                        
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "\(appData.drillFilterCluster.rawValue) Cluster Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -145,8 +129,10 @@ public struct DrillDown: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //MARK: All clusters
                     } else {
+                        DrillDownTitleAndButtonLayout(
+                            title: "Cluster Average Cost-Time Graph (2026)")
+                        
                         genericGraph(data: appData.drilldownAverageData,
-                                     title: "Cluster Average Cost-Time Graph (2026)",
                                      ylabel: "Average Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

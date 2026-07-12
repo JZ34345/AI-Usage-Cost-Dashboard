@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82346A72FEC9FD500D64E5C /* AppData.swift */; };
 		A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85795CB2FFC7C04006B1DAE /* FilterState.swift */; };
+		A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */; };
 		A8AAEF2D2FF486C9003BBD38 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AAEF2C2FF486C1003BBD38 /* FileProvider.swift */; };
 		A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE52FF9D7DC00CAEB50 /* SampleProviders.swift */; };
 		A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE92FF9D8E500CAEB50 /* File.swift */; };
@@ -19,9 +20,9 @@
 		A8E5C1672FEC3882009AF2F4 /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C15D2FEC3882009AF2F4 /* FileLoader.swift */; };
 		A8E5C1682FEC3882009AF2F4 /* DateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */; };
 		A8E5C16B2FEC3882009AF2F4 /* MakeGenericGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1532FEC3882009AF2F4 /* MakeGenericGraph.swift */; };
-		A8E5C16C2FEC3882009AF2F4 /* View - Graphs Showcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1622FEC3882009AF2F4 /* View - Graphs Showcase.swift */; };
+		A8E5C16C2FEC3882009AF2F4 /* View - WoW.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1622FEC3882009AF2F4 /* View - WoW.swift */; };
 		A8E5C16D2FEC3882009AF2F4 /* AICostTimeUsageAnalysisDashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C14B2FEC3882009AF2F4 /* AICostTimeUsageAnalysisDashboardApp.swift */; };
-		A8E5C16E2FEC3882009AF2F4 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1522FEC3882009AF2F4 /* Filter.swift */; };
+		A8E5C16E2FEC3882009AF2F4 /* MultiSelectFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1522FEC3882009AF2F4 /* MultiSelectFilter.swift */; };
 		A8E5C16F2FEC3882009AF2F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C14D2FEC3882009AF2F4 /* ContentView.swift */; };
 		A8E5C1722FEC3882009AF2F4 /* View - Aggregation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1602FEC3882009AF2F4 /* View - Aggregation.swift */; };
 		A8E5C1752FEC3882009AF2F4 /* CSVExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C14E2FEC3882009AF2F4 /* CSVExport.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		A82346A72FEC9FD500D64E5C /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		A85795CB2FFC7C04006B1DAE /* FilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterState.swift; sourceTree = "<group>"; };
+		A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAndButtonLayout.swift; sourceTree = "<group>"; };
 		A88A2B952FE0C225003293EE /* Buttery_Internship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buttery_Internship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BA42FE0C227003293EE /* Buttery_InternshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BAE2FE0C227003293EE /* Buttery_InternshipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,13 +72,13 @@
 		A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilter.swift; sourceTree = "<group>"; };
 		A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillDown.swift; sourceTree = "<group>"; };
 		A8E5C1512FEC3882009AF2F4 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		A8E5C1522FEC3882009AF2F4 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		A8E5C1522FEC3882009AF2F4 /* MultiSelectFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectFilter.swift; sourceTree = "<group>"; };
 		A8E5C1532FEC3882009AF2F4 /* MakeGenericGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeGenericGraph.swift; sourceTree = "<group>"; };
 		A8E5C15D2FEC3882009AF2F4 /* FileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		A8E5C15F2FEC3882009AF2F4 /* sample-data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "sample-data.json"; sourceTree = "<group>"; };
 		A8E5C1602FEC3882009AF2F4 /* View - Aggregation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - Aggregation.swift"; sourceTree = "<group>"; };
 		A8E5C1612FEC3882009AF2F4 /* View - DrillDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - DrillDown.swift"; sourceTree = "<group>"; };
-		A8E5C1622FEC3882009AF2F4 /* View - Graphs Showcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - Graphs Showcase.swift"; sourceTree = "<group>"; };
+		A8E5C1622FEC3882009AF2F4 /* View - WoW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - WoW.swift"; sourceTree = "<group>"; };
 		A8E5C1632FEC3882009AF2F4 /* View - Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - Overview.swift"; sourceTree = "<group>"; };
 		A8F37CE82FFDC76600361C06 /* CostTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostTypeSwitch.swift; sourceTree = "<group>"; };
 		A8F37CEA2FFDCD0900361C06 /* DataTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeSwitch.swift; sourceTree = "<group>"; };
@@ -141,6 +143,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A87FE97A300314B400C46C7F /* View parts */ = {
+			isa = PBXGroup;
+			children = (
+				A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */,
+			);
+			path = "View parts";
+			sourceTree = "<group>";
+		};
 		A88A2B8C2FE0C225003293EE = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +177,8 @@
 				A8E5C1632FEC3882009AF2F4 /* View - Overview.swift */,
 				A8E5C1602FEC3882009AF2F4 /* View - Aggregation.swift */,
 				A8E5C1612FEC3882009AF2F4 /* View - DrillDown.swift */,
-				A8E5C1622FEC3882009AF2F4 /* View - Graphs Showcase.swift */,
+				A8E5C1622FEC3882009AF2F4 /* View - WoW.swift */,
+				A87FE97A300314B400C46C7F /* View parts */,
 				A8B96DE72FF9D82E00CAEB50 /* Components */,
 			);
 			path = Views;
@@ -246,7 +257,7 @@
 				A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */,
 				A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */,
 				A8E5C1512FEC3882009AF2F4 /* Error.swift */,
-				A8E5C1522FEC3882009AF2F4 /* Filter.swift */,
+				A8E5C1522FEC3882009AF2F4 /* MultiSelectFilter.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -428,15 +439,16 @@
 				A8F37CE92FFDC77300361C06 /* CostTypeSwitch.swift in Sources */,
 				A8B96DF12FF9DA6F00CAEB50 /* GenericGraph.swift in Sources */,
 				A8E5C1672FEC3882009AF2F4 /* FileLoader.swift in Sources */,
+				A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */,
 				A8E5C1682FEC3882009AF2F4 /* DateFilter.swift in Sources */,
 				A8E5C16B2FEC3882009AF2F4 /* MakeGenericGraph.swift in Sources */,
 				A8AAEF2D2FF486C9003BBD38 /* FileProvider.swift in Sources */,
-				A8E5C16C2FEC3882009AF2F4 /* View - Graphs Showcase.swift in Sources */,
+				A8E5C16C2FEC3882009AF2F4 /* View - WoW.swift in Sources */,
 				A8B96DEC2FF9D94600CAEB50 /* GenericSummary.swift in Sources */,
 				A8E5C16D2FEC3882009AF2F4 /* AICostTimeUsageAnalysisDashboardApp.swift in Sources */,
 				A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */,
 				A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */,
-				A8E5C16E2FEC3882009AF2F4 /* Filter.swift in Sources */,
+				A8E5C16E2FEC3882009AF2F4 /* MultiSelectFilter.swift in Sources */,
 				A8F37CEB2FFDCD1100361C06 /* DataTypeSwitch.swift in Sources */,
 				A8E5C16F2FEC3882009AF2F4 /* ContentView.swift in Sources */,
 				A8B96DF42FF9DABC00CAEB50 /* GenericDataTable.swift in Sources */,

@@ -26,16 +26,15 @@ import Charts
     
     @ObservationIgnored private var _totalGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _drillDownGraphDataCache: [GenericSummary]?
-    @ObservationIgnored private var _categoryGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _multiSelectGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _WoWGraphDataCache: [GenericSummary]?
-    @ObservationIgnored  private var _categorytWoWGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _totalGraphAverageDataCache: [GenericSummary]?
     @ObservationIgnored private var _drillDownGraphAverageDataCache: [GenericSummary]?
-    @ObservationIgnored private var _categoryGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _multiSelectGraphAverageDataCache: [GenericSummary]?
     @ObservationIgnored private var _WoWGraphAverageDataCache: [GenericSummary]?
     
     private var currentFilters: FilterState {
-        FilterState(mainFilter: mainFilter, dateFilter: dateFilter, startDate: startDate, endDate: endDate,                      drillCluster: drillFilterCluster, drillNode: drillFilterNode)
+        FilterState(multiSelect: multiSelectFilter, dateFilter: dateFilter, startDate: startDate, endDate: endDate,                      drillCluster: drillFilterCluster, drillNode: drillFilterNode)
     }
     
     private var lastFilters: FilterState?
@@ -43,12 +42,11 @@ import Charts
     private func invalidateCache() {
         _totalGraphDataCache = nil
         _drillDownGraphDataCache = nil
-        _categoryGraphDataCache = nil
+        _multiSelectGraphDataCache = nil
         _WoWGraphDataCache = nil
-        _categorytWoWGraphDataCache = nil
         _totalGraphAverageDataCache = nil
         _drillDownGraphAverageDataCache = nil
-        _categoryGraphAverageDataCache = nil
+        _multiSelectGraphAverageDataCache = nil
         _WoWGraphAverageDataCache = nil
     }
     
@@ -64,15 +62,18 @@ import Charts
     var dataType: DataTypeSwitch.DataType = .total
 
     //MARK: Filters
-    var mainFilter: FilterButton.FilterOptions = .total {didSet {invalidateCache()}}
+    var multiSelectFilter: Set<MultiSelectFilterButton.FilterOptions> = [.total] {didSet {invalidateCache()}}
     //Arranges filter choice to a data format for use in groupby parameter in makeGenericData function
-    func groupByClosure(for category: FilterButton.FilterOptions) -> (records) -> String {
+    func groupByClosure(for category: MultiSelectFilterButton.FilterOptions) -> (records) -> String {
        switch category {
-           case .cluster : return {record in self.clusterLookUp[record.clusterId] ?? "Unknown"}
-           case .query: return {record in record.queryType}
-           case .model: return {record in self.modelLookUp[record.modelId] ?? "Unknown"}
-           case .wow: return {_ in "WoW"}
-           default: return {_ in "Total"}
+       case .cluster : return {record in
+           let name = self.clusterLookUp[record.clusterId] ?? "Unknown"
+           return self.multiSelectFilter.count > 1 ? "Cluster: \(name)" : name}
+       case .model: return {record in
+           let name = self.modelLookUp[record.modelId] ?? "Unknown"
+           return self.multiSelectFilter.count > 1 ? "Cluster: \(name)" : name}
+       case .query: return {record in self.multiSelectFilter.count > 1 ? "Query: \(record.queryType)" : record.queryType}
+       case .total: return {_ in "Total"}
        }
 
    }
@@ -209,54 +210,42 @@ import Charts
         }
     }
     
-    var categoryGraphData: [GenericSummary] {
-        cached(&_categoryGraphDataCache) {
-            makeGenericGraph(record: source.records,
-                             selectedDates: source.cachedDates,
-                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                             groupBy: groupByClosure(for: mainFilter),
-                             metric: {($0.costCents * 100).rounded() / 100},
-                             dayLimit: dateByClosure(for: dateFilter),
-                             applyDayLimit: dateFilter != .custom
-            )
-        }
-    }
-    
-    var categoryWoWGraphData: [GenericSummary] {
-        cached(&_categorytWoWGraphDataCache) {
-            makeGenericGraph(record: source.records,
-                             selectedDates: source.cachedDates,
-                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                             groupBy: groupByClosure(for: mainFilter),
-                             metric: {($0.costCents * 100).rounded() / 100},
-                             dayLimit: dateByClosure(for: dateFilter),
-                             applyDayLimit: dateFilter != .custom,
-                             groupWeek: true,
-                             delta: true
-            )
+    var multiSelectGraphData: [GenericSummary] {
+        cached(&_multiSelectGraphDataCache) {
+            multiSelectFilter.flatMap { filter in
+                makeGenericGraph(record: source.records,
+                                 selectedDates: source.cachedDates,
+                                 filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                                 groupBy: groupByClosure(for: filter),
+                                 metric: {($0.costCents * 100).rounded() / 100},
+                                 dayLimit: dateByClosure(for: dateFilter),
+                                 applyDayLimit: dateFilter != .custom
+                )
+            }
         }
     }
     
     //MARK: Average Graph data templates
-    var averageTotalGraphData: [GenericSummary] {
-        cached(&_totalGraphAverageDataCache) {
-            makeGenericGraph(record: source.records,
-                             selectedDates: source.cachedDates,
-                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                             groupBy: groupByClosure(for: mainFilter),
-                             metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
-                             dayLimit: dateByClosure(for: dateFilter),
-                             applyDayLimit: dateFilter != .custom
-            )
+    var multiSelectAverageGraphData: [GenericSummary] {
+        cached(&_multiSelectGraphAverageDataCache) {
+            multiSelectFilter.flatMap { filter in
+                makeGenericGraph(record: source.records,
+                                 selectedDates: source.cachedDates,
+                                 filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                                 groupBy: groupByClosure(for: filter),
+                                 metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
+                                 dayLimit: dateByClosure(for: dateFilter),
+                                 applyDayLimit: dateFilter != .custom
+                )
+            }
         }
     }
     
-    var averageWoWGraphData: [GenericSummary] {
+    var WoWGraphAverageData: [GenericSummary] {
         cached(&_WoWGraphAverageDataCache) {
             makeGenericGraph(record: source.records,
                              selectedDates: source.cachedDates,
                              filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                             groupBy: groupByClosure(for: mainFilter),
                              metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
                              dayLimit: dateByClosure(for: dateFilter),
                              applyDayLimit: dateFilter != .custom,
@@ -350,63 +339,5 @@ import Charts
                 )
             }
         }
-    }
-    
-    
-    //MARK: Graph Showcase graphs
-    var clusterAverageGraphData: [GenericSummary] {
-        return makeGenericGraph(record: source.records,
-                                selectedDates: source.cachedDates,
-                                groupBy: {clusterLookUp[$0.clusterId] ?? "Unknown"},
-                                metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
-                                dayLimit: 30 )
-    }
-    
-    var clusterGraphData: [GenericSummary] {
-        return makeGenericGraph(record: source.records,
-                                selectedDates: source.cachedDates,
-                                groupBy: {clusterLookUp[$0.clusterId] ?? "Unknown"},
-                                metric: {($0.costCents * 100).rounded() / 100}, dayLimit: 30 )
-    }
-    
-    var modelAverageGraphData: [GenericSummary] {
-        return makeGenericGraph(record: source.records,
-                                selectedDates: source.cachedDates,
-                                groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
-                                metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100}, dayLimit: 30)
-    }
-    
-    var modelGraphData: [GenericSummary] {
-        return makeGenericGraph(record: source.records,
-                                selectedDates: source.cachedDates,
-                                groupBy: {modelLookUp[$0.modelId] ?? "Unknown"},
-                                metric: {($0.costCents * 100).rounded() / 100}, dayLimit: 30)
-    }
-    
-    var drillClusterData: [GenericSummary] {
-        let target = source.clusters.first {$0.region == "us-west-1"}?.id
-        
-        return makeGenericGraph(record: source.records,
-                                selectedDates: source.cachedDates,
-                                filter: {record in record.clusterId == target },
-                                groupBy: {nodeLookUp[$0.nodeId] ?? "Unknown"},
-                                metric: {($0.costCents * 100).rounded() / 100},
-                                dayLimit: 30)
-    }
-    
-    var drillNodeData: [GenericSummary] {
-        let target = source.clusters.first {$0.region == "us-west-1"}?.id
-        let target2 = source.nodes.first {$0.name == "usw-medium-02"}?.id
-
-        return makeGenericGraph(record: source.records,
-                                selectedDates: source.cachedDates,
-                                filter: {record in record.clusterId == target && record.nodeId == target2 },
-                                groupBy: {records in records.queryType},
-                                metric: {($0.costCents * 100).rounded() / 100},
-                                dayLimit: 30)
-    }
-    
-    var errorData: [GenericSummary] {
-        return makeGenericGraph(record:source.records, selectedDates: source.cachedDates, metric: {$0.costCents}, dayLimit: 0)
     }
 }

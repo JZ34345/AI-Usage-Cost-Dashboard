@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         HStack {
             Spacer()
-            
+            //Fix design issues based on email. 
             TabView {
                 Tab("Overview", systemImage: "chart.line.uptrend.xyaxis") {
                     //Overview page and graph types demostration
@@ -29,10 +29,10 @@ struct ContentView: View {
                     //Secondary view: focuses on drilldown filtering
                     DrillDown()
                 }
-                //Tab("Showcase", systemImage: "star") {
-                //Optional Graph Showcase. May be removed depending on relavance
-                //    GraphShowcase()
-                //}
+                Tab("WoW", systemImage: "star") {
+                    //Secondary View: Week-Over-Week Delta calculation
+                    WoW()
+                }
             }.tabViewStyle(.automatic)
             
             Spacer()

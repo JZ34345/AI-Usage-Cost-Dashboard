@@ -12,25 +12,23 @@ import Charts
      @Environment(AppData.self) private var appData
     
     //MARK: Variables and data structures
-    var isDelta: Bool {
-        appData.mainFilter == .wow
-    }
     //total cents graph data
     var graphData: [GenericSummary] {
-        if appData.mainFilter != .wow {
-            return appData.categoryGraphData
+        if appData.costType == .total {
+            return appData.multiSelectGraphData
         } else {
-            return appData.categoryWoWGraphData
+            return appData.multiSelectAverageGraphData
         }
     }
-    //average cents graph data
-    var averageGraphData: [GenericSummary] {
-         if appData.mainFilter != .wow {
-             return appData.averageTotalGraphData
-         } else {
-             return appData.averageWoWGraphData
+     
+     var filterTitle: String {
+         switch appData.multiSelectFilter.count {
+         case 0: return "None"
+         case 1: return appData.multiSelectFilter.first!.rawValue
+         default: return appData.multiSelectFilter.map {$0.rawValue}.sorted().joined(separator: "+ ")
          }
      }
+    
     //Aggregation Secondary view
      var body: some View {
         ScrollView([.vertical]) {
@@ -39,116 +37,51 @@ import Charts
                     //MARK: Buttons
                     Spacer()
                     //Export Button
-                    VStack {
-                        if appData.costType == .total {
-                            CSVExport(data: graphData)
-                        } else {
-                            CSVExport(data: averageGraphData)
-                        }
-                    }
+                    CSVExport(data: graphData)
                 }
-                
-                VStack {
-                    Text("\(appData.mainFilter.rawValue) Aggregation View").font(.largeTitle)
-                    
-                    HStack() {
-                        Spacer()
-                        //Cost type button
-                        CostTypeSwitch()
-                        
-                        //Date filter button
-                        DateFilterButton()
-                        
-                        //Filter Button
-                        FilterButton()
-                        Spacer()
-                    }.padding(.top)
-                }.padding(.bottom)
-
                 //MARK: Graph Arrangement
                 //Non delta option
                 if appData.costType == .total {
-                    if isDelta == false {
-                        HStack {
-                            genericGraph(data: graphData,
-                                         title: "\(appData.mainFilter.rawValue) Cost-Time Graph (2026)",
-                                         ylabel: "Cost (¢)",
-                                         isDelta: false)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-
-                        Spacer(minLength: 100)
-
-                        //Total data on left, average data on right
-                        HStack {
-                            genericDataTable(data: graphData,
-                                             title: "\(appData.mainFilter.rawValue) Cost DataTable",
-                                             category: appData.mainFilter.rawValue,
-                                             isDelta: false,
-                                             isAverage: false)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                    //Delta option
-                    } else {
-                        //Total data on left, average data on right
-                        HStack {
-                            genericGraph(data: graphData,
-                                         title: "\(appData.mainFilter.rawValue) Delta-Time Graph (2026)",
-                                         ylabel: "Delta (¢)",
-                                         isDelta: true)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-
-                        Spacer(minLength: 100)
-
-                        //Total data on left, average data on right
-                        HStack {
-                            genericDataTable(data: graphData,
-                                             title: "\(appData.mainFilter.rawValue) Delta DataTable",
-                                             category: appData.mainFilter.rawValue,
-                                             isDelta: true,
-                                             isAverage: false)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                    }
-                } else {
-                    if isDelta == false {
-                        genericGraph(data: averageGraphData,
-                                     title: "\(appData.mainFilter.rawValue) Average Cost-Time Graph (2026)",
-                                     ylabel: "Average Cost (¢)",
+                    AggregationTitleAndButtonLayout(title: "\(filterTitle) Cost-Time Graph (2026)")
+                    
+                    HStack {
+                        genericGraph(data: graphData,
+                                     ylabel: "Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        
-                        Spacer(minLength: 100)
-
-                        //Total data on left, average data on right
-                        genericDataTable(data: averageGraphData,
-                                         title: "\(appData.mainFilter.rawValue) Average Cost DataTable",
-                                         category: appData.mainFilter.rawValue,
+                    }
+                    
+                    Spacer(minLength: 100)
+                    
+                    HStack {
+                        genericDataTable(data: graphData,
+                                         title: "\(filterTitle) Cost DataTable",
+                                         category: filterTitle,
                                          isDelta: false,
-                                         isAverage: true)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        genericGraph(data: averageGraphData,
-                                     title: "\(appData.mainFilter.rawValue) Average Delta-Time Graph (2026)",
-                                     ylabel: "Average Delta (¢)",
-                                     isDelta: true)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        
-                        Spacer(minLength: 100)
-
-                        genericDataTable(data: averageGraphData,
-                                         title: "\(appData.mainFilter.rawValue) Average Delta DataTable",
-                                         category: appData.mainFilter.rawValue,
-                                         isDelta: true,
                                          isAverage: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
+                    //MARK: Average Graphs
+                } else {
+                    AggregationTitleAndButtonLayout(title: "\(filterTitle) Average Cost-Time Graph (2026)")
+                    
+                    genericGraph(data: graphData,
+                                 ylabel: "Average Cost (¢)",
+                                 isDelta: false)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    Spacer(minLength: 100)
+                    
+                    genericDataTable(data: graphData,
+                                     title: "\(filterTitle) Average Cost DataTable",
+                                     category: filterTitle,
+                                     isDelta: false,
+                                     isAverage: true)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
 }
 
 

@@ -13,14 +13,12 @@ struct genericGraph: View {
     @Environment(AppData.self) private var appData
     
     let data: [GenericSummary]
-    let title: String
     let ylabel: String
     let isDelta: Bool
     
         //MARK: Parameters
-    init(data: [GenericSummary], title: String, ylabel: String, isDelta: Bool) {
+    init(data: [GenericSummary], ylabel: String, isDelta: Bool) {
         self.data = data
-        self.title = title
         self.ylabel = ylabel
         self.isDelta = isDelta
     }
@@ -58,8 +56,6 @@ struct genericGraph: View {
         //MARK: UI Structure
     var body: some View {
         VStack {
-            //title page
-            Text(title).font(.title2)
             // if statement for error message
             if appData.datePickerError != nil {
                 Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)

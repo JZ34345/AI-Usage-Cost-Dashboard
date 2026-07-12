@@ -9,9 +9,9 @@ import Charts
         @Bindable var appBindData = appData
          
         ScrollView([.vertical]) {
-            VStack(spacing: 8) {
+            VStack {
                 HStack {
-                    //MARK: Buttons
+                    //MARK: Export Buttons
                     Spacer()
                     //Export button
                     VStack {
@@ -22,25 +22,12 @@ import Charts
                         }
                     }
                 }
-                VStack {
-                    Text("Overview").font(.largeTitle)
-                    HStack {
-                        Spacer()
-                        //Data type button
-                        DataTypeSwitch()
-                        
-                        //Date filter button
-                        DateFilterButton()
-                        Spacer()
-                    }.padding(.top)
-                }.padding(.bottom)
-
                 //MARK: Graph arrangement
                 if appData.dataType == .total {
+                    OverviewTitleAndButtonLayout(title: "Total Cost-Time Graph (2026)")
                     
                     //MARK: Total Cost
                     genericGraph(data: appData.totalGraphData,
-                                 title: "Total Cost-Time Graph (2026)",
                                  ylabel: "Cost (¢)",
                                  isDelta: false)
                     .frame(maxWidth: .infinity)
@@ -55,9 +42,12 @@ import Charts
                    .frame(maxWidth: .infinity)
                     
                 } else {
+                    WoWOverviewTitleAndButtonLayout(
+                        title: "WoW Delta Cost-Time Graph (2026)",
+                        description: "(WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week)")
+                    
                     //MARK: WoW Delta
                     genericGraph(data: appData.WoWGraphData,
-                                 title: "WoW Delta Cost-Time Graph (2026)",
                                  ylabel: "Delta (¢)",
                                  isDelta: true)
                         .frame(maxWidth: .infinity)
