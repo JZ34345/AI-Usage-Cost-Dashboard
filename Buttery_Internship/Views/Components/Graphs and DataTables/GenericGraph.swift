@@ -72,8 +72,12 @@ struct genericGraph: View {
                         
                         //Special zero x-axis line for WoW delta
                         if isDelta {
-                            RuleMark(y: .value("Zero", 0)).foregroundStyle(.mint)
+                            RuleMark(y: .value("Zero", 0)).foregroundStyle(.gray)
                         }
+                    }.onAppear {
+                        appData.dataExport = data
+                    }.onChange(of: data) { _, new in
+                        appData.dataExport = new
                     }
                     //x-axis adjustments
                     .chartXAxisLabel("Date", alignment: .center)

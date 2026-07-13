@@ -10,18 +10,6 @@ import Charts
          
         ScrollView([.vertical]) {
             VStack {
-                HStack {
-                    //MARK: Export Buttons
-                    Spacer()
-                    //Export button
-                    VStack {
-                        if appData.dataType == .total {
-                            CSVExport(data: appData.totalGraphData)
-                        } else {
-                            CSVExport(data: appData.WoWGraphData)
-                        }
-                    }
-                }
                 //MARK: Graph arrangement
                 if appData.dataType == .total {
                     OverviewTitleAndButtonLayout(title: "Total Cost-Time Graph (2026)")

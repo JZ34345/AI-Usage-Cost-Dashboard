@@ -25,7 +25,7 @@ import Charts
          switch appData.multiSelectFilter.count {
          case 0: return "None"
          case 1: return appData.multiSelectFilter.first!.rawValue
-         default: return appData.multiSelectFilter.map {$0.rawValue}.sorted().joined(separator: "+ ")
+         default: return appData.multiSelectFilter.map {$0.rawValue}.sorted().joined(separator: " + ")
          }
      }
     
@@ -33,12 +33,6 @@ import Charts
      var body: some View {
         ScrollView([.vertical]) {
             VStack {
-                HStack {
-                    //MARK: Buttons
-                    Spacer()
-                    //Export Button
-                    CSVExport(data: graphData)
-                }
                 //MARK: Graph Arrangement
                 //Non delta option
                 if appData.costType == .total {

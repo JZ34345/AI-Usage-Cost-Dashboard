@@ -14,14 +14,10 @@ import AppKit
 struct CSVExport: View {
     @Environment(AppData.self) private var appData
     
-    let data: [GenericSummary]
-    
-    //data parameter
-    init(data: [GenericSummary]) {
-        self.data = data
-    }
         //MARK: Export Function
-    private func exportCSV() {
+    func exportCSV() {
+        let data = appData.dataExport
+        
         //csv variable includes titles
         var csv = "Day,Category,Cost\n"
         let dataFormatter = DateFormatter()
@@ -59,8 +55,8 @@ struct CSVExport: View {
         //Button for csv export in UI
         Button(action: {exportCSV()}) {
             Text("\(Image(systemName: "square.and.arrow.up"))")
-                .font(.largeTitle)
-                .fontWeight(.regular)
+                .font(.title)
+                .fontWeight(.semibold)
                 .padding(.horizontal, 10)
         }
         .foregroundStyle(.blue)

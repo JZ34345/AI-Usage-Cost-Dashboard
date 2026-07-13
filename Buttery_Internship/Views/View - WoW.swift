@@ -13,56 +13,51 @@ import Charts
 struct WoW: View {
     @Environment(AppData.self) private var appData
     
+    var filterWoWTitle: String {
+        switch appData.multiSelectFilter.count {
+        case 0: return "None"
+        case 1: return appData.multiSelectFilter.first!.rawValue
+        default: return appData.multiSelectFilter.map {$0.rawValue}.sorted().joined(separator: " + ")
+        }
+    }
+    
     var body: some View {
         ScrollView([.vertical]) {
-            HStack {
-                //MARK: Export Buttons
-                Spacer()
-                //Export button
-                VStack {
-                    if appData.costType == .total {
-                        CSVExport(data: appData.WoWGraphData)
-                    } else {
-                        CSVExport(data: appData.WoWGraphAverageData)
-                    }
-                }
-            }
-            
             if appData.costType == .total {
                 WoWTitleAndButtonLayout(
-                    title: "WoW Delta Cost-Time Graph (2026)",
+                    title: "\(filterWoWTitle) WoW Delta Cost-Time Graph (2026)",
                     description: "(WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week)")
                 
                 //MARK: WoW Delta
-                genericGraph(data: appData.WoWGraphData,
+                genericGraph(data: appData.WoWAggregateGraphData,
                              ylabel: "Delta (¢)",
                              isDelta: true)
                     .frame(maxWidth: .infinity)
                 
                 Spacer(minLength: 100)
 
-                genericDataTable(data: appData.WoWGraphData,
+                genericDataTable(data: appData.WoWAggregateGraphData,
                                  title: "WoW Delta DataTable",
-                                 category: "WoW",
+                                 category: "\(filterWoWTitle) WoW ",
                                  isDelta: true,
                                  isAverage: false)
                 .frame(maxWidth: .infinity)
             } else {
                 WoWTitleAndButtonLayout(
-                    title: "WoW Delta Average Cost-Time Graph (2026)",
+                    title: "\(filterWoWTitle) WoW Delta Average Cost-Time Graph (2026)",
                     description: "(WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week)")
                 
                 //MARK: WoW Average Delta
-                genericGraph(data: appData.WoWGraphAverageData,
+                genericGraph(data: appData.WoWAggregateGraphAverageData,
                              ylabel: "Delta (¢)",
                              isDelta: true)
                     .frame(maxWidth: .infinity)
                 
                 Spacer(minLength: 100)
 
-                genericDataTable(data: appData.WoWGraphAverageData,
+                genericDataTable(data: appData.WoWAggregateGraphAverageData,
                                  title: "WoW Average Delta DataTable",
-                                 category: "WoW",
+                                 category: "\(filterWoWTitle) WoW",
                                  isDelta: true,
                                  isAverage: false)
                 .frame(maxWidth: .infinity)

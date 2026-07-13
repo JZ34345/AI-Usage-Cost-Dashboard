@@ -27,11 +27,13 @@ import Charts
     @ObservationIgnored private var _totalGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _drillDownGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _multiSelectGraphDataCache: [GenericSummary]?
-    @ObservationIgnored private var _WoWGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _totalGraphAverageDataCache: [GenericSummary]?
     @ObservationIgnored private var _drillDownGraphAverageDataCache: [GenericSummary]?
     @ObservationIgnored private var _multiSelectGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _WoWGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _WoWGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _WoWAggregateGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _WoWAggregateGraphAverageDataCache: [GenericSummary]?
     
     private var currentFilters: FilterState {
         FilterState(multiSelect: multiSelectFilter, dateFilter: dateFilter, startDate: startDate, endDate: endDate,                      drillCluster: drillFilterCluster, drillNode: drillFilterNode)
@@ -48,6 +50,8 @@ import Charts
         _drillDownGraphAverageDataCache = nil
         _multiSelectGraphAverageDataCache = nil
         _WoWGraphAverageDataCache = nil
+        _WoWAggregateGraphDataCache = nil
+        _WoWAggregateGraphAverageDataCache = nil
     }
     
     private func cached<T>(_ cache: inout T?, compute: () -> T) -> T {
@@ -57,9 +61,17 @@ import Charts
         let generic = compute()
         return generic
     }
+    
+    //MARK: Info
+    var showInfo: Bool = false
+    
+    
     //MARK: Cost and Data types
     var costType: CostTypeSwitch.CostType = .total
     var dataType: DataTypeSwitch.DataType = .total
+    
+    //MARK: Export
+    var dataExport: [GenericSummary] = []
 
     //MARK: Filters
     var multiSelectFilter: Set<MultiSelectFilterButton.FilterOptions> = [.total] {didSet {invalidateCache()}}
@@ -71,7 +83,7 @@ import Charts
            return self.multiSelectFilter.count > 1 ? "Cluster: \(name)" : name}
        case .model: return {record in
            let name = self.modelLookUp[record.modelId] ?? "Unknown"
-           return self.multiSelectFilter.count > 1 ? "Cluster: \(name)" : name}
+           return self.multiSelectFilter.count > 1 ? "Model: \(name)" : name}
        case .query: return {record in self.multiSelectFilter.count > 1 ? "Query: \(record.queryType)" : record.queryType}
        case .total: return {_ in "Total"}
        }
@@ -196,20 +208,6 @@ import Charts
         }
     }
     
-    var WoWGraphData: [GenericSummary] {
-        cached(&_WoWGraphDataCache) {
-            makeGenericGraph(record: source.records,
-                             selectedDates: source.cachedDates,
-                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                             metric: {($0.costCents * 100).rounded() / 100},
-                             dayLimit: dateByClosure(for: dateFilter),
-                             applyDayLimit: dateFilter != .custom,
-                             groupWeek: true,
-                             delta: true
-            )
-        }
-    }
-    
     var multiSelectGraphData: [GenericSummary] {
         cached(&_multiSelectGraphDataCache) {
             multiSelectFilter.flatMap { filter in
@@ -241,19 +239,7 @@ import Charts
         }
     }
     
-    var WoWGraphAverageData: [GenericSummary] {
-        cached(&_WoWGraphAverageDataCache) {
-            makeGenericGraph(record: source.records,
-                             selectedDates: source.cachedDates,
-                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
-                             metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
-                             dayLimit: dateByClosure(for: dateFilter),
-                             applyDayLimit: dateFilter != .custom,
-                             groupWeek: true,
-                             delta: true
-            )
-        }
-    }
+    
     
     //MARK: DrillDown data
     //Create the drilldown data based on the selected cluster and nodes
@@ -340,4 +326,66 @@ import Charts
             }
         }
     }
+    //MARK: WoW Data
+    var WoWGraphData: [GenericSummary] {
+        cached(&_WoWGraphDataCache) {
+            makeGenericGraph(record: source.records,
+                             selectedDates: source.cachedDates,
+                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                             metric: {($0.costCents * 100).rounded() / 100},
+                             dayLimit: dateByClosure(for: dateFilter),
+                             applyDayLimit: dateFilter != .custom,
+                             groupWeek: true,
+                             delta: true
+            )
+        }
+    }
+    var WoWGraphAverageData: [GenericSummary] {
+        cached(&_WoWGraphAverageDataCache) {
+            makeGenericGraph(record: source.records,
+                             selectedDates: source.cachedDates,
+                             filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                             metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
+                             dayLimit: dateByClosure(for: dateFilter),
+                             applyDayLimit: dateFilter != .custom,
+                             groupWeek: true,
+                             delta: true
+            )
+        }
+    }
+    
+    var WoWAggregateGraphData: [GenericSummary] {
+        cached(&_WoWAggregateGraphDataCache) {
+            multiSelectFilter.flatMap { filter in
+                makeGenericGraph(record: source.records,
+                                 selectedDates: source.cachedDates,
+                                 filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                                 groupBy: groupByClosure(for: filter),
+                                 metric: {($0.costCents * 100).rounded() / 100},
+                                 dayLimit: dateByClosure(for: dateFilter),
+                                 applyDayLimit: dateFilter != .custom,
+                                 groupWeek: true,
+                                 delta: true
+                )
+            }
+        }
+    }
+    
+    var WoWAggregateGraphAverageData: [GenericSummary] {
+        cached(&_WoWAggregateGraphAverageDataCache) {
+            multiSelectFilter.flatMap { filter in
+                makeGenericGraph(record: source.records,
+                                 selectedDates: source.cachedDates,
+                                 filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                                 groupBy: groupByClosure(for: filter),
+                                 metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
+                                 dayLimit: dateByClosure(for: dateFilter),
+                                 applyDayLimit: dateFilter != .custom,
+                                 groupWeek: true,
+                                 delta: true
+                )
+            }
+        }
+    }
 }
+

@@ -8,7 +8,7 @@ import Cocoa
 import SwiftUI
 
 //MARK: Generic Data Model
-struct GenericSummary: Identifiable {
+struct GenericSummary: Identifiable, Equatable {
     let id = UUID()
     let day: Date
     let category: String

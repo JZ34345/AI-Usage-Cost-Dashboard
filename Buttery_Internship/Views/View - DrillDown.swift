@@ -14,20 +14,6 @@ public struct DrillDown: View {
     public var body: some View {
         ScrollView([.vertical]) {
             VStack {
-                HStack {
-                    //MARK: Buttons
-                    Spacer()
-                    //Export button
-                    VStack {
-                        if appData.costType == .total {
-                            CSVExport(data: appData.drilldownData)
-                        } else {
-                            CSVExport(data: appData.drilldownAverageData)
-                        }
-                    }
-                    
-
-                }
                 //MARK: Total Cost
                 //Graph and DataTable of a specific cluster and node in cluster
                 if appData.costType == .total {

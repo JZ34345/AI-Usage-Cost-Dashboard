@@ -34,6 +34,11 @@ struct ContentView: View {
                     WoW()
                 }
             }.tabViewStyle(.automatic)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        CSVExport()
+                    }
+                }
             
             Spacer()
         }

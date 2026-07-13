@@ -15,6 +15,8 @@ import SwiftData
     //variable for what current filter choice is
     @Environment(AppData.self) private var appData
 
+    let maxSelect = 2
+     
     //MARK: Options
     //filter choices
      enum FilterOptions: String, CaseIterable {
@@ -49,18 +51,29 @@ import SwiftData
                  Divider()
                  
                  ForEach(FilterOptions.allCases, id: \.self) { option in
+                     let yesContains = appData.multiSelectFilter.contains(option)
+                     let atMax = appData.multiSelectFilter.count >= maxSelect && !yesContains
+                     
                      Button {
-                         if appData.multiSelectFilter.contains(option) && appData.multiSelectFilter.count > 1 {
+                         if yesContains && appData.multiSelectFilter.count > 1 {
                                  appData.multiSelectFilter.remove(option)
-                         } else {
+                         } else if !atMax{
                              appData.multiSelectFilter.insert(option)
                          }
                      } label: {
                          Label(option.rawValue,
-                               systemImage: appData.multiSelectFilter.contains(option) ? "checkmark" : "")
+                               systemImage: yesContains ? "checkmark" : "")
                      }
-                     
+                     .disabled(atMax)
                  }
+                 
+                 if appData.multiSelectFilter.count >= maxSelect {
+                     Divider()
+                     Text("\(maxSelect) is the max number of selections")
+                         .font(.caption)
+                         .foregroundStyle(.secondary)
+                 }
+                 
              } label: {
                  Label("", systemImage: "line.3.horizontal.decrease")
              }.menuStyle(.borderedButton)

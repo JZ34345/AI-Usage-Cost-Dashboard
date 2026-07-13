@@ -6,7 +6,7 @@
 //
 import Cocoa
 import SwiftUI
-
+//MARK: Overview Title and Button
 struct OverviewTitleAndButtonLayout: View {
     var title: String
     
@@ -29,7 +29,7 @@ struct OverviewTitleAndButtonLayout: View {
         }.padding(.bottom)
     }
 }
-
+//MARK: WoW Title and Button
 struct WoWTitleAndButtonLayout: View {
     var title: String
     var description: String
@@ -41,8 +41,10 @@ struct WoWTitleAndButtonLayout: View {
     
     var body: some View {
         VStack {
-            Text(title).font(.largeTitle)
-            Text(description).font(.title).foregroundStyle(.gray)
+            HStack {
+                Text(title).font(.largeTitle)
+                InfoButton(description: description)
+            }
             HStack {
                 Spacer()
                 //Data type button
@@ -50,12 +52,16 @@ struct WoWTitleAndButtonLayout: View {
                 
                 //Date filter button
                 DateFilterButton()
+                
+                //MultiSelect button
+                MultiSelectFilterButton()
                 Spacer()
             }.padding(.top)
         }.padding(.bottom)
     }
 }
 
+//MARK: Overview WoW Title and Button
 struct WoWOverviewTitleAndButtonLayout: View {
     var title: String
     var description: String
@@ -81,7 +87,7 @@ struct WoWOverviewTitleAndButtonLayout: View {
         }.padding(.bottom)
     }
 }
-
+//MARK: Aggregation Title and Button
 struct AggregationTitleAndButtonLayout: View {
     var title: String
     
@@ -107,7 +113,7 @@ struct AggregationTitleAndButtonLayout: View {
         }.padding(.bottom)
     }
 }
-
+//MARK: Drilldown Title and Button
 struct DrillDownTitleAndButtonLayout: View {
     @Environment(AppData.self) private var appData
     var title: String

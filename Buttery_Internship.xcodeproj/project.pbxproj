@@ -31,6 +31,7 @@
 		A8E5C17B2FEC3882009AF2F4 /* DrillDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */; };
 		A8E5C17C2FEC3882009AF2F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8E5C14C2FEC3882009AF2F4 /* Assets.xcassets */; };
 		A8E5C17D2FEC3882009AF2F4 /* sample-data.json in Resources */ = {isa = PBXBuildFile; fileRef = A8E5C15F2FEC3882009AF2F4 /* sample-data.json */; };
+		A8F009F63004793B002E9E68 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F009F530047937002E9E68 /* InfoButton.swift */; };
 		A8F37CE92FFDC77300361C06 /* CostTypeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F37CE82FFDC76600361C06 /* CostTypeSwitch.swift */; };
 		A8F37CEB2FFDCD1100361C06 /* DataTypeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F37CEA2FFDCD0900361C06 /* DataTypeSwitch.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		A8E5C1612FEC3882009AF2F4 /* View - DrillDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - DrillDown.swift"; sourceTree = "<group>"; };
 		A8E5C1622FEC3882009AF2F4 /* View - WoW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - WoW.swift"; sourceTree = "<group>"; };
 		A8E5C1632FEC3882009AF2F4 /* View - Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - Overview.swift"; sourceTree = "<group>"; };
+		A8F009F530047937002E9E68 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		A8F37CE82FFDC76600361C06 /* CostTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostTypeSwitch.swift; sourceTree = "<group>"; };
 		A8F37CEA2FFDCD0900361C06 /* DataTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeSwitch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -257,6 +259,7 @@
 				A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */,
 				A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */,
 				A8E5C1512FEC3882009AF2F4 /* Error.swift */,
+				A8F009F530047937002E9E68 /* InfoButton.swift */,
 				A8E5C1522FEC3882009AF2F4 /* MultiSelectFilter.swift */,
 			);
 			path = Features;
@@ -450,6 +453,7 @@
 				A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */,
 				A8E5C16E2FEC3882009AF2F4 /* MultiSelectFilter.swift in Sources */,
 				A8F37CEB2FFDCD1100361C06 /* DataTypeSwitch.swift in Sources */,
+				A8F009F63004793B002E9E68 /* InfoButton.swift in Sources */,
 				A8E5C16F2FEC3882009AF2F4 /* ContentView.swift in Sources */,
 				A8B96DF42FF9DABC00CAEB50 /* GenericDataTable.swift in Sources */,
 				A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */,
