@@ -55,13 +55,7 @@ struct CSVExport: View {
         //Button for csv export in UI
         Button(action: {exportCSV()}) {
             Text("\(Image(systemName: "square.and.arrow.up"))")
-                .font(.title)
-                .fontWeight(.semibold)
-                .padding(.horizontal, 10)
         }
-        .foregroundStyle(.blue)
-        .buttonBorderShape(.capsule)
-        
     }
     
 }

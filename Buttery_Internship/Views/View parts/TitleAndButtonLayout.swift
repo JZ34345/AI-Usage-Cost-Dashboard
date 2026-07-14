@@ -6,35 +6,13 @@
 //
 import Cocoa
 import SwiftUI
+
 //MARK: Overview Title and Button
 struct OverviewTitleAndButtonLayout: View {
     var title: String
+    var description: String?
     
-    init(title: String) {
-        self.title = title
-    }
-    
-    var body: some View {
-        VStack {
-            Text(title).font(.largeTitle)
-            HStack {
-                Spacer()
-                //Data type button
-                DataTypeSwitch()
-                
-                //Date filter button
-                DateFilterButton()
-                Spacer()
-            }.padding(.top)
-        }.padding(.bottom)
-    }
-}
-//MARK: WoW Title and Button
-struct WoWTitleAndButtonLayout: View {
-    var title: String
-    var description: String
-    
-    init(title: String, description: String) {
+    init(title: String, description: String?) {
         self.title = title
         self.description = description
     }
@@ -42,14 +20,64 @@ struct WoWTitleAndButtonLayout: View {
     var body: some View {
         VStack {
             HStack {
+                //Title
                 Text(title).font(.largeTitle)
-                InfoButton(description: description)
+                if description != nil {
+                    //Info button
+                    InfoButton(description: description!).id(description)
+                }
             }
             HStack {
                 Spacer()
-                //Data type button
+                //Data type switch
+                DataTypeSwitch()
+                
+                //View type switch
+                ViewTypeSwitch()
+                Spacer()
+                
+            }.padding(.top)
+            HStack {
+                Spacer()
+                //Date filter button
+                DateFilterButton()
+                Spacer()
+            }.padding(.top)
+        }
+    }
+}
+//MARK: WoW Title and Button
+struct WoWTitleAndButtonLayout: View {
+    var title: String
+    var description: String?
+    
+    init(title: String, description: String?) {
+        self.title = title
+        self.description = description
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                //Title
+                Text(title).font(.largeTitle)
+                if description != nil {
+                    //Info button
+                    InfoButton(description: description!).id(description)
+                }
+            }
+            HStack {
+                Spacer()
+                //Cost type button
                 CostTypeSwitch()
                 
+                //View type button
+                ViewTypeSwitch()
+                Spacer()
+            }.padding(.top)
+            
+            HStack {
+                Spacer()
                 //Date filter button
                 DateFilterButton()
                 
@@ -57,52 +85,80 @@ struct WoWTitleAndButtonLayout: View {
                 MultiSelectFilterButton()
                 Spacer()
             }.padding(.top)
-        }.padding(.bottom)
+        }
     }
 }
 
 //MARK: Overview WoW Title and Button
 struct WoWOverviewTitleAndButtonLayout: View {
     var title: String
-    var description: String
+    var description: String?
     
-    init(title: String, description: String) {
+    init(title: String, description: String?) {
         self.title = title
         self.description = description
     }
     
     var body: some View {
         VStack {
-            Text(title).font(.largeTitle)
-            Text(description).font(.title).foregroundStyle(.gray)
+            HStack {
+                //Title
+                Text(title).font(.largeTitle)
+                if description != nil {
+                    //Info button
+                    InfoButton(description: description!).id(description)
+                }
+            }
             HStack {
                 Spacer()
                 //Data type button
                 DataTypeSwitch()
                 
+                //View type switch
+                ViewTypeSwitch()
+                Spacer()
+            }.padding(.top)
+            HStack {
+                Spacer()
                 //Date filter button
                 DateFilterButton()
                 Spacer()
             }.padding(.top)
-        }.padding(.bottom)
+        }
     }
 }
 //MARK: Aggregation Title and Button
 struct AggregationTitleAndButtonLayout: View {
     var title: String
+    var description: String?
     
-    init(title: String) {
+    init(title: String, description: String?) {
         self.title = title
+        self.description = description
     }
     
     var body: some View {
         VStack {
-            Text(title).font(.largeTitle)
+            HStack {
+                //Title
+                Text(title).font(.largeTitle)
+                if description != nil {
+                    //Info button
+                    InfoButton(description: description!).id(description)
+                }
+            }
             HStack() {
                 Spacer()
-                //Cost type button
+                //Cost type switch
                 CostTypeSwitch()
                 
+                //View type switch
+                ViewTypeSwitch()
+                Spacer()
+            }.padding(.top)
+            
+            HStack() {
+                Spacer()
                 //Date filter button
                 DateFilterButton()
                 
@@ -110,27 +166,39 @@ struct AggregationTitleAndButtonLayout: View {
                 MultiSelectFilterButton()
                 Spacer()
             }.padding(.top)
-        }.padding(.bottom)
+        }
     }
 }
 //MARK: Drilldown Title and Button
 struct DrillDownTitleAndButtonLayout: View {
     @Environment(AppData.self) private var appData
     var title: String
+    var description: String?
     
     
-    init(title: String) {
+    init(title: String, description: String?) {
         self.title = title
+        self.description = description
     }
     
     var body: some View {
         VStack {
-            Text(title).font(.largeTitle)
-            
+            HStack {
+                //Title
+                Text(title).font(.largeTitle)
+                if description != nil {
+                    //Info button
+                    InfoButton(description: description!).id(description)
+                }
+            }
+
             HStack() {
                 Spacer()
                 //Cost type button
                 CostTypeSwitch()
+                
+                //View type button
+                ViewTypeSwitch()
                 
                 //Date button
                 DateFilterButton()
@@ -145,7 +213,7 @@ struct DrillDownTitleAndButtonLayout: View {
                DrillNodeButton()
                 Spacer()
             }.padding(.top)
-        }.padding(.bottom)
+        }
     }
 }
 

@@ -23,44 +23,48 @@ struct WoW: View {
     
     var body: some View {
         ScrollView([.vertical]) {
+            //MARK: WoW Delta
             if appData.costType == .total {
-                WoWTitleAndButtonLayout(
-                    title: "\(filterWoWTitle) WoW Delta Cost-Time Graph (2026)",
-                    description: "(WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week)")
-                
-                //MARK: WoW Delta
-                genericGraph(data: appData.WoWAggregateGraphData,
-                             ylabel: "Delta (¢)",
-                             isDelta: true)
+                //Graph
+                if appData.viewType == .graph {
+                    WoWTitleAndButtonLayout(
+                        title: "\(filterWoWTitle) WoW Delta Cost-Time Graph (2026)",
+                        description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.").padding(.top)
+                    
+                    genericGraph(data: appData.WoWAggregateGraphData, ylabel: "Delta (¢)", isDelta: true)
+                        .frame(maxWidth: .infinity)
+                //Table
+                } else {
+                    WoWTitleAndButtonLayout(
+                        title: "WoW Delta Table (2026)",
+                        description: "This table displays all the data used for the graph. The specific data is change in AI usage cost week per week for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                    
+                    genericDataTable(data: appData.WoWAggregateGraphData, category: "\(filterWoWTitle) WoW ",
+                                     isDelta: true, isAverage: false)
                     .frame(maxWidth: .infinity)
+                }
                 
-                Spacer(minLength: 100)
-
-                genericDataTable(data: appData.WoWAggregateGraphData,
-                                 title: "WoW Delta DataTable",
-                                 category: "\(filterWoWTitle) WoW ",
-                                 isDelta: true,
-                                 isAverage: false)
-                .frame(maxWidth: .infinity)
+            //MARK: WoW Average Delta
             } else {
-                WoWTitleAndButtonLayout(
-                    title: "\(filterWoWTitle) WoW Delta Average Cost-Time Graph (2026)",
-                    description: "(WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week)")
-                
-                //MARK: WoW Average Delta
-                genericGraph(data: appData.WoWAggregateGraphAverageData,
-                             ylabel: "Delta (¢)",
-                             isDelta: true)
+                //Graph
+                if appData.viewType == .graph {
+                    WoWTitleAndButtonLayout(
+                        title: "\(filterWoWTitle) WoW Delta Average Cost-Time Graph (2026)",
+                        description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.")
+                    
+                    genericGraph(data: appData.WoWAggregateGraphAverageData, ylabel: "Delta (¢)", isDelta: true)
+                        .frame(maxWidth: .infinity)
+                //Table
+                } else {
+                    WoWTitleAndButtonLayout(
+                        title: "WoW Average Delta Table (2026)",
+                        description: "This table displays all the data used for the graph. The specific data is change in average AI usage cost week per week for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                    
+                    genericDataTable(data: appData.WoWAggregateGraphAverageData, category: "\(filterWoWTitle) WoW",
+                                     isDelta: true, isAverage: false)
                     .frame(maxWidth: .infinity)
+                }
                 
-                Spacer(minLength: 100)
-
-                genericDataTable(data: appData.WoWAggregateGraphAverageData,
-                                 title: "WoW Average Delta DataTable",
-                                 category: "\(filterWoWTitle) WoW",
-                                 isDelta: true,
-                                 isAverage: false)
-                .frame(maxWidth: .infinity)
             }
             
             

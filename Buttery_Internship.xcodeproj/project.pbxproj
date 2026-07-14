@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82346A72FEC9FD500D64E5C /* AppData.swift */; };
 		A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85795CB2FFC7C04006B1DAE /* FilterState.swift */; };
+		A85E94B53005AE830035EF32 /* ViewTypeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */; };
 		A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */; };
 		A8AAEF2D2FF486C9003BBD38 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AAEF2C2FF486C1003BBD38 /* FileProvider.swift */; };
 		A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE52FF9D7DC00CAEB50 /* SampleProviders.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		A82346A72FEC9FD500D64E5C /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		A85795CB2FFC7C04006B1DAE /* FilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterState.swift; sourceTree = "<group>"; };
+		A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTypeSwitch.swift; sourceTree = "<group>"; };
 		A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAndButtonLayout.swift; sourceTree = "<group>"; };
 		A88A2B952FE0C225003293EE /* Buttery_Internship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Buttery_Internship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BA42FE0C227003293EE /* Buttery_InternshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,9 +147,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A85E94B63005AE9A0035EF32 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */,
+				A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */,
+				A8E5C1522FEC3882009AF2F4 /* MultiSelectFilter.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		A85E94B73005AEB50035EF32 /* Switches */ = {
+			isa = PBXGroup;
+			children = (
+				A8F37CE82FFDC76600361C06 /* CostTypeSwitch.swift */,
+				A8F37CEA2FFDCD0900361C06 /* DataTypeSwitch.swift */,
+				A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */,
+			);
+			path = Switches;
+			sourceTree = "<group>";
+		};
+		A85E94B83005AECE0035EF32 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				A8E5C14E2FEC3882009AF2F4 /* CSVExport.swift */,
+				A8F009F530047937002E9E68 /* InfoButton.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		A87FE97A300314B400C46C7F /* View parts */ = {
 			isa = PBXGroup;
 			children = (
+				A8E5C1512FEC3882009AF2F4 /* Error.swift */,
 				A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */,
 			);
 			path = "View parts";
@@ -253,14 +285,9 @@
 		A8B96DEE2FF9DA2100CAEB50 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				A8F37CE82FFDC76600361C06 /* CostTypeSwitch.swift */,
-				A8E5C14E2FEC3882009AF2F4 /* CSVExport.swift */,
-				A8F37CEA2FFDCD0900361C06 /* DataTypeSwitch.swift */,
-				A8E5C14F2FEC3882009AF2F4 /* DateFilter.swift */,
-				A8E5C1502FEC3882009AF2F4 /* DrillDown.swift */,
-				A8E5C1512FEC3882009AF2F4 /* Error.swift */,
-				A8F009F530047937002E9E68 /* InfoButton.swift */,
-				A8E5C1522FEC3882009AF2F4 /* MultiSelectFilter.swift */,
+				A85E94B73005AEB50035EF32 /* Switches */,
+				A85E94B63005AE9A0035EF32 /* Filters */,
+				A85E94B83005AECE0035EF32 /* Other */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -457,6 +484,7 @@
 				A8E5C16F2FEC3882009AF2F4 /* ContentView.swift in Sources */,
 				A8B96DF42FF9DABC00CAEB50 /* GenericDataTable.swift in Sources */,
 				A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */,
+				A85E94B53005AE830035EF32 /* ViewTypeSwitch.swift in Sources */,
 				A8E5C1722FEC3882009AF2F4 /* View - Aggregation.swift in Sources */,
 				A8E5C1752FEC3882009AF2F4 /* CSVExport.swift in Sources */,
 				A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */,

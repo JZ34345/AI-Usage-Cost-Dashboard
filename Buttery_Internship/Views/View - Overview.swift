@@ -10,44 +10,49 @@ import Charts
          
         ScrollView([.vertical]) {
             VStack {
-                //MARK: Graph arrangement
+                //MARK: Total Cost
                 if appData.dataType == .total {
-                    OverviewTitleAndButtonLayout(title: "Total Cost-Time Graph (2026)")
-                    
-                    //MARK: Total Cost
-                    genericGraph(data: appData.totalGraphData,
-                                 ylabel: "Cost (¢)",
-                                 isDelta: false)
-                    .frame(maxWidth: .infinity)
-                    
-                    Spacer(minLength: 100)
-                    
-                    genericDataTable(data: appData.totalGraphData,
-                                    title: "Total Cost DataTable",
-                                    category: "Total",
-                                    isDelta: false,
-                                    isAverage: false)
-                   .frame(maxWidth: .infinity)
-                    
+                    //Graph
+                    if appData.viewType == .graph {
+                        OverviewTitleAndButtonLayout(title: "Total Cost-Time Graph (2026)", description: nil)
+                            .padding(.top)
+                                           
+                       genericGraph(data: appData.totalGraphData,
+                                    ylabel: "Cost (¢)",
+                                    isDelta: false)
+                       .frame(maxWidth: .infinity)
+                    //Table
+                    } else {
+                        OverviewTitleAndButtonLayout(
+                            title: "Total Cost Table (2026)",
+                            description: "This table displays all the data used for the graph. The specific data is the total cost of AI usage. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
+                        .padding(.top)
+                        
+                        genericDataTable(data: appData.totalGraphData, category: "Total", isDelta: false,
+                                         isAverage: false)
+                       .frame(maxWidth: .infinity)
+                    }
+                //MARK: WoW Delta
                 } else {
-                    WoWOverviewTitleAndButtonLayout(
-                        title: "WoW Delta Cost-Time Graph (2026)",
-                        description: "(WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week)")
-                    
-                    //MARK: WoW Delta
-                    genericGraph(data: appData.WoWGraphData,
-                                 ylabel: "Delta (¢)",
-                                 isDelta: true)
+                    //Graph
+                    if appData.viewType == .graph {
+                        WoWOverviewTitleAndButtonLayout(
+                            title: "WoW Delta Cost-Time Graph (2026)",
+                            description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.")
+                        .padding(.top)
+                        
+                        genericGraph(data: appData.WoWGraphData,ylabel: "Delta (¢)", isDelta: true)
                         .frame(maxWidth: .infinity)
-                    
-                    Spacer(minLength: 100)
-
-                    genericDataTable(data: appData.WoWGraphData,
-                                     title: "WoW Delta DataTable",
-                                     category: "WoW",
-                                     isDelta: true,
-                                     isAverage: false)
-                    .frame(maxWidth: .infinity)
+                    } else {
+                        //Table
+                        WoWOverviewTitleAndButtonLayout(
+                            title: "WoW Delta Table (2026)",
+                            description: "This table displays all the data used for the graph. The specific data is change in AI usage cost week per week. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
+                        .padding(.top)
+                        
+                        genericDataTable(data: appData.WoWGraphData, category: "WoW", isDelta: true, isAverage: false)
+                        .frame(maxWidth: .infinity)
+                    }
                 }
                 
             }

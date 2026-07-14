@@ -13,14 +13,12 @@ struct genericDataTable: View {
     @Environment(AppData.self) private var appData
     
     let data: [GenericSummary]
-    let title: String
     let category: String
     let isDelta: Bool
     let isAverage: Bool
     
-    init(data: [GenericSummary], title: String, category: String, isDelta: Bool, isAverage: Bool) {
+    init(data: [GenericSummary], category: String, isDelta: Bool, isAverage: Bool) {
         self.data = data
-        self.title = title
         self.category = category
         self.isDelta = isDelta
         self.isAverage = isAverage
@@ -33,10 +31,6 @@ struct genericDataTable: View {
             //MARK: UI Structure
     var body: some View {
         VStack {
-            HStack {
-                Text(title).font(.title2)
-                InfoButton(description: "This DataTable displays all the data used for the graph above. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
-            }
             //If statement is for error message
             if appData.datePickerError != nil {
                 Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)

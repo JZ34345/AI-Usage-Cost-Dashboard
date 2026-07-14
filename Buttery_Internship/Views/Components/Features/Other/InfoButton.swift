@@ -11,6 +11,7 @@ struct InfoButton: View {
     @Environment(AppData.self) private var appData
     
     var description: String
+    @State private var showInfo = false
     
     init(description: String) {
         self.description = description
@@ -20,11 +21,11 @@ struct InfoButton: View {
     var body: some View {
         @Bindable var appData = appData
         Button {
-            appData.showInfo = true
+           showInfo = true
         } label: {
             Image(systemName: "info.circle")
         }
-        .popover(isPresented: $appData.showInfo) {
+        .popover(isPresented: $showInfo) {
             VStack {
                 Text("Description").font(.headline)
                 

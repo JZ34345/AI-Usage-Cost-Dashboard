@@ -9,6 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    //MARK: Look up button layout for charts and chart placement online for final polishing (google and pintrest different products).
+        //MARK: Add graph summaries for the graph and make graph placement side-to-side with light borders
+        //MARK: Switch the y-axis from cents to dollars for cost
+    //Datatables done (check over for details)
     @Environment(\.modelContext) private var modelContext
     @Environment(AppData.self) private var appData
 

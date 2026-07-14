@@ -62,13 +62,10 @@ import Charts
         return generic
     }
     
-    //MARK: Info
-    var showInfo: Bool = false
-    
-    
     //MARK: Cost and Data types
     var costType: CostTypeSwitch.CostType = .total
     var dataType: DataTypeSwitch.DataType = .total
+    var viewType: ViewTypeSwitch.ViewType = .graph
     
     //MARK: Export
     var dataExport: [GenericSummary] = []

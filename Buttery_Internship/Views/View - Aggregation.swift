@@ -33,45 +33,52 @@ import Charts
      var body: some View {
         ScrollView([.vertical]) {
             VStack {
-                //MARK: Graph Arrangement
-                //Non delta option
+                //MARK: Multi-Select
                 if appData.costType == .total {
-                    AggregationTitleAndButtonLayout(title: "\(filterTitle) Cost-Time Graph (2026)")
+                    //Graph
+                    if appData.viewType == .graph {
+                        AggregationTitleAndButtonLayout(title: "\(filterTitle) Cost-Time Graph (2026)", description: nil).padding(.top)
+                        HStack {
+                            genericGraph(data: graphData, ylabel: "Cost (¢)", isDelta: false)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                    //Table
+                    } else {
+                        AggregationTitleAndButtonLayout(
+                            title: "\(filterTitle) Cost Table (2026)",
+                            description: "This table displays all the data used for the graph. The specific data is AI usage cost for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
+                        .padding(.top)
+                        
+                        HStack {
+                            genericDataTable(data: graphData, category: filterTitle, isDelta: false, isAverage: false)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                    }
                     
-                    HStack {
+                //MARK: Multi-Select Average
+                } else {
+                    //Graph
+                    if appData.viewType == .graph {
+                        AggregationTitleAndButtonLayout(
+                            title: "\(filterTitle) Average Cost-Time Graph (2026)",
+                            description: nil)
+                        .padding(.top)
+                                            
                         genericGraph(data: graphData,
-                                     ylabel: "Cost (¢)",
+                                     ylabel: "Average Cost (¢)",
                                      isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    //Table
+                    } else {
+                        AggregationTitleAndButtonLayout(
+                            title: "\(filterTitle) Average Cost Table (2026)",
+                            description: "This table displays all the data used for the graph above. The specific data is AI usage average cost for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
+                        .padding(.top)
+                        
+                        genericDataTable(data: graphData, category: filterTitle, isDelta: false, isAverage: true)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     
-                    Spacer(minLength: 100)
-                    
-                    HStack {
-                        genericDataTable(data: graphData,
-                                         title: "\(filterTitle) Cost DataTable",
-                                         category: filterTitle,
-                                         isDelta: false,
-                                         isAverage: false)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    //MARK: Average Graphs
-                } else {
-                    AggregationTitleAndButtonLayout(title: "\(filterTitle) Average Cost-Time Graph (2026)")
-                    
-                    genericGraph(data: graphData,
-                                 ylabel: "Average Cost (¢)",
-                                 isDelta: false)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    
-                    Spacer(minLength: 100)
-                    
-                    genericDataTable(data: graphData,
-                                     title: "\(filterTitle) Average Cost DataTable",
-                                     category: filterTitle,
-                                     isDelta: false,
-                                     isAverage: true)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
