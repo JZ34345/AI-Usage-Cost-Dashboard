@@ -38,10 +38,11 @@ import Charts
                     //Graph
                     if appData.viewType == .graph {
                         AggregationTitleAndButtonLayout(title: "\(filterTitle) Cost-Time Graph (2026)", description: nil).padding(.top)
-                        HStack {
-                            genericGraph(data: graphData, ylabel: "Cost (¢)", isDelta: false)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
+                        
+                        MultiSelectSummaryView(data: graphData)
+                        
+                        genericGraph(data: graphData, ylabel: "Cost ($)", isDelta: false)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     //Table
                     } else {
                         AggregationTitleAndButtonLayout(
@@ -63,10 +64,10 @@ import Charts
                             title: "\(filterTitle) Average Cost-Time Graph (2026)",
                             description: nil)
                         .padding(.top)
-                                            
-                        genericGraph(data: graphData,
-                                     ylabel: "Average Cost (¢)",
-                                     isDelta: false)
+                                           
+                        MultiSelectSummaryView(data: graphData)
+                        
+                        genericGraph(data: graphData, ylabel: "Average Cost ($)", isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     //Table
                     } else {

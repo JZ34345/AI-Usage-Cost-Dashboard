@@ -67,7 +67,7 @@ struct genericGraph: View {
                     Chart(data) { item in
                         LineMark(
                             x: .value("date", item.day),
-                            y: .value(ylabel, item.cost)
+                            y: .value(ylabel, item.cost / 100)
                         ).foregroundStyle(by: .value("Catagory", item.category))
                         
                         //Special zero x-axis line for WoW delta

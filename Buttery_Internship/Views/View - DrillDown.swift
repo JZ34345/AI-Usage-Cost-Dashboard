@@ -25,7 +25,9 @@ public struct DrillDown: View {
                                 title: "Node \(appData.drillFilterNode.label) Cost-Time Graph (2026)", description: nil)
                             .padding(.top)
                             
-                            genericGraph(data: appData.drilldownData, ylabel: "Cost (¢)", isDelta: false)
+                            DrillDownSummaryView(data: appData.drilldownData)
+                            
+                            genericGraph(data: appData.drilldownData, ylabel: "Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {
@@ -48,7 +50,9 @@ public struct DrillDown: View {
                                 title: "Cluster \(appData.drillFilterCluster.rawValue) Cost-Time Graph (2026)", description: nil)
                             .padding(.top)
                             
-                            genericGraph(data: appData.drilldownData, ylabel: "Cost (¢)", isDelta: false)
+                            DrillDownSummaryView(data: appData.drilldownData)
+                            
+                            genericGraph(data: appData.drilldownData, ylabel: "Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {
@@ -68,7 +72,9 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(title: "Cluster Cost-Time Graph (2026)", description: nil).padding(.top)
                             
-                            genericGraph(data: appData.drilldownData, ylabel: "Cost (¢)", isDelta: false)
+                            DrillDownSummaryView(data: appData.drilldownData)
+                            
+                            genericGraph(data: appData.drilldownData, ylabel: "Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {
@@ -91,7 +97,9 @@ public struct DrillDown: View {
                             DrillDownTitleAndButtonLayout(
                                 title: "Node \(appData.drillFilterNode.label) Average Cost-Time Graph (2026)", description: nil).padding(.top)
                             
-                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost (¢)", isDelta: false)
+                            DrillDownSummaryView(data: appData.drilldownAverageData)
+
+                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {
@@ -113,7 +121,9 @@ public struct DrillDown: View {
                                 title: "Cluster \(appData.drillFilterCluster.rawValue) Average Cost-Time Graph (2026)", description: nil)
                             .padding(.top)
                             
-                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost (¢)", isDelta: false)
+                            DrillDownSummaryView(data: appData.drilldownAverageData)
+                            
+                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {
@@ -131,7 +141,9 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(title: "Cluster Average Cost-Time Graph (2026)", description: nil).padding(.top)
                             
-                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost (¢)", isDelta: false)
+                            DrillDownSummaryView(data: appData.drilldownAverageData)
+                            
+                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {

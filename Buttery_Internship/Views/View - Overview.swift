@@ -16,11 +16,11 @@ import Charts
                     if appData.viewType == .graph {
                         OverviewTitleAndButtonLayout(title: "Total Cost-Time Graph (2026)", description: nil)
                             .padding(.top)
+                        
+                        OverviewSummaryView(data: appData.totalGraphData)
                                            
-                       genericGraph(data: appData.totalGraphData,
-                                    ylabel: "Cost (¢)",
-                                    isDelta: false)
-                       .frame(maxWidth: .infinity)
+                        genericGraph(data: appData.totalGraphData, ylabel: "Cost ($)", isDelta: false)
+                            .frame(maxWidth: .infinity)
                     //Table
                     } else {
                         OverviewTitleAndButtonLayout(
@@ -30,7 +30,7 @@ import Charts
                         
                         genericDataTable(data: appData.totalGraphData, category: "Total", isDelta: false,
                                          isAverage: false)
-                       .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                     }
                 //MARK: WoW Delta
                 } else {
@@ -41,7 +41,9 @@ import Charts
                             description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.")
                         .padding(.top)
                         
-                        genericGraph(data: appData.WoWGraphData,ylabel: "Delta (¢)", isDelta: true)
+                        WoWSummaryView(data: appData.WoWGraphData)
+                        
+                        genericGraph(data: appData.WoWGraphData,ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
                     } else {
                         //Table

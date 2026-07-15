@@ -31,7 +31,9 @@ struct WoW: View {
                         title: "\(filterWoWTitle) WoW Delta Cost-Time Graph (2026)",
                         description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.").padding(.top)
                     
-                    genericGraph(data: appData.WoWAggregateGraphData, ylabel: "Delta (¢)", isDelta: true)
+                    WoWSummaryView(data: appData.WoWAggregateGraphData)
+                    
+                    genericGraph(data: appData.WoWAggregateGraphData, ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
                 //Table
                 } else {
@@ -52,7 +54,9 @@ struct WoW: View {
                         title: "\(filterWoWTitle) WoW Delta Average Cost-Time Graph (2026)",
                         description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.")
                     
-                    genericGraph(data: appData.WoWAggregateGraphAverageData, ylabel: "Delta (¢)", isDelta: true)
+                    WoWSummaryView(data: appData.WoWAggregateGraphData)
+                    
+                    genericGraph(data: appData.WoWAggregateGraphAverageData, ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
                 //Table
                 } else {

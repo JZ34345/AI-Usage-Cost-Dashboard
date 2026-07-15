@@ -199,14 +199,13 @@ struct DrillDownTitleAndButtonLayout: View {
                 
                 //View type button
                 ViewTypeSwitch()
-                
-                //Date button
-                DateFilterButton()
                 Spacer()
             }.padding(.top)
             
             HStack {
                 Spacer()
+                //Date button
+                DateFilterButton()
                 //Drilldown buttons
                DrillDownButton()
                    .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
