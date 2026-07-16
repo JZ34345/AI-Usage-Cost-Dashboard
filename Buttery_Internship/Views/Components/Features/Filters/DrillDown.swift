@@ -24,7 +24,7 @@ import SwiftData
      //Main appearance of drilldown button
      var body: some View {
          VStack {
-             Text("Drill Cluster (\(appData.drillFilterCluster.rawValue))")
+             Text("Drill Cluster (\(appData.drillFilterCluster.rawValue))").fontWeight(.semibold)
              Menu {
                  ForEach(DrillDownClusterOptions.allCases, id: \.self) { option in
                      Button {

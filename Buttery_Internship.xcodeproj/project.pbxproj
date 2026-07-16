@@ -10,13 +10,13 @@
 		A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82346A72FEC9FD500D64E5C /* AppData.swift */; };
 		A84302813006FA260029BA21 /* WoWSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84302803006FA150029BA21 /* WoWSummary.swift */; };
 		A84302833006FDCA0029BA21 /* KPICard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84302823006FDC40029BA21 /* KPICard.swift */; };
-		A8430285300702EE0029BA21 /* WoWSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8430284300702E80029BA21 /* WoWSummaryView.swift */; };
+		A8430285300702EE0029BA21 /* View - WoWSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8430284300702E80029BA21 /* View - WoWSummary.swift */; };
 		A8430287300705E90029BA21 /* OverviewSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8430286300705E00029BA21 /* OverviewSummary.swift */; };
 		A8430289300705F30029BA21 /* MultiSelectSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8430288300705ED0029BA21 /* MultiSelectSummary.swift */; };
 		A843028B300705FC0029BA21 /* DrillDownSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A843028A300705F60029BA21 /* DrillDownSummary.swift */; };
-		A843028D300708050029BA21 /* OverviewSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A843028C300707FD0029BA21 /* OverviewSummaryView.swift */; };
-		A843028F30070DDF0029BA21 /* MultiSelectSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A843028E30070DD90029BA21 /* MultiSelectSummaryView.swift */; };
-		A8430291300710D70029BA21 /* DrillDownSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8430290300710D10029BA21 /* DrillDownSummaryView.swift */; };
+		A843028D300708050029BA21 /* View - OverviewSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A843028C300707FD0029BA21 /* View - OverviewSummary.swift */; };
+		A843028F30070DDF0029BA21 /* View - MultiSelectSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A843028E30070DD90029BA21 /* View - MultiSelectSummary.swift */; };
+		A8430291300710D70029BA21 /* View - DrillDownSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8430290300710D10029BA21 /* View - DrillDownSummary.swift */; };
 		A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85795CB2FFC7C04006B1DAE /* FilterState.swift */; };
 		A85E94B53005AE830035EF32 /* ViewTypeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */; };
 		A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */; };
@@ -67,13 +67,13 @@
 		A82346A72FEC9FD500D64E5C /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		A84302803006FA150029BA21 /* WoWSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoWSummary.swift; sourceTree = "<group>"; };
 		A84302823006FDC40029BA21 /* KPICard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPICard.swift; sourceTree = "<group>"; };
-		A8430284300702E80029BA21 /* WoWSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoWSummaryView.swift; sourceTree = "<group>"; };
+		A8430284300702E80029BA21 /* View - WoWSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - WoWSummary.swift"; sourceTree = "<group>"; };
 		A8430286300705E00029BA21 /* OverviewSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewSummary.swift; sourceTree = "<group>"; };
 		A8430288300705ED0029BA21 /* MultiSelectSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectSummary.swift; sourceTree = "<group>"; };
 		A843028A300705F60029BA21 /* DrillDownSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillDownSummary.swift; sourceTree = "<group>"; };
-		A843028C300707FD0029BA21 /* OverviewSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewSummaryView.swift; sourceTree = "<group>"; };
-		A843028E30070DD90029BA21 /* MultiSelectSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectSummaryView.swift; sourceTree = "<group>"; };
-		A8430290300710D10029BA21 /* DrillDownSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillDownSummaryView.swift; sourceTree = "<group>"; };
+		A843028C300707FD0029BA21 /* View - OverviewSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - OverviewSummary.swift"; sourceTree = "<group>"; };
+		A843028E30070DD90029BA21 /* View - MultiSelectSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - MultiSelectSummary.swift"; sourceTree = "<group>"; };
+		A8430290300710D10029BA21 /* View - DrillDownSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - DrillDownSummary.swift"; sourceTree = "<group>"; };
 		A85795CB2FFC7C04006B1DAE /* FilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterState.swift; sourceTree = "<group>"; };
 		A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTypeSwitch.swift; sourceTree = "<group>"; };
 		A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAndButtonLayout.swift; sourceTree = "<group>"; };
@@ -198,12 +198,12 @@
 		A87FE97A300314B400C46C7F /* View parts */ = {
 			isa = PBXGroup;
 			children = (
-				A8430290300710D10029BA21 /* DrillDownSummaryView.swift */,
 				A8E5C1512FEC3882009AF2F4 /* Error.swift */,
 				A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */,
-				A843028E30070DD90029BA21 /* MultiSelectSummaryView.swift */,
-				A843028C300707FD0029BA21 /* OverviewSummaryView.swift */,
-				A8430284300702E80029BA21 /* WoWSummaryView.swift */,
+				A843028C300707FD0029BA21 /* View - OverviewSummary.swift */,
+				A843028E30070DD90029BA21 /* View - MultiSelectSummary.swift */,
+				A8430290300710D10029BA21 /* View - DrillDownSummary.swift */,
+				A8430284300702E80029BA21 /* View - WoWSummary.swift */,
 			);
 			path = "View parts";
 			sourceTree = "<group>";
@@ -499,14 +499,14 @@
 				A8E5C1672FEC3882009AF2F4 /* FileLoader.swift in Sources */,
 				A84302813006FA260029BA21 /* WoWSummary.swift in Sources */,
 				A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */,
-				A843028F30070DDF0029BA21 /* MultiSelectSummaryView.swift in Sources */,
+				A843028F30070DDF0029BA21 /* View - MultiSelectSummary.swift in Sources */,
 				A8E5C1682FEC3882009AF2F4 /* DateFilter.swift in Sources */,
 				A8E5C16B2FEC3882009AF2F4 /* MakeGenericGraph.swift in Sources */,
 				A8AAEF2D2FF486C9003BBD38 /* FileProvider.swift in Sources */,
 				A8E5C16C2FEC3882009AF2F4 /* View - WoW.swift in Sources */,
 				A8B96DEC2FF9D94600CAEB50 /* GenericSummary.swift in Sources */,
 				A8E5C16D2FEC3882009AF2F4 /* AICostTimeUsageAnalysisDashboardApp.swift in Sources */,
-				A843028D300708050029BA21 /* OverviewSummaryView.swift in Sources */,
+				A843028D300708050029BA21 /* View - OverviewSummary.swift in Sources */,
 				A85795CC2FFC7C09006B1DAE /* FilterState.swift in Sources */,
 				A843028B300705FC0029BA21 /* DrillDownSummary.swift in Sources */,
 				A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */,
@@ -518,12 +518,12 @@
 				A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */,
 				A85E94B53005AE830035EF32 /* ViewTypeSwitch.swift in Sources */,
 				A8E5C1722FEC3882009AF2F4 /* View - Aggregation.swift in Sources */,
-				A8430285300702EE0029BA21 /* WoWSummaryView.swift in Sources */,
+				A8430285300702EE0029BA21 /* View - WoWSummary.swift in Sources */,
 				A8E5C1752FEC3882009AF2F4 /* CSVExport.swift in Sources */,
 				A84302833006FDCA0029BA21 /* KPICard.swift in Sources */,
 				A8430287300705E90029BA21 /* OverviewSummary.swift in Sources */,
 				A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */,
-				A8430291300710D70029BA21 /* DrillDownSummaryView.swift in Sources */,
+				A8430291300710D70029BA21 /* View - DrillDownSummary.swift in Sources */,
 				A8E5C1782FEC3882009AF2F4 /* View - Overview.swift in Sources */,
 				A8E5C17A2FEC3882009AF2F4 /* View - DrillDown.swift in Sources */,
 				A8E5C17B2FEC3882009AF2F4 /* DrillDown.swift in Sources */,

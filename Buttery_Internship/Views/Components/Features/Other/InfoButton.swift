@@ -24,14 +24,13 @@ struct InfoButton: View {
            showInfo = true
         } label: {
             Image(systemName: "info.circle")
-        }
+        }.frame(width: 15, height: 15, alignment: .center)
         .popover(isPresented: $showInfo) {
             VStack {
                 Text("Description").font(.headline)
                 
                 Text(description)
             }
-            .padding()
             .frame(width: 300, height: 150)
         }
     }

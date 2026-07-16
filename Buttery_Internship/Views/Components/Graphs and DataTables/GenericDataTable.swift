@@ -118,7 +118,7 @@ struct genericDataTable: View {
                                 }
                                 TableColumn("Average Raw Cost (¢)") { item in
                                     Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                                }
+                                }.width(150)
                             }
                             .frame(width: 680, height: 500)
                         }
@@ -137,7 +137,7 @@ struct genericDataTable: View {
                                 }
                                 TableColumn("Average Raw Delta (¢)") { item in
                                     Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                                }
+                                }.width(150)
                             }
                             .frame(width: 680, height: 500)
                         }
@@ -155,7 +155,7 @@ struct genericDataTable: View {
                             }
                             TableColumn("Average Raw Cost (¢)") { item in
                                 Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                            }
+                            }.width(150)
                         }
                         .frame(width: 680, height: 500)
                     }

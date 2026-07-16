@@ -18,73 +18,74 @@ struct OverviewTitleAndButtonLayout: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack {
+            VStack {
                 //Title
-                Text(title).font(.largeTitle)
-                if description != nil {
-                    //Info button
-                    InfoButton(description: description!).id(description)
-                }
+                Text(title).font(.largeTitle).fontWeight(.bold)
+                Text("(2026)").fontWeight(.bold)
             }
+            
+            if description != nil {
+                //Info button
+                InfoButton(description: description!).id(description)
+            }
+            
+            Spacer()
+            
+            //Date filter button
+            DateFilterButton()
+            
+            Spacer()
+            
             HStack {
-                Spacer()
                 //Data type switch
                 DataTypeSwitch()
                 
                 //View type switch
                 ViewTypeSwitch()
-                Spacer()
-                
-            }.padding(.top)
-            HStack {
-                Spacer()
-                //Date filter button
-                DateFilterButton()
-                Spacer()
-            }.padding(.top)
+            }
+            
         }
     }
 }
 //MARK: WoW Title and Button
 struct WoWTitleAndButtonLayout: View {
     var title: String
+    var graphType: String
     var description: String?
     
-    init(title: String, description: String?) {
+    init(title: String, graphType: String, description: String?) {
         self.title = title
+        self.graphType = graphType
         self.description = description
     }
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack {
+            VStack {
                 //Title
-                Text(title).font(.largeTitle)
-                if description != nil {
-                    //Info button
-                    InfoButton(description: description!).id(description)
-                }
+                Text(title + "\n" + graphType).font(.largeTitle).fontWeight(.bold)
+                Text("(2026)").fontWeight(.bold)
             }
-            HStack {
-                Spacer()
-                //Cost type button
-                CostTypeSwitch()
-                
-                //View type button
-                ViewTypeSwitch()
-                Spacer()
-            }.padding(.top)
             
-            HStack {
-                Spacer()
-                //Date filter button
-                DateFilterButton()
-                
-                //MultiSelect button
-                MultiSelectFilterButton()
-                Spacer()
-            }.padding(.top)
+            if description != nil {
+                //Info button
+                InfoButton(description: description!).id(description)
+            }
+            
+            Spacer()
+            //Date filter button
+            DateFilterButton()
+            
+            //MultiSelect button
+            MultiSelectFilterButton()
+            
+            Spacer()
+            //Cost type button
+            CostTypeSwitch()
+            
+            //View type button
+            ViewTypeSwitch()
         }
     }
 }
@@ -100,119 +101,114 @@ struct WoWOverviewTitleAndButtonLayout: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack {
+            VStack {
                 //Title
-                Text(title).font(.largeTitle)
-                if description != nil {
-                    //Info button
-                    InfoButton(description: description!).id(description)
-                }
+                Text(title).font(.largeTitle).fontWeight(.bold)
+                Text("(2026)").fontWeight(.bold)
             }
-            HStack {
-                Spacer()
-                //Data type button
-                DataTypeSwitch()
-                
-                //View type switch
-                ViewTypeSwitch()
-                Spacer()
-            }.padding(.top)
-            HStack {
-                Spacer()
-                //Date filter button
-                DateFilterButton()
-                Spacer()
-            }.padding(.top)
+            
+            if description != nil {
+                //Info button
+                InfoButton(description: description!).id(description)
+            }
+            
+            Spacer()
+            //Date filter button
+            DateFilterButton()
+            
+            Spacer()
+            //Cost type button
+            DataTypeSwitch()
+            
+            //View type button
+            ViewTypeSwitch()
         }
     }
 }
 //MARK: Aggregation Title and Button
 struct AggregationTitleAndButtonLayout: View {
     var title: String
+    var graphType: String
     var description: String?
     
-    init(title: String, description: String?) {
+    init(title: String, graphType: String, description: String?) {
         self.title = title
+        self.graphType = graphType
         self.description = description
     }
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack {
+            VStack {
                 //Title
-                Text(title).font(.largeTitle)
-                if description != nil {
-                    //Info button
-                    InfoButton(description: description!).id(description)
-                }
+                Text(title + "\n" + graphType).font(.largeTitle).fontWeight(.bold)
+                Text("(2026)").fontWeight(.bold)
             }
-            HStack() {
-                Spacer()
-                //Cost type switch
-                CostTypeSwitch()
-                
-                //View type switch
-                ViewTypeSwitch()
-                Spacer()
-            }.padding(.top)
             
-            HStack() {
-                Spacer()
-                //Date filter button
-                DateFilterButton()
-                
-                //Filter Button
-                MultiSelectFilterButton()
-                Spacer()
-            }.padding(.top)
-        }
+            if description != nil {
+                //Info button
+                InfoButton(description: description!).id(description)
+            }
+        
+            Spacer()
+            //Date filter button
+            DateFilterButton()
+            
+            //Filter Button
+            MultiSelectFilterButton()
+            
+            Spacer()
+        
+            //Cost type switch
+            CostTypeSwitch()
+            
+            //View type switch
+            ViewTypeSwitch()
+        }.padding(.top)
     }
 }
 //MARK: Drilldown Title and Button
 struct DrillDownTitleAndButtonLayout: View {
     @Environment(AppData.self) private var appData
     var title: String
+    var graphType: String
     var description: String?
     
-    
-    init(title: String, description: String?) {
+    init(title: String, graphType: String, description: String?) {
         self.title = title
+        self.graphType = graphType
         self.description = description
     }
     
     var body: some View {
-        VStack {
-            HStack {
+        HStack {
+            VStack {
                 //Title
-                Text(title).font(.largeTitle)
-                if description != nil {
-                    //Info button
-                    InfoButton(description: description!).id(description)
-                }
+                Text(title + "\n" + graphType).font(.largeTitle).fontWeight(.bold)
+                Text("(2026)").fontWeight(.bold)
             }
-
-            HStack() {
-                Spacer()
-                //Cost type button
-                CostTypeSwitch()
-                
-                //View type button
-                ViewTypeSwitch()
-                Spacer()
-            }.padding(.top)
             
-            HStack {
-                Spacer()
-                //Date button
-                DateFilterButton()
-                //Drilldown buttons
-               DrillDownButton()
-                   .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
-               DrillNodeButton()
-                Spacer()
-            }.padding(.top)
-        }
+            if description != nil {
+                //Info button
+                InfoButton(description: description!).id(description)
+            }
+            
+            Spacer()
+            //Date button
+            DateFilterButton()
+            //Drilldown buttons
+            DrillDownButton()
+                .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
+            DrillNodeButton()
+
+            Spacer()
+            //Cost type button
+            CostTypeSwitch()
+            
+            //View type button
+            ViewTypeSwitch()        
+        }.padding(.top)
     }
 }
 

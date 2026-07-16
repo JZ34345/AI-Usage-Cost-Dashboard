@@ -61,25 +61,26 @@ struct genericGraph: View {
                 Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
             } else if data.isEmpty {
                 Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
-            //Graph with no errors
+                //Graph with no errors
             } else {
-                HStack {
-                    Chart(data) { item in
-                        LineMark(
-                            x: .value("date", item.day),
-                            y: .value(ylabel, item.cost / 100)
-                        ).foregroundStyle(by: .value("Catagory", item.category))
-                        
-                        //Special zero x-axis line for WoW delta
-                        if isDelta {
-                            RuleMark(y: .value("Zero", 0)).foregroundStyle(.gray)
-                        }
-                    }.onAppear {
-                        appData.dataExport = data
-                    }.onChange(of: data) { _, new in
-                        appData.dataExport = new
+                Chart(data) { item in
+                    LineMark(
+                        x: .value("date", item.day),
+                        y: .value(ylabel, item.cost / 100)
+                    ).foregroundStyle(by: .value("Catagory", item.category))
+                    
+                    //Special zero x-axis line for WoW delta
+                    if isDelta {
+                        RuleMark(y: .value("Zero", 0)).foregroundStyle(.gray)
                     }
-                    //x-axis adjustments
+                }.onAppear {
+                    appData.dataExport = data
+                }.onChange(of: data) { _, new in
+                    appData.dataExport = new
+                }.padding()
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .strokeBorder(.gray))
+                //x-axis adjustments
                     .chartXAxisLabel("Date", alignment: .center)
                     .chartXAxis {
                         if isDelta && appData.dateFilter != .seven {
@@ -105,17 +106,16 @@ struct genericGraph: View {
                                 }
                             }
                         }
-                        
                     }
-                    //y-axis adjustments
+                //y-axis adjustments
                     .chartYAxisLabel(ylabel, position: .topTrailing)
                     .chartYAxis {
                         AxisMarks(values: .automatic(desiredCount: 10))
                     }
                     .frame(minHeight: 500)
                     .chartLegend(position: .top)
-                }
             }
         }
+        Spacer()
     }
 }

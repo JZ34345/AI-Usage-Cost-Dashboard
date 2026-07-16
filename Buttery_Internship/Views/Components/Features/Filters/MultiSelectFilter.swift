@@ -38,15 +38,15 @@ import SwiftData
     //MARK: UI Structure
     var body: some View {
          VStack {
-             Text("Multi-Select")
+             Text("Multi-Select").fontWeight(.semibold)
              Menu {
                  Button("Select All") {
                      appData.multiSelectFilter = Set(MultiSelectFilterButton.FilterOptions.allCases)
-                 }
+                 }.fontWeight(.medium)
                  
                  Button("Deselect All") {
                      appData.multiSelectFilter = []
-                 }
+                 }.fontWeight(.medium)
                  
                  Divider()
                  

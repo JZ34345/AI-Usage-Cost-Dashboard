@@ -28,7 +28,7 @@ struct WoW: View {
                 //Graph
                 if appData.viewType == .graph {
                     WoWTitleAndButtonLayout(
-                        title: "\(filterWoWTitle) WoW Delta Cost-Time Graph (2026)",
+                        title: "\(filterWoWTitle) WoW Delta", graphType: "Cost-Time Graph",
                         description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.").padding(.top)
                     
                     WoWSummaryView(data: appData.WoWAggregateGraphData)
@@ -38,10 +38,10 @@ struct WoW: View {
                 //Table
                 } else {
                     WoWTitleAndButtonLayout(
-                        title: "WoW Delta Table (2026)",
+                        title: "\(filterWoWTitle) WoW Delta", graphType: "Cost Table",
                         description: "This table displays all the data used for the graph. The specific data is change in AI usage cost week per week for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
                     
-                    genericDataTable(data: appData.WoWAggregateGraphData, category: "\(filterWoWTitle) WoW ",
+                    genericDataTable(data: appData.WoWAggregateGraphData, category: "\(filterWoWTitle) WoW",
                                      isDelta: true, isAverage: false)
                     .frame(maxWidth: .infinity)
                 }
@@ -51,7 +51,7 @@ struct WoW: View {
                 //Graph
                 if appData.viewType == .graph {
                     WoWTitleAndButtonLayout(
-                        title: "\(filterWoWTitle) WoW Delta Average Cost-Time Graph (2026)",
+                        title: "\(filterWoWTitle) WoW Delta", graphType: "Average Cost-Time Graph",
                         description: "WoW Delta refers to the cost difference, in cents, an AI uses in one week compared to the previous week.")
                     
                     WoWSummaryView(data: appData.WoWAggregateGraphData)
@@ -61,7 +61,7 @@ struct WoW: View {
                 //Table
                 } else {
                     WoWTitleAndButtonLayout(
-                        title: "WoW Average Delta Table (2026)",
+                        title: "WoW Average Delta", graphType: "Cost Table",
                         description: "This table displays all the data used for the graph. The specific data is change in average AI usage cost week per week for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
                     
                     genericDataTable(data: appData.WoWAggregateGraphAverageData, category: "\(filterWoWTitle) WoW",

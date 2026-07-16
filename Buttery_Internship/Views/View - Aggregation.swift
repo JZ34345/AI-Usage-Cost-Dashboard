@@ -37,7 +37,7 @@ import Charts
                 if appData.costType == .total {
                     //Graph
                     if appData.viewType == .graph {
-                        AggregationTitleAndButtonLayout(title: "\(filterTitle) Cost-Time Graph (2026)", description: nil).padding(.top)
+                        AggregationTitleAndButtonLayout(title: "\(filterTitle) ", graphType: "Cost-Time Graph", description: nil).padding(.top)
                         
                         MultiSelectSummaryView(data: graphData)
                         
@@ -46,7 +46,7 @@ import Charts
                     //Table
                     } else {
                         AggregationTitleAndButtonLayout(
-                            title: "\(filterTitle) Cost Table (2026)",
+                            title: "\(filterTitle)", graphType: "Cost Table",
                             description: "This table displays all the data used for the graph. The specific data is AI usage cost for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
                         .padding(.top)
                         
@@ -61,8 +61,7 @@ import Charts
                     //Graph
                     if appData.viewType == .graph {
                         AggregationTitleAndButtonLayout(
-                            title: "\(filterTitle) Average Cost-Time Graph (2026)",
-                            description: nil)
+                            title: "\(filterTitle)", graphType: "Average Cost-Time Graph", description: nil)
                         .padding(.top)
                                            
                         MultiSelectSummaryView(data: graphData)
@@ -72,7 +71,7 @@ import Charts
                     //Table
                     } else {
                         AggregationTitleAndButtonLayout(
-                            title: "\(filterTitle) Average Cost Table (2026)",
+                            title: "\(filterTitle)", graphType: "Average Cost Table", 
                             description: "This table displays all the data used for the graph above. The specific data is AI usage average cost for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
                         .padding(.top)
                         

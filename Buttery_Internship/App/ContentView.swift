@@ -11,7 +11,7 @@ import SwiftData
 struct ContentView: View {
     //MARK: Look up button layout for charts and chart placement online for final polishing (google and pintrest different products).
         //MARK: Add graph summaries for the graph and make graph placement side-to-side with light borders
-        //MARK: Switch the y-axis from cents to dollars for cost
+        //MARK: Switch the y-axis from cents to dollars for cost (Done)
     //Datatables done (check over for details)
     @Environment(\.modelContext) private var modelContext
     @Environment(AppData.self) private var appData
@@ -19,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         HStack {
             Spacer()
-            //Fix design issues based on email. 
+            //Tabview for easy view switching
             TabView {
                 Tab("Overview", systemImage: "chart.line.uptrend.xyaxis") {
                     //Overview page and graph types demostration

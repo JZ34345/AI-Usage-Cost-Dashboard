@@ -18,15 +18,15 @@ struct DataTypeSwitch: View {
     
     var body: some View {
         @Bindable var appData = appData
-        VStack{
-            Text("Data")
+        VStack {
+            Text("Data").fontWeight(.semibold).font(.headline)
             Picker("", selection: $appData.dataType) {
                 ForEach(DataType.allCases, id: \.self) { option in
                     Text(option.rawValue).tag(option)
                 }
             }.pickerStyle(.segmented)
                 .tint(.green)
-                
-        }
+            
+        }.padding(.horizontal)
     }
 }

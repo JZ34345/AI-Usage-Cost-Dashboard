@@ -28,7 +28,7 @@ import SwiftData
         //MARK: UI Structure
         //UI appearance for date filter
          VStack {
-             Text("Date Range (\(appData.dateFilter.rawValue))")
+             Text("Date Range (\(appData.dateFilter.rawValue))").fontWeight(.semibold)
              Menu {
                  ForEach(DataFilterOptions.allCases, id: \.self) { option in
                      Button {
@@ -45,7 +45,7 @@ import SwiftData
              } label: {
                  Label("", systemImage: "line.3.horizontal.decrease")
              }.menuStyle(.borderedButton)
-                 .tint(.green)
+                 .tint(.blue)
              
              //Display for custom input
                  .sheet(isPresented: $appBindData.datePicker) {

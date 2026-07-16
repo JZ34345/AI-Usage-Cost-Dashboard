@@ -17,8 +17,8 @@ struct ViewTypeSwitch: View {
     
     var body: some View {
         @Bindable var appData = appData
-        VStack{
-            Text("View")
+        VStack {
+            Text("View").fontWeight(.semibold).font(.headline)
             Picker("", selection: $appData.viewType) {
                 ForEach(ViewType.allCases, id: \.self) { option in
                     Text(option.rawValue).tag(option)

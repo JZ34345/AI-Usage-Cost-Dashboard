@@ -18,18 +18,18 @@ struct CSVExport: View {
     func exportCSV() {
         let data = appData.dataExport
         
-        //csv variable includes titles
+        //CSV variable includes titles
         var csv = "Day,Category,Cost\n"
         let dataFormatter = DateFormatter()
         dataFormatter.dateFormat = "yyyy-MM-dd"
         
-        //writes information in csv file for each row entry in data
+        //Writes information in csv file for each row entry in data
         for item in data {
             let day = dataFormatter.string(from: item.day)
             csv += "\(day),\(item.category),\(item.cost)\n"
         }
         
-        //creates the panel for selecting location, name, and upload status of csv file
+        //Creates the panel for selecting location, name, and upload status of csv file
         DispatchQueue.main.async {
             let panel = NSSavePanel()
             panel.allowedContentTypes = [.commaSeparatedText]
