@@ -79,7 +79,7 @@ struct genericGraph: View {
                     appData.dataExport = new
                 }.padding()
                     .overlay(RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(.gray))
+                        .strokeBorder(.black))
                 //x-axis adjustments
                     .chartXAxisLabel("Date", alignment: .center)
                     .chartXAxis {

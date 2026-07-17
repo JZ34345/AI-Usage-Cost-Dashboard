@@ -31,7 +31,7 @@ struct InfoButton: View {
                 
                 Text(description)
             }
-            .frame(width: 300, height: 150)
+            .frame(width: 320, height: 150)
         }
     }
 }

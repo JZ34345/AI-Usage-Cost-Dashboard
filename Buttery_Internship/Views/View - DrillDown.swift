@@ -23,7 +23,7 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
                                 title: "Node \(appData.drillFilterNode.label)",
-                                graphType: "Cost-Time Graph", description: nil)
+                                graphType: "Cost-Time Graph", description: nil, isAverage: false)
                             .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownData)
@@ -33,10 +33,12 @@ public struct DrillDown: View {
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
-                                title: "Node \(appData.drillFilterNode.label)", graphType: "Cost Table",
-                                description: "This table displays all the data used for the graph. The specific data is the AI usage cost of a node in a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                                title: "Node \(appData.drillFilterNode.label)", graphType: "Cost-Time Table",
+                                description: "This table displays all the data used for the graph. The specific data is the AI usage cost of a node in a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                isAverage: false).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownData, category: "Query Type", isDelta: false, isAverage: false)
+                            genericDataTable(data: appData.drilldownData, category: "Query", isDelta: false,
+                                             isAverage: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                                                 
@@ -48,7 +50,7 @@ public struct DrillDown: View {
                         //Graph
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
-                                title: "Cluster \(appData.drillFilterCluster.rawValue)", graphType: "Cost-Time Graph", description: nil)
+                                title: "Cluster \(appData.drillFilterCluster.rawValue)", graphType: "Cost-Time Graph", description: nil, isAverage: false)
                             .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownData)
@@ -59,8 +61,9 @@ public struct DrillDown: View {
                         } else {
                             DrillDownTitleAndButtonLayout(
                                 title: "Cluster \(appData.drillFilterCluster.rawValue)",
-                                graphType: "Cost Table",
-                                description: "This table displays all the data used for the graph. The specific data is the AI usage cost of a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                                graphType: "Cost-Time Table",
+                                description: "This table displays all the data used for the graph. The specific data is the AI usage cost of a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                isAverage: false).padding(.top)
                             
                             genericDataTable(data: appData.drilldownData, category: "Node", isDelta: false, isAverage: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -73,7 +76,7 @@ public struct DrillDown: View {
                         //Graph
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Graph",
-                                                          description: nil).padding(.top)
+                                                          description: nil, isAverage: false).padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownData)
                             
@@ -81,7 +84,9 @@ public struct DrillDown: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         //Table
                         } else {
-                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost Table", description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Table",
+                                                          description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                                          isAverage: false).padding(.top)
                             
                             genericDataTable(data: appData.drilldownData, category: "Cluster", isDelta: false, isAverage: false)
                              .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -99,7 +104,7 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
                                 title: "Node \(appData.drillFilterNode.label)",
-                                graphType: "Average Cost-Time Graph", description: nil).padding(.top)
+                                graphType: "Cost-Time Graph", description: nil, isAverage: true).padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
 
@@ -108,10 +113,11 @@ public struct DrillDown: View {
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
-                                title: "Node \(appData.drillFilterNode.label)", graphType: "Average Cost Table",
-                                description: "This table displays all the data used for the graph. The specific data is the AI usage average cost of a node in a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                                title: "Node \(appData.drillFilterNode.label)", graphType: "Cost-Time Table",
+                                description: "This table displays all the data used for the graph. The specific data is the AI usage average cost of a node in a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                isAverage: true).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownAverageData, category: "Query Type", isDelta: false, isAverage: true)
+                            genericDataTable(data: appData.drilldownAverageData, category: "Query", isDelta: false, isAverage: true)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                                                 
@@ -123,7 +129,7 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
                                 title: "Cluster \(appData.drillFilterCluster.rawValue)",
-                                graphType: "Average Cost-Time Graph", description: nil)
+                                graphType: "Cost-Time Graph", description: nil, isAverage: true)
                             .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
@@ -134,8 +140,9 @@ public struct DrillDown: View {
                         } else {
                             DrillDownTitleAndButtonLayout(
                                 title: "Cluster \(appData.drillFilterCluster.rawValue)",
-                                graphType: "Average Cost Table",
-                                description: "This table displays all the data used for the graph. The specific data is the AI usage average cost of a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                                graphType: "Cost-Time Table",
+                                description: "This table displays all the data used for the graph. The specific data is the AI usage average cost of a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                isAverage: true).padding(.top)
                             
                             genericDataTable(data: appData.drilldownAverageData,category: "Node", isDelta: false, isAverage: true)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -145,7 +152,7 @@ public struct DrillDown: View {
                     } else {
                         //Graph
                         if appData.viewType == .graph {
-                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Average Cost-Time Graph", description: nil)
+                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Graph", description: nil, isAverage: true)
                                 .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
@@ -155,8 +162,9 @@ public struct DrillDown: View {
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
-                                title: "Cluster", graphType: "Average Cost Table",
-                                description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).").padding(.top)
+                                title: "Cluster", graphType: "Cost-Time Table",
+                                description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                isAverage: true).padding(.top)
                             
                             genericDataTable(data: appData.drilldownAverageData, category: "Cluster", isDelta: false, isAverage: true)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)

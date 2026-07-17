@@ -23,7 +23,7 @@ import SwiftData
         case total = "Total"
         case cluster = "Cluster"
         case model = "Model"
-        case query = "Query Type"
+        case query = "Query"
     }
      
      var label: String {
@@ -40,10 +40,6 @@ import SwiftData
          VStack {
              Text("Multi-Select").fontWeight(.semibold)
              Menu {
-                 Button("Select All") {
-                     appData.multiSelectFilter = Set(MultiSelectFilterButton.FilterOptions.allCases)
-                 }.fontWeight(.medium)
-                 
                  Button("Deselect All") {
                      appData.multiSelectFilter = []
                  }.fontWeight(.medium)

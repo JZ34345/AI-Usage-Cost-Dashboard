@@ -53,18 +53,28 @@ struct WoWTitleAndButtonLayout: View {
     var title: String
     var graphType: String
     var description: String?
+    var isAverage: Bool
     
-    init(title: String, graphType: String, description: String?) {
+    init(title: String, graphType: String, description: String?, isAverage: Bool) {
         self.title = title
         self.graphType = graphType
         self.description = description
+        self.isAverage = isAverage
     }
     
     var body: some View {
         HStack {
             VStack {
                 //Title
-                Text(title + "\n" + graphType).font(.largeTitle).fontWeight(.bold)
+                if isAverage {
+                    Text(title).font(.largeTitle).fontWeight(.bold)
+                    Text("Average").font(.largeTitle).fontWeight(.bold)
+                    Text(graphType).font(.largeTitle).fontWeight(.bold)
+                } else {
+                    Text(title).font(.largeTitle).fontWeight(.bold)
+                    Text(graphType).font(.largeTitle).fontWeight(.bold)
+                }
+                
                 Text("(2026)").fontWeight(.bold)
             }
             
@@ -73,14 +83,14 @@ struct WoWTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
             
-            Spacer()
+            Spacer(minLength: 330)
             //Date filter button
             DateFilterButton()
             
             //MultiSelect button
             MultiSelectFilterButton()
             
-            Spacer()
+            Spacer(minLength: 100)
             //Cost type button
             CostTypeSwitch()
             
@@ -113,11 +123,11 @@ struct WoWOverviewTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
             
-            Spacer()
+            Spacer(minLength: 100)
             //Date filter button
             DateFilterButton()
             
-            Spacer()
+            Spacer(minLength: 100)
             //Cost type button
             DataTypeSwitch()
             
@@ -131,18 +141,28 @@ struct AggregationTitleAndButtonLayout: View {
     var title: String
     var graphType: String
     var description: String?
+    var isAverage: Bool
     
-    init(title: String, graphType: String, description: String?) {
+    init(title: String, graphType: String, description: String?, isAverage: Bool) {
         self.title = title
         self.graphType = graphType
         self.description = description
+        self.isAverage = isAverage
     }
     
     var body: some View {
         HStack {
             VStack {
                 //Title
-                Text(title + "\n" + graphType).font(.largeTitle).fontWeight(.bold)
+                if isAverage {
+                    Text(title).font(.largeTitle).fontWeight(.bold)
+                    Text("Average").font(.largeTitle).fontWeight(.bold)
+                    Text(graphType).font(.largeTitle).fontWeight(.bold)
+                } else {
+                    Text(title).font(.largeTitle).fontWeight(.bold)
+                    Text(graphType).font(.largeTitle).fontWeight(.bold)
+                }
+                
                 Text("(2026)").fontWeight(.bold)
             }
             
@@ -151,21 +171,21 @@ struct AggregationTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
         
-            Spacer()
+            Spacer(minLength: 360)
             //Date filter button
             DateFilterButton()
             
             //Filter Button
             MultiSelectFilterButton()
             
-            Spacer()
-        
+            Spacer(minLength: 100)
+
             //Cost type switch
             CostTypeSwitch()
             
             //View type switch
             ViewTypeSwitch()
-        }.padding(.top)
+        }
     }
 }
 //MARK: Drilldown Title and Button
@@ -174,18 +194,28 @@ struct DrillDownTitleAndButtonLayout: View {
     var title: String
     var graphType: String
     var description: String?
+    var isAverage: Bool
     
-    init(title: String, graphType: String, description: String?) {
+    init(title: String, graphType: String, description: String?, isAverage: Bool) {
         self.title = title
         self.graphType = graphType
         self.description = description
+        self.isAverage = isAverage
     }
     
     var body: some View {
         HStack {
             VStack {
                 //Title
-                Text(title + "\n" + graphType).font(.largeTitle).fontWeight(.bold)
+                if isAverage {
+                    Text(title).font(.largeTitle).fontWeight(.bold)
+                    Text("Average").font(.largeTitle).fontWeight(.bold)
+                    Text(graphType).font(.largeTitle).fontWeight(.bold)
+                } else {
+                    Text(title).font(.largeTitle).fontWeight(.bold)
+                    Text(graphType).font(.largeTitle).fontWeight(.bold)
+                }
+                
                 Text("(2026)").fontWeight(.bold)
             }
             
@@ -194,7 +224,7 @@ struct DrillDownTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
             
-            Spacer()
+            Spacer(minLength: 295)
             //Date button
             DateFilterButton()
             //Drilldown buttons
@@ -202,13 +232,13 @@ struct DrillDownTitleAndButtonLayout: View {
                 .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
             DrillNodeButton()
 
-            Spacer()
+            Spacer(minLength: 100)
             //Cost type button
             CostTypeSwitch()
             
             //View type button
             ViewTypeSwitch()        
-        }.padding(.top)
+        }
     }
 }
 

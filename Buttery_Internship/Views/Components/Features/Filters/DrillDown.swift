@@ -70,7 +70,9 @@ import SwiftData
         //MARK: UI Structure
      var body: some View {
          VStack {
-             Text("Drill Node (\(appData.drillFilterNode.label))").disabled(appData.clusterId == nil)
+             Text("Drill Node (\(appData.drillFilterNode.label))")
+                 .disabled(appData.clusterId == nil)
+                 .fontWeight(.semibold)
              Menu {
                  ForEach(nodeOptions, id: \.self) { option in
                      Button {
