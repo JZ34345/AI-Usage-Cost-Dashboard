@@ -192,6 +192,14 @@ import Charts
         return nil
     }
     
+    //MARK: Linear Regression
+    var points: [(x: Double, y: Double)] = []
+    var slope: Double = 0
+    var intercept: Double = 0
+    var rSquared: Double = 0
+    var totalVariance: Double = 0
+    
+    
     //MARK: Graph data templates
     var totalGraphData: [GenericSummary] {
         cached(&_totalGraphDataCache) {
@@ -221,6 +229,17 @@ import Charts
     }
     
     //MARK: Average Graph data templates
+    var totalGraphAverageData: [GenericSummary] {
+        cached(&_totalGraphAverageDataCache) {
+            makeGenericGraph(record: source.records,
+                               selectedDates: source.cachedDates,
+                               filter: dateRangeFilter(option: dateFilter, start: startDate, end: endDate),
+                               metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
+                               dayLimit: dateByClosure(for: dateFilter),
+                               applyDayLimit: dateFilter != .custom
+            )
+        }
+    }
     var multiSelectAverageGraphData: [GenericSummary] {
         cached(&_multiSelectGraphAverageDataCache) {
             multiSelectFilter.flatMap { filter in
@@ -383,6 +402,14 @@ import Charts
                 )
             }
         }
+    }
+    
+    //MARK: Linear Regression Data
+    var regressionTotalData: [GenericSummary] {
+        makeRegressionPoints(from: totalGraphData, daysAhead: 30, category: "Total", appData: self)
+    }
+    var regressionTotalAverageData: [GenericSummary] {
+        makeRegressionPoints(from: totalGraphAverageData, daysAhead: 30, category: "Total", appData: self)
     }
 }
 

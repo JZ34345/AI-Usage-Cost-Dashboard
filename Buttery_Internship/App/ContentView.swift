@@ -37,6 +37,10 @@ struct ContentView: View {
                     //Secondary View: Week-Over-Week Delta calculation
                     WoW()
                 }
+                Tab("Forecast", systemImage: "gear") {
+                    //Secondary View: Linear Regression forecast for next 30 days
+                    Forecast()
+                }
             }.tabViewStyle(.automatic)
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
