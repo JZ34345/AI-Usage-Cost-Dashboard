@@ -25,7 +25,7 @@ import Charts
                          
                          RegressionSummaryView(data: appData.regressionTotalData)
                          
-                         MLGraphs(data: appData.regressionTotalData, ylabel: "Cost ($)")
+                         MLGraphs(realData: appData.totalGraphData, regressionData: appData.regressionTotalData, ylabel: "Cost ($)")
                              .frame(maxWidth: .infinity)
                          //Table
                      } else {
@@ -47,7 +47,7 @@ import Charts
                          
                          RegressionSummaryView(data: appData.regressionTotalAverageData)
                          
-                         MLGraphs(data: appData.regressionTotalAverageData, ylabel: "Cost ($)")
+                         MLGraphs(realData: appData.totalGraphData, regressionData: appData.regressionTotalAverageData, ylabel: "Cost ($)")
                              .frame(maxWidth: .infinity)
                          //Table
                      } else {

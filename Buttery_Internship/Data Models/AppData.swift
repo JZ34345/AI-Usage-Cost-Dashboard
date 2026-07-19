@@ -34,6 +34,8 @@ import Charts
     @ObservationIgnored private var _WoWGraphAverageDataCache: [GenericSummary]?
     @ObservationIgnored private var _WoWAggregateGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _WoWAggregateGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _regressionGraphDataCache: [GenericSummary]?
+    @ObservationIgnored private var _regressionGraphAverageDataCache: [GenericSummary]?
     
     private var currentFilters: FilterState {
         FilterState(multiSelect: multiSelectFilter, dateFilter: dateFilter, startDate: startDate, endDate: endDate,                      drillCluster: drillFilterCluster, drillNode: drillFilterNode)
@@ -52,6 +54,8 @@ import Charts
         _WoWGraphAverageDataCache = nil
         _WoWAggregateGraphDataCache = nil
         _WoWAggregateGraphAverageDataCache = nil
+        _regressionGraphDataCache = nil
+        _regressionGraphAverageDataCache = nil
     }
     
     private func cached<T>(_ cache: inout T?, compute: () -> T) -> T {
@@ -197,7 +201,7 @@ import Charts
     var slope: Double = 0
     var intercept: Double = 0
     var rSquared: Double = 0
-    var totalVariance: Double = 0
+    var std: Double = 0
     
     
     //MARK: Graph data templates
@@ -406,10 +410,71 @@ import Charts
     
     //MARK: Linear Regression Data
     var regressionTotalData: [GenericSummary] {
-        makeRegressionPoints(from: totalGraphData, daysAhead: 30, category: "Total", appData: self)
+        cached(&_regressionGraphDataCache) {
+            let regressionBase = makeGenericGraph(record: source.records, selectedDates: source.cachedDates,
+                                                  filter: dateRangeFilter(option: .ninety, start: "", end: ""),
+                                                  metric: {($0.costCents * 100).rounded() / 100}, dayLimit: 90,
+                                                  applyDayLimit: true)
+            
+            let smoothed = smoothData(regressionBase)
+            let result = makeRegressionPoints(from: smoothed, daysAhead: 30, category: "Regression")
+
+            //Update the graph inside the appData variable
+            let sorted = totalGraphData.sorted { $0.day < $1.day }
+            let firstDay = sorted.first?.day ?? Date()
+            let points = sorted.map { item -> (x: Double, y: Double) in
+                let x = item.day.timeIntervalSince(firstDay) / 86400
+                return (x: x, y: item.cost)
+            }
+            
+            //Calculate the slope, intercept, R^2, and sumSquared residuals for appData to store
+            if let regression = computeLinearRegression(points: points) {
+                self.slope = regression.slope
+                self.intercept = regression.intercept
+                self.rSquared = regression.rSquared
+
+                let residuals = points.map { $0.y - regression.predict(x: $0.x) }
+                let n = Double(residuals.count)
+                let sumSquaredResiduals = residuals.reduce(0.0) { $0 + pow($1, 2) }
+                self.std = sumSquaredResiduals / max(1, n - 2)
+            }
+            
+            return result
+        }
     }
     var regressionTotalAverageData: [GenericSummary] {
-        makeRegressionPoints(from: totalGraphAverageData, daysAhead: 30, category: "Total", appData: self)
+        cached(&_regressionGraphAverageDataCache) {
+            let regressionBase = makeGenericGraph(record: source.records, selectedDates: source.cachedDates,
+                                                  filter: dateRangeFilter(option: .ninety, start: "", end: ""),
+                                                  metric: {(($0.costCents / Double($0.queryCount)) * 100).rounded() / 100},
+                                                  dayLimit: 90,
+                                                  applyDayLimit: true)
+            
+            let smoothed = smoothData(regressionBase)
+            let result = makeRegressionPoints(from: smoothed, daysAhead: 30, category: "Regression")
+            
+            //Update the graph inside the appData variable
+            let sorted = totalGraphData.sorted { $0.day < $1.day }
+            let firstDay = sorted.first?.day ?? Date()
+            let points = sorted.map { item -> (x: Double, y: Double) in
+                let x = item.day.timeIntervalSince(firstDay) / 86400
+                return (x: x, y: item.cost)
+            }
+            
+            //Calculate the slope, intercept, R^2, and sumSquared residuals for appData to store
+            if let regression = computeLinearRegression(points: points) {
+                self.slope = regression.slope
+                self.intercept = regression.intercept
+                self.rSquared = regression.rSquared
+                
+                let residuals = points.map { $0.y - regression.predict(x: $0.x) }
+                let n = Double(residuals.count)
+                let sumSquaredResiduals = residuals.reduce(0.0) { $0 + pow($1, 2) }
+                self.std = sumSquaredResiduals / max(1, n - 2)
+            }
+            
+            return result
+        }
     }
 }
 
