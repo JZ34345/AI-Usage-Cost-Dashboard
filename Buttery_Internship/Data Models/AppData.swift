@@ -23,7 +23,7 @@ import Charts
         self.nodeLookUp = Dictionary(uniqueKeysWithValues: source.nodes.map {($0.id, $0.name)})
     }
     
-    
+    //MARK: Cache
     @ObservationIgnored private var _totalGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _drillDownGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _multiSelectGraphDataCache: [GenericSummary]?
@@ -36,6 +36,13 @@ import Charts
     @ObservationIgnored private var _WoWAggregateGraphAverageDataCache: [GenericSummary]?
     @ObservationIgnored private var _regressionGraphDataCache: [GenericSummary]?
     @ObservationIgnored private var _regressionGraphAverageDataCache: [GenericSummary]?
+    @ObservationIgnored private var _anomalyCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyAverageCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyMultiSelectCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyMultiSelectAverageCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyDrillDownCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyDrillDownAverageCache: [Anomaly]?
+
     
     private var currentFilters: FilterState {
         FilterState(multiSelect: multiSelectFilter, dateFilter: dateFilter, startDate: startDate, endDate: endDate,                      drillCluster: drillFilterCluster, drillNode: drillFilterNode)
@@ -56,6 +63,12 @@ import Charts
         _WoWAggregateGraphAverageDataCache = nil
         _regressionGraphDataCache = nil
         _regressionGraphAverageDataCache = nil
+        _anomalyCache = nil
+        _anomalyAverageCache = nil
+        _anomalyMultiSelectCache = nil
+        _anomalyMultiSelectAverageCache = nil
+        _anomalyDrillDownCache = nil
+        _anomalyDrillDownAverageCache = nil
     }
     
     private func cached<T>(_ cache: inout T?, compute: () -> T) -> T {
@@ -74,6 +87,7 @@ import Charts
     //MARK: Export
     var dataExport: [GenericSummary] = []
 
+    
     //MARK: Filters
     var multiSelectFilter: Set<MultiSelectFilterButton.FilterOptions> = [.total] {didSet {invalidateCache()}}
     //Arranges filter choice to a data format for use in groupby parameter in makeGenericData function
@@ -202,6 +216,10 @@ import Charts
     var intercept: Double = 0
     var rSquared: Double = 0
     var std: Double = 0
+    
+    //MARK: Anomaly
+    var anomalyThreshold: Double = 2.0
+    var anomalySwitch: AnomalySwitch.anomalyCase = .off
     
     
     //MARK: Graph data templates
@@ -346,6 +364,7 @@ import Charts
             }
         }
     }
+    
     //MARK: WoW Data
     var WoWGraphData: [GenericSummary] {
         cached(&_WoWGraphDataCache) {
@@ -373,7 +392,6 @@ import Charts
             )
         }
     }
-    
     var WoWAggregateGraphData: [GenericSummary] {
         cached(&_WoWAggregateGraphDataCache) {
             multiSelectFilter.flatMap { filter in
@@ -390,7 +408,6 @@ import Charts
             }
         }
     }
-    
     var WoWAggregateGraphAverageData: [GenericSummary] {
         cached(&_WoWAggregateGraphAverageDataCache) {
             multiSelectFilter.flatMap { filter in
@@ -407,6 +424,41 @@ import Charts
             }
         }
     }
+    
+    //MARK: Anomaly Points
+    var anomalyTotal: [Anomaly] {
+        cached(&_anomalyCache) {
+            findAnomalies(from: totalGraphData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyAverageTotal: [Anomaly] {
+        cached(&_anomalyAverageCache) {
+            findAnomalies(from: totalGraphAverageData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyMultiSelect: [Anomaly] {
+        cached(&_anomalyMultiSelectCache) {
+            findAnomalies(from: multiSelectGraphData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyAverageMultiSelect: [Anomaly] {
+        cached(&_anomalyMultiSelectAverageCache) {
+            findAnomalies(from: multiSelectAverageGraphData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyDrillDown: [Anomaly] {
+        cached(&_anomalyDrillDownCache) {
+            findAnomalies(from: drilldownData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyAverageDrillDown: [Anomaly] {
+        cached(&_anomalyDrillDownAverageCache) {
+            findAnomalies(from: drilldownAverageData, threshold: anomalyThreshold)
+        }
+    }
+    
+    
+    
     
     //MARK: Linear Regression Data
     var regressionTotalData: [GenericSummary] {

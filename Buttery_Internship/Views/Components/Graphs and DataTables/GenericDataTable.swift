@@ -30,63 +30,24 @@ struct genericDataTable: View {
     }
             //MARK: UI Structure
     var body: some View {
-        VStack {
-            //If statement is for error message
-            if appData.datePickerError != nil {
-                Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
-            } else if data.isEmpty {
-                Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
+        //If statement is for error message
+        if appData.datePickerError != nil {
+            Error(error: appData.datePickerError).frame(maxWidth: .infinity, maxHeight: 300)
+        } else if data.isEmpty {
+            Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
             //Continues if no errors
-            } else {
-                    //MARK: Total Cost
-                if isAverage == false {
-                    //This is for tables with groupby aggregation
-                    if hasCatagory {
-                        //Datatables for non WoW delta
-                        if isDelta == false {
-                            Table(data) {
-                                TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
-                                }
-                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
-                                TableColumn("Cost ($)") { item in
-                                    Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
-                                }
-                                TableColumn("Cost (€)") { item in
-                                    Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
-                                }
-                                TableColumn("Raw Cost (¢)") { item in
-                                    Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                                }
-                                
-                            }
-                            .frame(width: 680, height: 500)
-                        }
-                        //Datatable for WoW delta
-                        else {
-                            Table(data) {
-                                TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
-                                }
-                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
-                                TableColumn("Delta ($)") { item in
-                                    Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
-                                }
-                                TableColumn("Delta (€)") { item in
-                                    Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
-                                }
-                                TableColumn("Raw Delta (¢)") { item in
-                                    Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                                }
-                            }
-                            .frame(width: 680, height: 500)
-                        }
-                    //This is for tables with no grouping, only one datatype of node, model, cluster, etc
-                    } else {
+        } else {
+            //MARK: Total Cost
+            if isAverage == false {
+                //This is for tables with groupby aggregation
+                if hasCatagory {
+                    //Datatables for non WoW delta
+                    if isDelta == false {
                         Table(data) {
                             TableColumn("Day") { item in
                                 Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                             }
+                            TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
                             TableColumn("Cost ($)") { item in
                                 Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
                             }
@@ -96,57 +57,58 @@ struct genericDataTable: View {
                             TableColumn("Raw Cost (¢)") { item in
                                 Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
                             }
+                            
                         }
                         .frame(width: 680, height: 500)
                     }
-                    //MARK: Average Cost
-                } else {
-                    //This is for tables with groupby aggregation
-                    if hasCatagory {
-                        //Datatables for non WoW delta
-                        if isDelta == false {
-                            Table(data) {
-                                TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
-                                }
-                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
-                                TableColumn("Average Cost ($)") { item in
-                                    Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
-                                }
-                                TableColumn("Average Cost (€)") { item in
-                                    Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
-                                }
-                                TableColumn("Average Raw Cost (¢)") { item in
-                                    Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                                }.width(150)
-                            }
-                            .frame(width: 680, height: 500)
-                        }
-                        //Datatable for WoW delta
-                        else {
-                            Table(data) {
-                                TableColumn("Day") { item in
-                                    Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
-                                }
-                                TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
-                                TableColumn("Average Delta ($)") { item in
-                                    Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
-                                }
-                                TableColumn("Average Delta (€)") { item in
-                                    Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
-                                }
-                                TableColumn("Average Raw Delta (¢)") { item in
-                                    Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
-                                }.width(150)
-                            }
-                            .frame(width: 680, height: 500)
-                        }
-                    //This is for tables with no grouping, only one datatype of node, model, cluster, etc
-                    } else {
+                    //Datatable for WoW delta
+                    else {
                         Table(data) {
                             TableColumn("Day") { item in
                                 Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                             }
+                            TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
+                            TableColumn("Delta ($)") { item in
+                                Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
+                            }
+                            TableColumn("Delta (€)") { item in
+                                Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
+                            }
+                            TableColumn("Raw Delta (¢)") { item in
+                                Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
+                            }
+                        }
+                        .frame(width: 680, height: 500)
+                    }
+                    //This is for tables with no grouping, only one datatype of node, model, cluster, etc
+                } else {
+                    Table(data) {
+                        TableColumn("Day") { item in
+                            Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
+                        }
+                        TableColumn("Cost ($)") { item in
+                            Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
+                        }
+                        TableColumn("Cost (€)") { item in
+                            Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
+                        }
+                        TableColumn("Raw Cost (¢)") { item in
+                            Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
+                        }
+                    }
+                    .frame(width: 680, height: 500)
+                }
+                //MARK: Average Cost
+            } else {
+                //This is for tables with groupby aggregation
+                if hasCatagory {
+                    //Datatables for non WoW delta
+                    if isDelta == false {
+                        Table(data) {
+                            TableColumn("Day") { item in
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
+                            }
+                            TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
                             TableColumn("Average Cost ($)") { item in
                                 Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
                             }
@@ -159,10 +121,45 @@ struct genericDataTable: View {
                         }
                         .frame(width: 680, height: 500)
                     }
+                    //Datatable for WoW delta
+                    else {
+                        Table(data) {
+                            TableColumn("Day") { item in
+                                Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
+                            }
+                            TableColumn(category) {item in Text("\(item.category)").font(.title3)}.width(200)
+                            TableColumn("Average Delta ($)") { item in
+                                Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
+                            }
+                            TableColumn("Average Delta (€)") { item in
+                                Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
+                            }
+                            TableColumn("Average Raw Delta (¢)") { item in
+                                Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
+                            }.width(150)
+                        }
+                        .frame(width: 680, height: 500)
+                    }
+                    //This is for tables with no grouping, only one datatype of node, model, cluster, etc
+                } else {
+                    Table(data) {
+                        TableColumn("Day") { item in
+                            Text(item.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
+                        }
+                        TableColumn("Average Cost ($)") { item in
+                            Text(item.cost / 100, format: .currency(code: "USD")).font(.title3)
+                        }
+                        TableColumn("Average Cost (€)") { item in
+                            Text((item.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
+                        }
+                        TableColumn("Average Raw Cost (¢)") { item in
+                            Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
+                        }.width(150)
+                    }
+                    .frame(width: 680, height: 500)
                 }
             }
         }
     }
-    
 }
 

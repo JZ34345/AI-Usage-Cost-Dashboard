@@ -41,8 +41,13 @@ import Charts
                         
                         MultiSelectSummaryView(data: graphData)
                         
-                        genericGraph(data: graphData, ylabel: "Cost ($)", isDelta: false)
+                        genericGraph(data: graphData, anomaly: appData.anomalyMultiSelect, ylabel: "Cost ($)",
+                                     isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        
+                        if appData.anomalySwitch == .on {
+                            AnomalySummaryView(anomalies: appData.anomalyMultiSelect)
+                        }
                     //Table
                     } else {
                         AggregationTitleAndButtonLayout(
@@ -51,9 +56,12 @@ import Charts
                             isAverage: false)
                         .padding(.top)
                         
-                        HStack {
+                        if appData.anomalySwitch == .on {
+                            AnomalyDataTable(anomalies: appData.anomalyMultiSelect)
+                            AnomalySummaryView(anomalies: appData.anomalyMultiSelect)
+                        } else {
                             genericDataTable(data: graphData, category: filterTitle, isDelta: false, isAverage: false)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     }
                     
@@ -68,8 +76,13 @@ import Charts
                                            
                         MultiSelectSummaryView(data: graphData)
                         
-                        genericGraph(data: graphData, ylabel: "Average Cost ($)", isDelta: false)
+                        genericGraph(data: graphData, anomaly: appData.anomalyAverageMultiSelect,
+                                     ylabel: "Average Cost ($)", isDelta: false)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        
+                        if appData.anomalySwitch == .on {
+                            AnomalySummaryView(anomalies: appData.anomalyAverageMultiSelect)
+                        }
                     //Table
                     } else {
                         AggregationTitleAndButtonLayout(
@@ -78,8 +91,13 @@ import Charts
                             isAverage: true)
                         .padding(.top)
                         
-                        genericDataTable(data: graphData, category: filterTitle, isDelta: false, isAverage: true)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        if appData.anomalySwitch == .on {
+                            AnomalyDataTable(anomalies: appData.anomalyAverageMultiSelect)
+                            AnomalySummaryView(anomalies: appData.anomalyAverageMultiSelect)
+                        } else {
+                            genericDataTable(data: graphData, category: filterTitle, isDelta: false, isAverage: true)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
                     
                 }

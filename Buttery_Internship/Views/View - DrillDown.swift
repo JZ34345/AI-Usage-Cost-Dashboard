@@ -28,8 +28,13 @@ public struct DrillDown: View {
                             
                             DrillDownSummaryView(data: appData.drilldownData)
                             
-                            genericGraph(data: appData.drilldownData, ylabel: "Cost ($)", isDelta: false)
+                            genericGraph(data: appData.drilldownData, anomaly: appData.anomalyDrillDown,
+                                         ylabel: "Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            if appData.anomalySwitch == .on {
+                                AnomalySummaryView(anomalies: appData.anomalyDrillDown)
+                            }
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
@@ -37,9 +42,14 @@ public struct DrillDown: View {
                                 description: "This table displays all the data used for the graph. The specific data is the AI usage cost of a node in a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
                                 isAverage: false).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownData, category: "Query", isDelta: false,
-                                             isAverage: false)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            if appData.anomalySwitch == .on {
+                                AnomalyDataTable(anomalies: appData.anomalyDrillDown)
+                                AnomalySummaryView(anomalies: appData.anomalyDrillDown)
+                            } else {
+                                genericDataTable(data: appData.drilldownData, category: "Query", isDelta: false,
+                                                 isAverage: false)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
                         }
                                                 
                         
@@ -55,8 +65,13 @@ public struct DrillDown: View {
                             
                             DrillDownSummaryView(data: appData.drilldownData)
                             
-                            genericGraph(data: appData.drilldownData, ylabel: "Cost ($)", isDelta: false)
+                            genericGraph(data: appData.drilldownData, anomaly: appData.anomalyDrillDown,
+                                         ylabel: "Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            if appData.anomalySwitch == .on {
+                                AnomalySummaryView(anomalies: appData.anomalyDrillDown)
+                            }
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
@@ -65,8 +80,13 @@ public struct DrillDown: View {
                                 description: "This table displays all the data used for the graph. The specific data is the AI usage cost of a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
                                 isAverage: false).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownData, category: "Node", isDelta: false, isAverage: false)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            if appData.anomalySwitch == .on {
+                                AnomalyDataTable(anomalies: appData.anomalyDrillDown)
+                                AnomalySummaryView(anomalies: appData.anomalyDrillDown)
+                            } else {
+                                genericDataTable(data: appData.drilldownData, category: "Node", isDelta: false, isAverage: false)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
                         }
                         
                     }
@@ -80,16 +100,27 @@ public struct DrillDown: View {
                             
                             DrillDownSummaryView(data: appData.drilldownData)
                             
-                            genericGraph(data: appData.drilldownData, ylabel: "Cost ($)", isDelta: false)
+                            genericGraph(data: appData.drilldownData, anomaly: appData.anomalyDrillDown,
+                                         ylabel: "Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            if appData.anomalySwitch == .on {
+                                AnomalySummaryView(anomalies: appData.anomalyDrillDown)
+                            }
                         //Table
                         } else {
-                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Table",
-                                                          description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
-                                                          isAverage: false).padding(.top)
+                            DrillDownTitleAndButtonLayout(
+                                title: "Cluster", graphType: "Cost-Time Table",
+                                description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
+                                isAverage: false).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownData, category: "Cluster", isDelta: false, isAverage: false)
-                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            if appData.anomalySwitch == .on {
+                                AnomalyDataTable(anomalies: appData.anomalyDrillDown)
+                                AnomalySummaryView(anomalies: appData.anomalyDrillDown)
+                            } else {
+                                genericDataTable(data: appData.drilldownData, category: "Cluster", isDelta: false, isAverage: false)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
                         }
                         
                     }
@@ -108,8 +139,13 @@ public struct DrillDown: View {
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
 
-                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost ($)", isDelta: false)
+                            genericGraph(data: appData.drilldownAverageData, anomaly: appData.anomalyAverageDrillDown,
+                                         ylabel: "Average Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            if appData.anomalySwitch == .on {
+                                AnomalySummaryView(anomalies: appData.anomalyAverageDrillDown)
+                            }
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
@@ -117,8 +153,14 @@ public struct DrillDown: View {
                                 description: "This table displays all the data used for the graph. The specific data is the AI usage average cost of a node in a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
                                 isAverage: true).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownAverageData, category: "Query", isDelta: false, isAverage: true)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            if appData.anomalySwitch == .on {
+                                AnomalyDataTable(anomalies: appData.anomalyAverageDrillDown)
+                                AnomalySummaryView(anomalies: appData.anomalyAverageDrillDown)
+
+                            } else {
+                                genericDataTable(data: appData.drilldownAverageData, category: "Query", isDelta: false, isAverage: true)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
                         }
                                                 
                         
@@ -134,8 +176,13 @@ public struct DrillDown: View {
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
                             
-                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost ($)", isDelta: false)
+                            genericGraph(data: appData.drilldownAverageData, anomaly: appData.anomalyAverageDrillDown,
+                                         ylabel: "Average Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            if appData.anomalySwitch == .on {
+                                AnomalySummaryView(anomalies: appData.anomalyAverageDrillDown)
+                            }
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
@@ -144,8 +191,14 @@ public struct DrillDown: View {
                                 description: "This table displays all the data used for the graph. The specific data is the AI usage average cost of a specified cluster. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
                                 isAverage: true).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownAverageData,category: "Node", isDelta: false, isAverage: true)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            if appData.anomalySwitch == .on {
+                                AnomalyDataTable(anomalies: appData.anomalyAverageDrillDown)
+                                AnomalySummaryView(anomalies: appData.anomalyAverageDrillDown)
+
+                            } else {
+                                genericDataTable(data: appData.drilldownAverageData,category: "Node", isDelta: false, isAverage: true)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
                         }
                     //MARK: All clusters
                     //Graph and Table of cluster aggregation
@@ -157,8 +210,13 @@ public struct DrillDown: View {
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
                             
-                            genericGraph(data: appData.drilldownAverageData, ylabel: "Average Cost ($)", isDelta: false)
+                            genericGraph(data: appData.drilldownAverageData, anomaly: appData.anomalyAverageDrillDown,
+                                         ylabel: "Average Cost ($)", isDelta: false)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            
+                            if appData.anomalySwitch == .on {
+                                AnomalySummaryView(anomalies: appData.anomalyAverageDrillDown)
+                            }
                         //Table
                         } else {
                             DrillDownTitleAndButtonLayout(
@@ -166,10 +224,15 @@ public struct DrillDown: View {
                                 description: "This table displays all the data used for the graph. The specific data is AI usage cost for all clusters in the cluster catagory. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
                                 isAverage: true).padding(.top)
                             
-                            genericDataTable(data: appData.drilldownAverageData, category: "Cluster", isDelta: false, isAverage: true)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            if appData.anomalySwitch == .on {
+                                AnomalyDataTable(anomalies: appData.anomalyAverageDrillDown)
+                                AnomalySummaryView(anomalies: appData.anomalyAverageDrillDown)
+
+                            } else {
+                                genericDataTable(data: appData.drilldownAverageData, category: "Cluster", isDelta: false, isAverage: true)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
                         }
-                        
                     }
                 }
             }.frame(maxWidth:.infinity, maxHeight: .infinity, alignment: .top)

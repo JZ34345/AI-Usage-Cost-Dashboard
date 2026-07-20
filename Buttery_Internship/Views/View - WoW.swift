@@ -33,7 +33,7 @@ struct WoW: View {
                     
                     WoWSummaryView(data: appData.WoWAggregateGraphData)
                     
-                    genericGraph(data: appData.WoWAggregateGraphData, ylabel: "Delta ($)", isDelta: true)
+                    genericGraph(data: appData.WoWAggregateGraphData, anomaly: nil, ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
                 //Table
                 } else {
@@ -56,7 +56,7 @@ struct WoW: View {
                     
                     WoWSummaryView(data: appData.WoWAggregateGraphData)
                     
-                    genericGraph(data: appData.WoWAggregateGraphAverageData, ylabel: "Delta ($)", isDelta: true)
+                    genericGraph(data: appData.WoWAggregateGraphAverageData, anomaly: nil, ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
                 //Table
                 } else {

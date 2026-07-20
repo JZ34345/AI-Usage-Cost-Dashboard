@@ -20,7 +20,16 @@ import SwiftData
         case thirty = "30 Days"
         case ninety = "90 Days"
         case custom = "Custom"
-    }
+     }
+     
+     var label: String {
+         switch appData.dateFilter {
+         case .seven: return "7"
+         case .thirty: return "30"
+         case .ninety: return "90"
+         case .custom: return "Custom"
+         }
+     }
     
      var body: some View {
         @Bindable var appBindData = appData
@@ -28,7 +37,7 @@ import SwiftData
         //MARK: UI Structure
         //UI appearance for date filter
          VStack {
-             Text("Date Range (\(appData.dateFilter.rawValue))").fontWeight(.semibold)
+             Text("Day Range (\(label))").fontWeight(.semibold)
              Menu {
                  ForEach(DataFilterOptions.allCases, id: \.self) { option in
                      Button {

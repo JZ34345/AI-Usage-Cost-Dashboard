@@ -21,12 +21,17 @@
 		A85E94B53005AE830035EF32 /* ViewTypeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */; };
 		A8621E64300AFAC200D2FEB7 /* MakeRegressionPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E63300AFABB00D2FEB7 /* MakeRegressionPoints.swift */; };
 		A8621E66300AFB8E00D2FEB7 /* LinearRegression.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E65300AFB8800D2FEB7 /* LinearRegression.swift */; };
-		A8621E68300B055A00D2FEB7 /* MLGraphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E67300B055400D2FEB7 /* MLGraphs.swift */; };
+		A8621E68300B055A00D2FEB7 /* RegressionGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E67300B055400D2FEB7 /* RegressionGraph.swift */; };
 		A8621E6C300B0ECB00D2FEB7 /* View - RegressionSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E6B300B0EC300D2FEB7 /* View - RegressionSummary.swift */; };
 		A8621E6F300B125B00D2FEB7 /* RegressionTitleButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E6E300B125100D2FEB7 /* RegressionTitleButtonLayout.swift */; };
 		A8621E72300B131D00D2FEB7 /* View - Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8621E71300B131700D2FEB7 /* View - Forecast.swift */; };
 		A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87FE97B300314C600C46C7F /* TitleAndButtonLayout.swift */; };
 		A896A23F300C524C00AC7F34 /* ExtraRegressionFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A896A23E300C524600AC7F34 /* ExtraRegressionFunctions.swift */; };
+		A898CA1D300D89DF00777778 /* Anomaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A898CA1C300D89DA00777778 /* Anomaly.swift */; };
+		A898CA1F300D8BA100777778 /* FindAnomalies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A898CA1E300D8B9000777778 /* FindAnomalies.swift */; };
+		A898CA21300D92DA00777778 /* AnomalySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A898CA20300D92D600777778 /* AnomalySwitch.swift */; };
+		A898CA23300D977400777778 /* View - AnomalySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A898CA22300D976C00777778 /* View - AnomalySummary.swift */; };
+		A898CA25300DA0D800777778 /* AnomalyDataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A898CA24300DA0D000777778 /* AnomalyDataTable.swift */; };
 		A8AAEF2D2FF486C9003BBD38 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AAEF2C2FF486C1003BBD38 /* FileProvider.swift */; };
 		A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE52FF9D7DC00CAEB50 /* SampleProviders.swift */; };
 		A8B96DEA2FF9D8EA00CAEB50 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B96DE92FF9D8E500CAEB50 /* File.swift */; };
@@ -85,7 +90,7 @@
 		A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTypeSwitch.swift; sourceTree = "<group>"; };
 		A8621E63300AFABB00D2FEB7 /* MakeRegressionPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRegressionPoints.swift; sourceTree = "<group>"; };
 		A8621E65300AFB8800D2FEB7 /* LinearRegression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearRegression.swift; sourceTree = "<group>"; };
-		A8621E67300B055400D2FEB7 /* MLGraphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLGraphs.swift; sourceTree = "<group>"; };
+		A8621E67300B055400D2FEB7 /* RegressionGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegressionGraph.swift; sourceTree = "<group>"; };
 		A8621E6B300B0EC300D2FEB7 /* View - RegressionSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - RegressionSummary.swift"; sourceTree = "<group>"; };
 		A8621E6E300B125100D2FEB7 /* RegressionTitleButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegressionTitleButtonLayout.swift; sourceTree = "<group>"; };
 		A8621E71300B131700D2FEB7 /* View - Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - Forecast.swift"; sourceTree = "<group>"; };
@@ -94,6 +99,11 @@
 		A88A2BA42FE0C227003293EE /* Buttery_InternshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BAE2FE0C227003293EE /* Buttery_InternshipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Buttery_InternshipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A896A23E300C524600AC7F34 /* ExtraRegressionFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraRegressionFunctions.swift; sourceTree = "<group>"; };
+		A898CA1C300D89DA00777778 /* Anomaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anomaly.swift; sourceTree = "<group>"; };
+		A898CA1E300D8B9000777778 /* FindAnomalies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAnomalies.swift; sourceTree = "<group>"; };
+		A898CA20300D92D600777778 /* AnomalySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnomalySwitch.swift; sourceTree = "<group>"; };
+		A898CA22300D976C00777778 /* View - AnomalySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - AnomalySummary.swift"; sourceTree = "<group>"; };
+		A898CA24300DA0D000777778 /* AnomalyDataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnomalyDataTable.swift; sourceTree = "<group>"; };
 		A8AAEF2C2FF486C1003BBD38 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		A8B96DE52FF9D7DC00CAEB50 /* SampleProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleProviders.swift; sourceTree = "<group>"; };
 		A8B96DE92FF9D8E500CAEB50 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -192,6 +202,7 @@
 		A85E94B73005AEB50035EF32 /* Switches */ = {
 			isa = PBXGroup;
 			children = (
+				A898CA20300D92D600777778 /* AnomalySwitch.swift */,
 				A8F37CE82FFDC76600361C06 /* CostTypeSwitch.swift */,
 				A8F37CEA2FFDCD0900361C06 /* DataTypeSwitch.swift */,
 				A85E94B43005AE790035EF32 /* ViewTypeSwitch.swift */,
@@ -221,6 +232,7 @@
 		A8621E70300B126400D2FEB7 /* View Summaries */ = {
 			isa = PBXGroup;
 			children = (
+				A898CA22300D976C00777778 /* View - AnomalySummary.swift */,
 				A843028C300707FD0029BA21 /* View - OverviewSummary.swift */,
 				A843028E30070DD90029BA21 /* View - MultiSelectSummary.swift */,
 				A8430290300710D10029BA21 /* View - DrillDownSummary.swift */,
@@ -332,6 +344,7 @@
 		A8B96DED2FF9D9E700CAEB50 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
+				A898CA1C300D89DA00777778 /* Anomaly.swift */,
 				A82346A72FEC9FD500D64E5C /* AppData.swift */,
 				A843028A300705F60029BA21 /* DrillDownSummary.swift */,
 				A85795CB2FFC7C04006B1DAE /* FilterState.swift */,
@@ -356,9 +369,10 @@
 		A8B96DEF2FF9DA5000CAEB50 /* Graphs and DataTables */ = {
 			isa = PBXGroup;
 			children = (
+				A898CA24300DA0D000777778 /* AnomalyDataTable.swift */,
 				A8B96DF02FF9DA6700CAEB50 /* GenericGraph.swift */,
 				A8B96DF32FF9DAB300CAEB50 /* GenericDataTable.swift */,
-				A8621E67300B055400D2FEB7 /* MLGraphs.swift */,
+				A8621E67300B055400D2FEB7 /* RegressionGraph.swift */,
 			);
 			path = "Graphs and DataTables";
 			sourceTree = "<group>";
@@ -366,6 +380,7 @@
 		A8B96DF52FF9DB4E00CAEB50 /* Created Data */ = {
 			isa = PBXGroup;
 			children = (
+				A898CA1E300D8B9000777778 /* FindAnomalies.swift */,
 				A8E5C1532FEC3882009AF2F4 /* MakeGenericGraph.swift */,
 				A8621E63300AFABB00D2FEB7 /* MakeRegressionPoints.swift */,
 				A896A23E300C524600AC7F34 /* ExtraRegressionFunctions.swift */,
@@ -533,11 +548,14 @@
 				A8F37CE92FFDC77300361C06 /* CostTypeSwitch.swift in Sources */,
 				A8621E64300AFAC200D2FEB7 /* MakeRegressionPoints.swift in Sources */,
 				A8430289300705F30029BA21 /* MultiSelectSummary.swift in Sources */,
+				A898CA25300DA0D800777778 /* AnomalyDataTable.swift in Sources */,
 				A8B96DF12FF9DA6F00CAEB50 /* GenericGraph.swift in Sources */,
 				A8E5C1672FEC3882009AF2F4 /* FileLoader.swift in Sources */,
 				A84302813006FA260029BA21 /* WoWSummary.swift in Sources */,
 				A8621E72300B131D00D2FEB7 /* View - Forecast.swift in Sources */,
+				A898CA1F300D8BA100777778 /* FindAnomalies.swift in Sources */,
 				A87FE97C300314D700C46C7F /* TitleAndButtonLayout.swift in Sources */,
+				A898CA1D300D89DF00777778 /* Anomaly.swift in Sources */,
 				A843028F30070DDF0029BA21 /* View - MultiSelectSummary.swift in Sources */,
 				A8E5C1682FEC3882009AF2F4 /* DateFilter.swift in Sources */,
 				A8E5C16B2FEC3882009AF2F4 /* MakeGenericGraph.swift in Sources */,
@@ -557,10 +575,11 @@
 				A8B96DF42FF9DABC00CAEB50 /* GenericDataTable.swift in Sources */,
 				A82346A82FEC9FD800D64E5C /* AppData.swift in Sources */,
 				A85E94B53005AE830035EF32 /* ViewTypeSwitch.swift in Sources */,
+				A898CA21300D92DA00777778 /* AnomalySwitch.swift in Sources */,
 				A8E5C1722FEC3882009AF2F4 /* View - Aggregation.swift in Sources */,
 				A8430285300702EE0029BA21 /* View - WoWSummary.swift in Sources */,
 				A8E5C1752FEC3882009AF2F4 /* CSVExport.swift in Sources */,
-				A8621E68300B055A00D2FEB7 /* MLGraphs.swift in Sources */,
+				A8621E68300B055A00D2FEB7 /* RegressionGraph.swift in Sources */,
 				A84302833006FDCA0029BA21 /* KPICard.swift in Sources */,
 				A8430287300705E90029BA21 /* OverviewSummary.swift in Sources */,
 				A8B96DE62FF9D7DE00CAEB50 /* SampleProviders.swift in Sources */,
@@ -569,6 +588,7 @@
 				A8430291300710D70029BA21 /* View - DrillDownSummary.swift in Sources */,
 				A8E5C1782FEC3882009AF2F4 /* View - Overview.swift in Sources */,
 				A8621E66300AFB8E00D2FEB7 /* LinearRegression.swift in Sources */,
+				A898CA23300D977400777778 /* View - AnomalySummary.swift in Sources */,
 				A8E5C17A2FEC3882009AF2F4 /* View - DrillDown.swift in Sources */,
 				A8E5C17B2FEC3882009AF2F4 /* DrillDown.swift in Sources */,
 			);

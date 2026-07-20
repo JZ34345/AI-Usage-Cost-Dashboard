@@ -13,12 +13,14 @@ struct genericGraph: View {
     @Environment(AppData.self) private var appData
     
     let data: [GenericSummary]
+    let anomaly: [Anomaly]?
     let ylabel: String
     let isDelta: Bool
     
-        //MARK: Parameters
-    init(data: [GenericSummary], ylabel: String, isDelta: Bool) {
+    //MARK: Parameters
+    init(data: [GenericSummary], anomaly: [Anomaly]?, ylabel: String, isDelta: Bool) {
         self.data = data
+        self.anomaly = anomaly
         self.ylabel = ylabel
         self.isDelta = isDelta
     }
@@ -53,6 +55,46 @@ struct genericGraph: View {
             }
         }
     }
+    
+    //MARK: Graph Marks
+    @ChartContentBuilder
+    func dataMarks() -> some ChartContent {
+        ForEach(data) { item in
+            LineMark(
+                x: .value("date", item.day),
+                y: .value(ylabel, item.cost / 100)
+            ).foregroundStyle(by: .value("Catagory", item.category))
+            
+            //Special zero x-axis line for WoW delta
+            if isDelta {
+                RuleMark(y: .value("Zero", 0)).foregroundStyle(.gray)
+            }
+        }
+    }
+    
+    //MARK: Anomaly Marks
+    @ChartContentBuilder
+    func anomalyMarks(anomalies: [Anomaly]) -> some ChartContent {
+        ForEach(anomalies) { anomaly in
+            PointMark(x: .value("Date", anomaly.day), y: .value(ylabel, anomaly.cost / 100))
+                .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+            
+            RuleMark(x: .value("Date", anomaly.day))
+                .foregroundStyle(anomaly.isHigh ? .red.opacity(0.5) : .green.opacity(0.5))
+                .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
+                .annotation(position: anomaly.isHigh ? .top : .bottom) {
+                                Text(anomaly.isHigh ? "↑ High" : "↓ Low")
+                                    .font(.caption2)
+                                    .foregroundColor(anomaly.isHigh ? .red : .green)
+                                    .padding(4)
+                                    .background(.regularMaterial)
+                                    .cornerRadius(4)
+                            }
+        }
+    }
+    
+    
+    
         //MARK: UI Structure
     var body: some View {
         VStack {
@@ -63,15 +105,12 @@ struct genericGraph: View {
                 Error(error: nil).frame(maxWidth: .infinity, maxHeight: 300)
                 //Graph with no errors
             } else {
-                Chart(data) { item in
-                    LineMark(
-                        x: .value("date", item.day),
-                        y: .value(ylabel, item.cost / 100)
-                    ).foregroundStyle(by: .value("Catagory", item.category))
+                Chart() {
+                    dataMarks()
                     
-                    //Special zero x-axis line for WoW delta
-                    if isDelta {
-                        RuleMark(y: .value("Zero", 0)).foregroundStyle(.gray)
+                    //Show anomaly's when switched
+                    if appData.anomalySwitch == .on {
+                        anomalyMarks(anomalies: anomaly ?? [])
                     }
                 }.onAppear {
                     appData.dataExport = data

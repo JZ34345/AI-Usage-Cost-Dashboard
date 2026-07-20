@@ -35,7 +35,6 @@ func makeRegressionPoints(from data: [GenericSummary], daysAhead: Int = 30, cate
     for day in 1...daysAhead {
         let futureDays = lastDays + Double(day)
         let futureDate = lastDate.addingTimeInterval(Double(day) * 86400)
-        let predictCost = max(0, regression.predict(x: futureDays))
         
         //Changes
         let predictedCost: Double

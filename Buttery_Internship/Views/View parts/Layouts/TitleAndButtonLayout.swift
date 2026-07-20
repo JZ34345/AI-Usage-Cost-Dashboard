@@ -35,6 +35,9 @@ struct OverviewTitleAndButtonLayout: View {
             //Date filter button
             DateFilterButton()
             
+            //Anomaly Switch
+            AnomalySwitch()
+            
             Spacer()
             
             HStack {
@@ -171,14 +174,17 @@ struct AggregationTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
         
-            Spacer(minLength: 360)
+            Spacer(minLength: 200)
             //Date filter button
             DateFilterButton()
             
             //Filter Button
             MultiSelectFilterButton()
             
-            Spacer(minLength: 100)
+            //Anomaly Switch
+            AnomalySwitch()
+            
+            Spacer(minLength: 80)
 
             //Cost type switch
             CostTypeSwitch()
@@ -224,13 +230,16 @@ struct DrillDownTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
             
-            Spacer(minLength: 295)
+            Spacer(minLength: 200)
             //Date button
             DateFilterButton()
-            //Drilldown buttons
+            //Drilldown menus
             DrillDownButton()
                 .onChange(of: appData.drillFilterCluster) {appData.drillFilterNode = .inital}
             DrillNodeButton()
+            
+            //Anomaly Switch
+            AnomalySwitch()
 
             Spacer(minLength: 100)
             //Cost type button
