@@ -33,17 +33,26 @@ struct WoW: View {
                     
                     WoWSummaryView(data: appData.WoWAggregateGraphData)
                     
-                    genericGraph(data: appData.WoWAggregateGraphData, anomaly: nil, ylabel: "Delta ($)", isDelta: true)
+                    genericGraph(data: appData.WoWAggregateGraphData, anomaly: appData.anomalyWoW, ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
+                    
+                    if appData.anomalySwitch == .on {
+                        AnomalySummaryView(anomalies: appData.anomalyWoW)
+                    }
                 //Table
                 } else {
                     WoWTitleAndButtonLayout(
                         title: "\(filterWoWTitle) WoW", graphType: "Delta-Time Table",
                         description: "This table displays all the data used for the graph. The specific data is change in AI usage cost week per week for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).", isAverage: false).padding(.top)
                     
-                    genericDataTable(data: appData.WoWAggregateGraphData, category: "\(filterWoWTitle) WoW",
-                                     isDelta: true, isAverage: false)
-                    .frame(maxWidth: .infinity)
+                    if appData.anomalySwitch == .on {
+                        AnomalyDataTable(anomalies: appData.anomalyWoW)
+                        AnomalySummaryView(anomalies: appData.anomalyWoW)
+                    } else {
+                        genericDataTable(data: appData.WoWAggregateGraphData, category: "\(filterWoWTitle) WoW",
+                                         isDelta: true, isAverage: false)
+                        .frame(maxWidth: .infinity)
+                    }
                 }
                 
             //MARK: WoW Average Delta
@@ -56,8 +65,13 @@ struct WoW: View {
                     
                     WoWSummaryView(data: appData.WoWAggregateGraphData)
                     
-                    genericGraph(data: appData.WoWAggregateGraphAverageData, anomaly: nil, ylabel: "Delta ($)", isDelta: true)
+                    genericGraph(data: appData.WoWAggregateGraphAverageData, anomaly: appData.anomalyAverageWoW, ylabel: "Delta ($)",
+                                 isDelta: true)
                         .frame(maxWidth: .infinity)
+                    
+                    if appData.anomalySwitch == .on {
+                        AnomalySummaryView(anomalies: appData.anomalyAverageWoW)
+                    }
                 //Table
                 } else {
                     WoWTitleAndButtonLayout(
@@ -65,9 +79,14 @@ struct WoW: View {
                         description: "This table displays all the data used for the graph. The specific data is change in average AI usage cost week per week for one or more categories. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).",
                         isAverage: true).padding(.top)
                     
-                    genericDataTable(data: appData.WoWAggregateGraphAverageData, category: "\(filterWoWTitle) WoW",
-                                     isDelta: true, isAverage: false)
-                    .frame(maxWidth: .infinity)
+                    if appData.anomalySwitch == .on {
+                        AnomalyDataTable(anomalies: appData.anomalyAverageWoW)
+                        AnomalySummaryView(anomalies: appData.anomalyAverageWoW)
+                    } else {
+                        genericDataTable(data: appData.WoWAggregateGraphAverageData, category: "\(filterWoWTitle) WoW",
+                                         isDelta: true, isAverage: false)
+                        .frame(maxWidth: .infinity)
+                    }
                 }
                 
             }

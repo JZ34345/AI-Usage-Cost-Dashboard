@@ -15,8 +15,11 @@ struct AnomalyDataTable: View {
     init(anomalies: [Anomaly]) {
         self.anomalies = anomalies
     }
+    
+
     //MARK: UI Structure
     var body: some View {
+        let wow = anomalies.first?.isWoW
         //If statement is for error message
         if appData.costType == .total {
             //MARK: Total Cost
@@ -31,22 +34,24 @@ struct AnomalyDataTable: View {
                         Text(anomaly.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                     }
                     TableColumn("Category", value: \.category)
-                    TableColumn("Cost ($)") { anomaly in
+                    TableColumn(wow! ? "Week Cost ($)" : "Cost ($)") { anomaly in
                         Text(anomaly.cost / 100, format: .currency(code: "USD")).font(.title3)
                     }
-                    TableColumn("Cost (€)") { anomaly in
+                    TableColumn(wow! ? "Week Cost (€)" : "Cost (€)") { anomaly in
                         Text((anomaly.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
                     }
-                    TableColumn("Raw Cost") { anomaly in
+                    TableColumn(wow! ? "Raw Week Cost" : "Raw Cost") { anomaly in
                         Text(String(format: "%.2f", anomaly.cost)).font(.title3)
                     }
-                    TableColumn("Raw Mean") { anomaly in
+                    TableColumn(wow! ? "Average Delta" : "Raw Mean") { anomaly in
                         Text(String(format: "%.2f", anomaly.mean)).font(.title3)
                     }
-                    TableColumn("Raw Deviation") { anomaly in
-                        Text(String(format: "%.2f", anomaly.stdDev)).font(.title3)
-                            .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+                    if wow! == false {
+                        TableColumn("Raw Deviation") { anomaly in
+                           Text(String(format: "%.2f", anomaly.stdDev)).font(.title3)
+                               .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
 
+                       }
                     }
                     TableColumn("Z-Score") { anomaly in
                         Text(String(format: "%.2f", anomaly.zScore)).font(.title3)
@@ -59,7 +64,7 @@ struct AnomalyDataTable: View {
                         .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
 
                     }
-                }.frame(width: 680, height: 500)
+                }.frame(height: 500)
             }
         } else {
             //MARK: Average Cost
@@ -74,30 +79,35 @@ struct AnomalyDataTable: View {
                         Text(anomaly.day, format: .dateTime.month(.abbreviated).day().year()).font(.title3)
                     }
                     TableColumn("Category", value: \.category)
-                    TableColumn("Average Cost ($)") { anomaly in
+                    TableColumn(wow! ? "Average Week Cost ($)" : "Average Cost ($)") { anomaly in
                         Text(anomaly.cost / 100, format: .currency(code: "USD")).font(.title3)
                     }
-                    TableColumn("Average Cost (€)") { anomaly in
+                    TableColumn(wow! ? "Average Week Cost (€)" : "Average Cost (€)") { anomaly in
                         Text((anomaly.cost / 100) * 0.88, format: .currency(code: "EUR")).font(.title3)
                     }
-                    TableColumn("Average Raw Cost") { anomaly in
+                    TableColumn(wow! ? "Raw Average Week Cost" : "Raw Average Cost") { anomaly in
                         Text(String(format: "%.2f", anomaly.cost)).font(.title3)
                     }
-                    TableColumn("Average Raw Mean") { anomaly in
+                    TableColumn(wow! ? "Average Delta" : "Raw Average Mean") { anomaly in
                         Text(String(format: "%.2f", anomaly.mean)).font(.title3)
                     }
-                    TableColumn("Average Raw Deviation") { anomaly in
-                        Text(String(format: "%.2f", anomaly.stdDev)).font(.title3)
-                            .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+                    if wow! == false {
+                        TableColumn("Raw Average Deviation") { anomaly in
+                           Text(String(format: "%.2f", anomaly.stdDev)).font(.title3)
+                               .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+
+                       }
                     }
-                    TableColumn("Average Z-Score") { anomaly in
-                        Text(String(format: "%.", anomaly.zScore)).font(.title3)
+                    TableColumn("Z-Score") { anomaly in
+                        Text(String(format: "%.2f", anomaly.zScore)).font(.title3)
                             .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+
                     }
                     TableColumn("Type") { anomaly in
                         Label(anomaly.isHigh ? "High" : "Low",
                               systemImage: anomaly.isHigh ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
                         .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+
                     }
                 }.frame(height: 500)
             }

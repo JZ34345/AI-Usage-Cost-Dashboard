@@ -18,12 +18,24 @@ struct AnomalySummaryView: View {
     
     var body: some View {
         @Bindable var appData = appData
+        let wow = anomalies.first?.isWoW
 
         VStack {
-            VStack {
-                Text("Anomalies Detected").font(.title3)
-                Text("\(anomalies.count) flagged").font(.caption).foregroundStyle(.secondary)
+            if wow == true {
+                VStack {
+                    HStack {
+                        Text("Anomalies Detected").font(.title3)
+                        InfoButton(description: "Due to the difference in WoW delta vs regular cost, it is recommended to use a anomaly threshold of 2.0 or less to recieve best use of this feature.")
+                    }
+                    Text("\(anomalies.count) flagged").font(.caption).foregroundStyle(.secondary)
+                }
+            } else {
+                VStack {
+                    Text("Anomalies Detected").font(.title3)
+                    Text("\(anomalies.count) flagged").font(.caption).foregroundStyle(.secondary)
+                }
             }
+            
             HStack {
                 Stepper(
                     "Threshold: \(String(format: "%.1f", appData.anomalyThreshold))", value: $appData.anomalyThreshold,
@@ -35,13 +47,23 @@ struct AnomalySummaryView: View {
                 Text("No anomalies detected at \(String(format: "%.1f", appData.anomalyThreshold))")
                     .foregroundStyle(.secondary).padding()
             } else {
-                HStack {
-                    KPICard(title: "High Cost Days", value: nil, label: "\(anomalies.filter(\.isHigh).count)")
-                    KPICard(title: "Low Cost Days", value: nil, label: "\(anomalies.filter {!$0.isHigh}.count)")
-                    KPICard(title: "Largest Spike", value: anomalies.filter(\.isHigh).map(\.deviationPct).max(),
-                            format: "%.1f%%")
-                    KPICard(title: "Largest Drop", value: anomalies.filter {!$0.isHigh}.map(\.deviationPct).min(), format: "%.1f%%")
-                }.padding(.horizontal)
+                if wow! {
+                    HStack {
+                        KPICard(title: "Large Increses", value: nil, label: "\(anomalies.filter(\.isHigh).count)")
+                        KPICard(title: "Large Decreases", value: nil, label: "\(anomalies.filter {!$0.isHigh}.count)")
+                        KPICard(title: "Largest Spike", value: anomalies.filter(\.isHigh).map(\.zScore).max(),
+                                format: "%.2f%%")
+                        KPICard(title: "Largest Drop", value: anomalies.filter {!$0.isHigh}.map(\.zScore).min(), format: "%.2f%%")
+                    }.padding(.horizontal)
+                } else {
+                    HStack {
+                        KPICard(title: "High Cost Days", value: nil, label: "\(anomalies.filter(\.isHigh).count)")
+                        KPICard(title: "Low Cost Days", value: nil, label: "\(anomalies.filter {!$0.isHigh}.count)")
+                        KPICard(title: "Largest Spike", value: anomalies.filter(\.isHigh).map(\.deviationPct).max(),
+                                format: "%.1f%%")
+                        KPICard(title: "Largest Drop", value: anomalies.filter {!$0.isHigh}.map(\.deviationPct).min(), format: "%.1f%%")
+                    }.padding(.horizontal)
+                }
             }
         }.padding(.vertical)
     }

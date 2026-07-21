@@ -48,7 +48,7 @@ struct OverviewTitleAndButtonLayout: View {
                 ViewTypeSwitch()
             }
             
-        }
+        }.frame(maxWidth: .infinity, alignment: .center)
     }
 }
 //MARK: WoW Title and Button
@@ -93,13 +93,16 @@ struct WoWTitleAndButtonLayout: View {
             //MultiSelect button
             MultiSelectFilterButton()
             
+            //Anomaly detection button
+            AnomalySwitch()
+            
             Spacer(minLength: 100)
             //Cost type button
             CostTypeSwitch()
             
             //View type button
             ViewTypeSwitch()
-        }
+        }.frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
@@ -130,13 +133,16 @@ struct WoWOverviewTitleAndButtonLayout: View {
             //Date filter button
             DateFilterButton()
             
+            //Anomaly Detection Button
+            AnomalySwitch()
+            
             Spacer(minLength: 100)
             //Cost type button
             DataTypeSwitch()
             
             //View type button
             ViewTypeSwitch()
-        }
+        }.frame(maxWidth: .infinity, alignment: .center)
     }
 }
 //MARK: Aggregation Title and Button
@@ -171,10 +177,10 @@ struct AggregationTitleAndButtonLayout: View {
             
             if description != nil {
                 //Info button
-                InfoButton(description: description!).id(description)
+                InfoButton(description: description!).id(description).padding(.trailing)
             }
         
-            Spacer(minLength: 200)
+            Spacer(minLength: 250)
             //Date filter button
             DateFilterButton()
             
@@ -184,14 +190,14 @@ struct AggregationTitleAndButtonLayout: View {
             //Anomaly Switch
             AnomalySwitch()
             
-            Spacer(minLength: 80)
+            Spacer()
 
             //Cost type switch
             CostTypeSwitch()
             
             //View type switch
             ViewTypeSwitch()
-        }
+        }.frame(maxWidth: .infinity, alignment: .center)
     }
 }
 //MARK: Drilldown Title and Button
@@ -230,7 +236,7 @@ struct DrillDownTitleAndButtonLayout: View {
                 InfoButton(description: description!).id(description)
             }
             
-            Spacer(minLength: 200)
+            Spacer(minLength: 250)
             //Date button
             DateFilterButton()
             //Drilldown menus
@@ -241,13 +247,13 @@ struct DrillDownTitleAndButtonLayout: View {
             //Anomaly Switch
             AnomalySwitch()
 
-            Spacer(minLength: 100)
+            Spacer()
             //Cost type button
             CostTypeSwitch()
             
             //View type button
             ViewTypeSwitch()        
-        }
+        }.frame(maxWidth: .infinity, alignment: .center)
     }
 }
 

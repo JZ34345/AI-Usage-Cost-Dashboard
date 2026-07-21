@@ -23,7 +23,9 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
                                 title: "Node \(appData.drillFilterNode.label)",
-                                graphType: "Cost-Time Graph", description: nil, isAverage: false)
+                                graphType: "Cost-Time Graph",
+                                description: "This view allows for drilldown comparisions of AI usage and cost within a specific cluster or node. The graph below displays comparisions of average usage cost for different AI query, question, types within a specific node",
+                                isAverage: false)
                             .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownData)
@@ -60,7 +62,9 @@ public struct DrillDown: View {
                         //Graph
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
-                                title: "Cluster \(appData.drillFilterCluster.rawValue)", graphType: "Cost-Time Graph", description: nil, isAverage: false)
+                                title: "Cluster \(appData.drillFilterCluster.rawValue)", graphType: "Cost-Time Graph",
+                                description: "This view allows for drilldown comparisions of AI usage and cost within a specific cluster or node. The graph below displays comparisions of node costs within a specific AI cluster.",
+                                isAverage: false)
                             .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownData)
@@ -96,7 +100,8 @@ public struct DrillDown: View {
                         //Graph
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Graph",
-                                                          description: nil, isAverage: false).padding(.top)
+                                                          description: "This view allows for drilldown comparisions of AI usage and cost within a specific cluster or node. The graph below displays comparisions of usage cost for all AI clusters",
+                                                          isAverage: false).padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownData)
                             
@@ -135,7 +140,9 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
                                 title: "Node \(appData.drillFilterNode.label)",
-                                graphType: "Cost-Time Graph", description: nil, isAverage: true).padding(.top)
+                                graphType: "Cost-Time Graph",
+                                description: "This view allows for drilldown comparisions of AI usage and cost within a specific cluster or node. The graph below displays comparisions of average usage cost for different AI query, question, within a specific node",
+                                isAverage: true).padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
 
@@ -171,7 +178,9 @@ public struct DrillDown: View {
                         if appData.viewType == .graph {
                             DrillDownTitleAndButtonLayout(
                                 title: "Cluster \(appData.drillFilterCluster.rawValue)",
-                                graphType: "Cost-Time Graph", description: nil, isAverage: true)
+                                graphType: "Cost-Time Graph",
+                                description: "This view allows for drilldown comparisions of AI usage and cost within a specific cluster or node. The graph below displays comparisions of average node costs within a specific AI cluster.",
+                                isAverage: true)
                             .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)
@@ -205,7 +214,9 @@ public struct DrillDown: View {
                     } else {
                         //Graph
                         if appData.viewType == .graph {
-                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Graph", description: nil, isAverage: true)
+                            DrillDownTitleAndButtonLayout(title: "Cluster", graphType: "Cost-Time Graph",
+                                                          description: "This view allows for drilldown comparisions of AI usage and cost within a specific cluster or node. The graph below displays comparisions of average usage cost for all AI clusters",
+                                                          isAverage: true)
                                 .padding(.top)
                             
                             DrillDownSummaryView(data: appData.drilldownAverageData)

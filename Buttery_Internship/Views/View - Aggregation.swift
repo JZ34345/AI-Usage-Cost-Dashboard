@@ -37,7 +37,10 @@ import Charts
                 if appData.costType == .total {
                     //Graph
                     if appData.viewType == .graph {
-                        AggregationTitleAndButtonLayout(title: "\(filterTitle) ", graphType: "Cost-Time Graph", description: nil, isAverage: false).padding(.top)
+                        AggregationTitleAndButtonLayout(
+                            title: "\(filterTitle) ", graphType: "Cost-Time Graph",
+                            description: "This view allows for comparisions of AI usage and cost across different catagories at once. More than one catagory can be selected.",
+                            isAverage: false).padding(.top)
                         
                         MultiSelectSummaryView(data: graphData)
                         
@@ -70,7 +73,7 @@ import Charts
                     //Graph
                     if appData.viewType == .graph {
                         AggregationTitleAndButtonLayout(
-                            title: "\(filterTitle)", graphType: "Cost-Time Graph", description: nil,
+                            title: "\(filterTitle)", graphType: "Cost-Time Graph", description: "This view allows for comparisions of AI usage and average cost across different catagories at once. More than one catagory can be selected.",
                             isAverage: true)
                         .padding(.top)
                                            

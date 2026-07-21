@@ -59,7 +59,7 @@ struct genericDataTable: View {
                             }
                             
                         }
-                        .frame(width: 680, height: 500)
+                        .frame(height: 500)
                     }
                     //Datatable for WoW delta
                     else {
@@ -78,7 +78,7 @@ struct genericDataTable: View {
                                 Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
                             }
                         }
-                        .frame(width: 680, height: 500)
+                        .frame(height: 500)
                     }
                     //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                 } else {
@@ -96,7 +96,7 @@ struct genericDataTable: View {
                             Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
                         }
                     }
-                    .frame(width: 680, height: 500)
+                    .frame(height: 500)
                 }
                 //MARK: Average Cost
             } else {
@@ -119,7 +119,7 @@ struct genericDataTable: View {
                                 Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
                             }.width(150)
                         }
-                        .frame(width: 680, height: 500)
+                        .frame(height: 500)
                     }
                     //Datatable for WoW delta
                     else {
@@ -138,7 +138,7 @@ struct genericDataTable: View {
                                 Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
                             }.width(150)
                         }
-                        .frame(width: 680, height: 500)
+                        .frame(height: 500)
                     }
                     //This is for tables with no grouping, only one datatype of node, model, cluster, etc
                 } else {
@@ -156,7 +156,7 @@ struct genericDataTable: View {
                             Text(item.cost, format: .number.grouping(.automatic)).font(.title3)
                         }.width(150)
                     }
-                    .frame(width: 680, height: 500)
+                    .frame(height: 500)
                 }
             }
         }

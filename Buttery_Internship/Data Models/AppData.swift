@@ -42,6 +42,8 @@ import Charts
     @ObservationIgnored private var _anomalyMultiSelectAverageCache: [Anomaly]?
     @ObservationIgnored private var _anomalyDrillDownCache: [Anomaly]?
     @ObservationIgnored private var _anomalyDrillDownAverageCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyWoWCache: [Anomaly]?
+    @ObservationIgnored private var _anomalyWoWAverageCache: [Anomaly]?
 
     
     private var currentFilters: FilterState {
@@ -61,14 +63,21 @@ import Charts
         _WoWGraphAverageDataCache = nil
         _WoWAggregateGraphDataCache = nil
         _WoWAggregateGraphAverageDataCache = nil
+        
+        //Regression
         _regressionGraphDataCache = nil
         _regressionGraphAverageDataCache = nil
+        
+        //Anomalies
         _anomalyCache = nil
         _anomalyAverageCache = nil
         _anomalyMultiSelectCache = nil
         _anomalyMultiSelectAverageCache = nil
         _anomalyDrillDownCache = nil
         _anomalyDrillDownAverageCache = nil
+        _anomalyWoWCache = nil
+        _anomalyWoWAverageCache = nil
+        
     }
     
     private func cached<T>(_ cache: inout T?, compute: () -> T) -> T {
@@ -454,6 +463,16 @@ import Charts
     var anomalyAverageDrillDown: [Anomaly] {
         cached(&_anomalyDrillDownAverageCache) {
             findAnomalies(from: drilldownAverageData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyWoW: [Anomaly] {
+        cached(&_anomalyWoWCache) {
+            findWoWAnomalies(from: WoWGraphData, threshold: anomalyThreshold)
+        }
+    }
+    var anomalyAverageWoW: [Anomaly] {
+        cached(&_anomalyWoWAverageCache) {
+            findWoWAnomalies(from: WoWGraphAverageData, threshold: anomalyThreshold)
         }
     }
     

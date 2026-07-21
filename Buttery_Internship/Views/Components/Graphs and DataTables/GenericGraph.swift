@@ -64,6 +64,7 @@ struct genericGraph: View {
                 x: .value("date", item.day),
                 y: .value(ylabel, item.cost / 100)
             ).foregroundStyle(by: .value("Catagory", item.category))
+                .symbol(by: .value("Catagory", item.category))
             
             //Special zero x-axis line for WoW delta
             if isDelta {
@@ -83,13 +84,34 @@ struct genericGraph: View {
                 .foregroundStyle(anomaly.isHigh ? .red.opacity(0.5) : .green.opacity(0.5))
                 .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
                 .annotation(position: anomaly.isHigh ? .top : .bottom) {
-                                Text(anomaly.isHigh ? "↑ High" : "↓ Low")
-                                    .font(.caption2)
-                                    .foregroundColor(anomaly.isHigh ? .red : .green)
-                                    .padding(4)
-                                    .background(.regularMaterial)
-                                    .cornerRadius(4)
-                            }
+                    Text(anomaly.isHigh ? "↑ High" : "↓ Low")
+                        .font(.caption2)
+                        .foregroundColor(anomaly.isHigh ? .red : .green)
+                        .padding(4)
+                        .background(.regularMaterial)
+                        .cornerRadius(4)
+                }
+        }
+    }
+    
+    @ChartContentBuilder
+    func anomalyWoWMarks(anomalies: [Anomaly]) -> some ChartContent {
+        ForEach(anomalies) { anomaly in
+            PointMark(x: .value("Date", anomaly.day), y: .value(ylabel, anomaly.cost / 100))
+                .foregroundStyle(anomaly.isHigh ? Color.red : Color.green)
+                .symbol(.square)
+            
+            RuleMark(x: .value("Date", anomaly.day))
+                .foregroundStyle(anomaly.isHigh ? .red.opacity(0.5) : .green.opacity(0.5))
+                .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
+                .annotation(position: anomaly.isHigh ? .top : .bottom) {
+                    Text(anomaly.isHigh ? "↑ Spike" : "↓ Drop")
+                        .font(.caption2)
+                        .foregroundColor(anomaly.isHigh ? .red : .green)
+                        .padding(4)
+                        .background(.regularMaterial)
+                        .cornerRadius(4)
+                }
         }
     }
     
@@ -97,6 +119,8 @@ struct genericGraph: View {
     
         //MARK: UI Structure
     var body: some View {
+        let wow = anomaly?.first?.isWoW
+        
         VStack {
             // if statement for error message
             if appData.datePickerError != nil {
@@ -110,8 +134,12 @@ struct genericGraph: View {
                     
                     //Show anomaly's when switched
                     if appData.anomalySwitch == .on {
-                        anomalyMarks(anomalies: anomaly ?? [])
-                    }
+                        if wow == true {
+                            anomalyWoWMarks(anomalies: anomaly ?? [])
+                        } else {
+                            anomalyMarks(anomalies: anomaly ?? [])
+                        }
+                    } 
                 }.onAppear {
                     appData.dataExport = data
                 }.onChange(of: data) { _, new in

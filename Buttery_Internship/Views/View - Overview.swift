@@ -53,8 +53,12 @@ import Charts
                         
                         WoWSummaryView(data: appData.WoWGraphData)
                         
-                        genericGraph(data: appData.WoWGraphData, anomaly: nil, ylabel: "Delta ($)", isDelta: true)
+                        genericGraph(data: appData.WoWGraphData, anomaly: appData.anomalyWoW, ylabel: "Delta ($)", isDelta: true)
                         .frame(maxWidth: .infinity)
+                        
+                        if appData.anomalySwitch == .on {
+                            AnomalySummaryView(anomalies: appData.anomalyWoW)
+                        }
                     } else {
                         //Table
                         WoWOverviewTitleAndButtonLayout(
@@ -62,8 +66,14 @@ import Charts
                             description: "This table displays all the data used for the graph. The specific data is change in AI usage cost week per week. Each row is a AI usage record containing the date, the categories of the record (if avaliable), and cost of record as USD, Euro, and raw cost (US cents).")
                         .padding(.top)
                         
-                        genericDataTable(data: appData.WoWGraphData, category: "WoW", isDelta: true, isAverage: false)
-                        .frame(maxWidth: .infinity)
+                        if appData.anomalySwitch == .on {
+                            AnomalyDataTable(anomalies: appData.anomalyWoW)
+                            AnomalySummaryView(anomalies: appData.anomalyWoW)
+                        } else {
+                            genericDataTable(data: appData.WoWGraphData, category: "WoW", isDelta: true, isAverage: false)
+                                .frame(maxWidth: .infinity)
+                        }
+                        
                     }
                 }
             }

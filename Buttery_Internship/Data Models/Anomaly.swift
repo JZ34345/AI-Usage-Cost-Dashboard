@@ -16,6 +16,7 @@ struct Anomaly: Identifiable {
     let stdDev: Double
     let zScore: Double
     let isHigh: Bool
+    let isWoW: Bool
     
     var deviation: Double {cost - mean}
     var deviationPct: Double {mean == 0 ? 0 : (deviation / mean) * 100}
