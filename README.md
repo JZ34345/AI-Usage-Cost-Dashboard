@@ -24,9 +24,9 @@
 MIT License
 
 ## Glossary
-aggregation: process of collecting different pieces of data or information and combining them into a single summarized form.
+aggregation: Process of collecting different pieces of data or information and combining them into a single summarized form.
 
-anomaly: something that is different from what is considered normal or standard. 
+anomaly: Something that is different from what is considered normal or standard. 
 
 drilldown: A way to analyze data by navigating from broad summaries of data down to finer and more nuanced specific data within the broader group of data.
 
