@@ -12,6 +12,11 @@
   Secondary functions include a data export feature to CSV files, an anomaly detection feature to mark days where the cost is 2 standard deviations or more  above the average cost of the time period, and a forecast feature which uses linear regression to predict the usage cost for the next 30 days according to the data given beforehand.  
 
 ## Installation and Run Instructions
+### Note: Have Xcode installed on macOS or a similar platform to run the dashboard.
+1. Clone the repository using 'git clone https://github.com' \n 'cd YOUR-REPOSITORY-NAME' in the terminal
+2. Open the project in Xcode using open YOUR-PROJECT-NAME.xcodeproj in the terminal
+3. Once the project opens, select the device to run the project on
+4. Look top left for a ▶ button, or click Cmd + R, to run the project 
 
 ## Project Features
 
