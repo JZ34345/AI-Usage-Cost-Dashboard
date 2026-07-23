@@ -15,10 +15,22 @@
 ### Note: Have Xcode installed on macOS or a similar platform to run the dashboard.
 1. Clone the repository using 'git clone https://github.com' \n 'cd YOUR-REPOSITORY-NAME' in the terminal
 2. Open the project in Xcode using open YOUR-PROJECT-NAME.xcodeproj in the terminal
-3. Once the project opens, select the device to run the project on
-4. Look top left for a ▶ button, or click Cmd + R, to run the project 
+3. Ensure that the sample-data.json file, or other data file being used, is correctly in the Source Data folder
+4. Select the device to run the project on
+5. Look top left for a ▶ button, or click Cmd + R, to run the project 
 
 ## Project Features
+
+## Project Limitations
+- Forecast view is incomplete as the linear regression graph displays the y-axis mean instead of standard units due to the low R^Squared.
+  -  Also highly dependent on the size of the data being provided. It is recommended to have data for 90 days or more.
+- The center filters in the dashboard may shift slightly as centering is done as best as possible, but is not perfect
+- The local legend's detail may sometimes shift between colors and line shapes when switching anomaly thresholds.
+
+## Requirements
+- macOS 15.0 (Sequoia)+
+- Swift 5.9+
+- Xcode 15+
 
 ## License
 MIT License
