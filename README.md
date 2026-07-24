@@ -30,13 +30,46 @@
 - Linear regression forecast with prediction band (limited depending of data provided)
 
 ## File Map
-
+.
+├── App
+├── Created Data
+├── Data Models
+│   ├── AppData.swift
+│   ├── Secondary Models
+│   └── Summaries
+├── Source Data
+└── Views
+    ├── Components
+    ├── View - Aggregation.swift
+    ├── View - DrillDown.swift
+    ├── View - Forecast.swift
+    ├── View - Overview.swift
+    ├── View - WoW.swift
+    └── View Parts
 
 ## Project Limitations
 - Forecast view is incomplete as the linear regression graph displays the y-axis mean instead of standard units due to the low R^Squared.
   -  Also highly dependent on the size of the data being provided. It is recommended to have data for at least 90 days.
 - The center filters in the dashboard may shift slightly as centering is done as best as possible, but is not perfect
 - The local legend's detail may sometimes shift between colors and line shapes when switching anomaly thresholds.
+
+## Images
+![Overview](<img width="1408" height="881" alt="Overview" src="https://github.com/user-attachments/assets/78668f45-5782-4490-9923-3ba26571b11d" />)
+  - *The Overview page provides a visualization of total cost and of basic week-over-week delta.*
+
+
+![Aggregation](<img width="1408" height="881" alt="Cluster Aggregation" src="https://github.com/user-attachments/assets/52c85039-5157-43ef-97c3-bd1ac623cdec" />)
+  - *This is an aggregation view comparing cost across clusters.*
+    
+
+![Drilldown](<img width="1408" height="881" alt="eu-small-01 node drilldown" src="https://github.com/user-attachments/assets/75fccc59-d691-4116-a436-d935daa602d5" />)
+  - *This is a drilldown view comparing query types in the eu-small-01 node.*
+
+![WoW delta](<img width="1408" height="881" alt="Query WoW Average" src="https://github.com/user-attachments/assets/38617e53-3da8-4cbf-9a89-0e788ee10a4c" />)
+  - *This is a week-over-week view comparing average deltas across query types.*
+
+![Forecast](<img width="1408" height="881" alt="Forecast" src="https://github.com/user-attachments/assets/57609c07-b66b-4249-9c2c-1db9e0c53d3d" />)
+  - *Forecast view gives cost prediction over the next 30 days using linear prediction. The value for this is the mean total cost due to various constraints.*
 
 ## Requirements
 - macOS 15.0 (Sequoia)+
