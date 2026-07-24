@@ -19,11 +19,22 @@
 4. Select the device to run the project on
 5. Look top left for a ▶ button, or click Cmd + R, to run the project 
 
-## Project Features
+## Project Features 
+- Data represented as a line graph or table format
+- Display of cost as either total or average cost 
+- Date filtering over 7, 30, 90, or custom day ranges
+- Category data aggregation (clusters, nodes, query types)
+- Drilldown data comparison (clusters -> nodes -> query types)
+- CSV file export
+- Anomaly day detection with modifiable threshold (default: above 2 standard deviations)
+- Linear regression forecast with prediction band (limited depending of data provided)
+
+## File Map
+
 
 ## Project Limitations
 - Forecast view is incomplete as the linear regression graph displays the y-axis mean instead of standard units due to the low R^Squared.
-  -  Also highly dependent on the size of the data being provided. It is recommended to have data for 90 days or more.
+  -  Also highly dependent on the size of the data being provided. It is recommended to have data for at least 90 days.
 - The center filters in the dashboard may shift slightly as centering is done as best as possible, but is not perfect
 - The local legend's detail may sometimes shift between colors and line shapes when switching anomaly thresholds.
 
@@ -38,18 +49,22 @@ MIT License
 ## Glossary
 aggregation: Process of collecting different pieces of data or information and combining them into a single summarized form.
 
-anomaly: Something that is different from what is considered normal or standard. 
+anomaly: Something that is different from what is considered normal or standard.
 
 drilldown: A way to analyze data by navigating from broad summaries of data down to finer and more nuanced specific data within the broader group of data.
 
 cluster: An interconnected group of individual nodes that process data at high speeds to run AI queries.
 
-node: A computer or server with CPU or GPU processors that processes data for AI. Multiple nodes often make up an AI cluster
+node: A computer or server with CPU or GPU processors that processes data for AI. Multiple nodes often make up an AI cluster.
 
-standard deviation: The measurement of how far something is spread out from the average
+prediction band: An area around the linear regression line that points to potential areas where predictions may appear.
+
+standard deviation: The measurement of how far something is spread out from the average.
 
 linear regression: A method to model a relationship between two items or concepts by fitting them on a straight line in context with collected data. 
 
-query type: A term that refers to what type of information a person is asking AI for an answer for. 
+query type: A term that refers to what type of information a person is asking AI for an answer for.
+
+threshold: Value that determines on or above that value what should be considered an anomaly.
 
 week-over-week-delta: A measurement that calculates the change in usage cost between the current week and the previous week. 
