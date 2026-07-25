@@ -24,7 +24,11 @@ import SwiftData
      //Main appearance of drilldown button
      var body: some View {
          VStack {
-             Text("Drill Cluster (\(appData.drillFilterCluster.rawValue))").fontWeight(.semibold)
+             if appData.drillFilterCluster == .inital {
+                 Text("Drill Cluster (\(appData.drillFilterCluster.rawValue))").fontWeight(.semibold)
+             } else {
+                 Text("\(appData.drillFilterCluster.rawValue)").fontWeight(.semibold)
+             }
              Menu {
                  ForEach(DrillDownClusterOptions.allCases, id: \.self) { option in
                      Button {
@@ -70,9 +74,14 @@ import SwiftData
         //MARK: UI Structure
      var body: some View {
          VStack {
-             Text("Drill Node (\(appData.drillFilterNode.label))")
-                 .disabled(appData.clusterId == nil)
-                 .fontWeight(.semibold)
+             if appData.drillFilterNode == .inital {
+                 Text("Drill Node (\(appData.drillFilterNode.label))")
+                                  .disabled(appData.clusterId == nil)
+                                  .fontWeight(.semibold)
+             } else {
+                 Text("\(appData.drillFilterNode.label)").disabled(appData.clusterId == nil).fontWeight(.semibold)
+             }
+             
              Menu {
                  ForEach(nodeOptions, id: \.self) { option in
                      Button {

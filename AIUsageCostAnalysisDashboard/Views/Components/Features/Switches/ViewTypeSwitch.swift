@@ -11,7 +11,7 @@ struct ViewTypeSwitch: View {
     @Environment(AppData.self) private var appData
     
     enum ViewType: String, CaseIterable {
-        case graph = "Graph"
+        case graph = "Chart"
         case table = "Table"
     }
     
