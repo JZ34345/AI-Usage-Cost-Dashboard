@@ -78,6 +78,8 @@
 
 * **query type**: A term that refers to what type of information a person is asking AI for an answer to.
 
+* **R squared/R^2**: Coefficient of Determination. A measurement of goodness of fit and how trustworthy a regression model is. Scales from 0 to 1.
+
 * **threshold**: A value that determines what constitutes an anomaly.
 
 * **week-over-week-delta**: A metric that calculates the change in usage cost between the current and previous week. 
