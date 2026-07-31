@@ -19,7 +19,7 @@ The view type can be switched using the TabView object at the very front, displa
 The app's default start view is the overview view, which displays the total cost for the last 7 days. This view is meant to provide a broad context for usage cost without delving too deeply into details. The date range was set to the last 7 days to provide the most relevant data to the user.
 
 ## Chart types
-For each view, the data is visualized using a **line chart or multi-line chart**. This type of chart was chosen because it is easier and more practical for comparing categories over a set period of time than other graph types. 
+For each view, the data is visualized using a **line chart or multi-line chart**. This type of chart was chosen because it is easier and more practical for comparing categories over a set period of time than other chart types. 
 - The best alternative was an area graph. However, the line graph was chosen over an area graph due to the volatility and lack of clear trends in the data, with instances where multiple categories overlap the same area on a chart.
 
 ## Filters
