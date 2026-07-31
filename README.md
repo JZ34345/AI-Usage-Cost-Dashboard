@@ -39,6 +39,7 @@
 ## Project Limitations
 - Forecast view is incomplete as the linear regression graph displays the y-axis mean instead of standard units due to the low R^Squared and has high volatility based on the data provided.
 - The center filters in the dashboard may shift slightly as spacing is not absolutely perfect.
+  - A potential future fix would be making secondary filters behind a 'more filters' button.
 - The local legend may sometimes shift between colors and shapes when anomaly thresholds change.
 
 ## Images
