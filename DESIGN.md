@@ -25,7 +25,7 @@ For each view, the data is visualized using a **line chart or multi-line chart**
 ## Filters
 #### Total filters per view:  up to 3 filters and 3 switches in the top row of the page. The current setup has 2 of the main switches stuck at the right of the bar to separate them from the other filters, making the bar cleaner and less cluttered.
 
-All filters are at the top of the page as menu buttons that display new views when selected. Almost all filters have a maximum selection of one option, with MultiSelect having a maximum of 2 options. 
+All filters are at the top of the page as menu buttons that display new views when selected. Almost all filters allow a maximum of 1 option, with MultiSelect allowing a maximum of 2. 
 
 - DataType switch: Specifically in the overview view. **Switches the data type between total usage cost or week-over-week deltas**. Formatted as a segmented control because of only two active options.
   
