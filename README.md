@@ -12,11 +12,19 @@
 
 ## Installation and Run Instructions
 #### Note: Have Xcode installed on macOS or a similar platform to run the dashboard.
-1. Clone the repository using 'git clone https://github.com' and 'cd REPOSITORY-NAME' in the terminal
-2. Open the project in Xcode using 'open PROJECT-NAME.xcodeproj' in the terminal
-3. Ensure that sample-data.json, or other data files, is correctly in the Source Data folder
-4. Select the device to run the project
-5. Run the project using ▶ button (top left) or Cmd + R
+1. Clone the repository using 'git clone https://github.com' and 'cd REPOSITORY-NAME' in the terminal.
+2. Open the project in Xcode using 'open PROJECT-NAME.xcodeproj' in the terminal.
+3. Ensure that sample-data.json, or other data files, is correctly in the Source Data folder.
+4. Select the device to run the project.
+5. Run the project using ▶ button (top left) or Cmd + R.
+
+## Requirements and License
+### Requirements
+- macOS 15.0 (Sequoia)+
+- Swift 5.9+
+- Xcode 15+
+### License
+- MIT License 
 
 ## Project Features 
 - Data represented as a line graph or table format
@@ -50,33 +58,25 @@
 ![Forecast](<img width="1408" height="881" alt="Forecast" src="https://github.com/user-attachments/assets/57609c07-b66b-4249-9c2c-1db9e0c53d3d" />)
   - *Forecast view gives cost prediction over the next 30 days using linear prediction. The value for this is the mean total cost due to various constraints.*
 
-## Requirements
-- macOS 15.0 (Sequoia)+
-- Swift 5.9+
-- Xcode 15+
-
-## License
-MIT License
-
 ## Glossary
-aggregation: The process of collecting data or information and combining it into a single summarized form.
+* **aggregation**: The process of collecting data or information and combining it into a single summarized form.
 
-anomaly: Something that is different from what is considered normal or standard.
+* **anomaly**: Something that is different from what is considered standard.
 
-drilldown: A way to analyze data by navigating from broad summaries to finer, more nuanced information within the broader data.
+* **drilldown**: A way to analyze data by navigating from broad summaries to finer, more nuanced information within the broader data.
 
-cluster: An interconnected group of individual nodes that process data at high speeds to run AI queries.
+* **cluster**: An interconnected group of individual nodes that process data at high speeds to run AI queries.
 
-node: A computer or server with CPU or GPU processors that processes data for AI. Multiple nodes often make up an AI cluster.
+* **node**: A computer or server with CPU or GPU processors that processes data for AI. Multiple nodes often make up an AI cluster.
 
-prediction band: An area around the linear regression line that indicates possible areas where predictions may appear.
+* **prediction band**: An area around the linear regression line that indicates possible areas where predictions may appear.
 
-standard deviation: The measurement of how far something is spread out from the average.
+* **standard deviation**: The measurement of how far something is spread out from the average.
 
-linear regression: A method for modeling the relationship between two items or concepts by fitting a straight line to collected data. 
+* **linear regression**: A method for modeling the relationship between two items or concepts by fitting a straight line to collected data. 
 
-query type: A term that refers to what type of information a person is asking AI for an answer to.
+* **query type**: A term that refers to what type of information a person is asking AI for an answer to.
 
-threshold: A value that determines what constitutes an anomaly.
+* **threshold**: A value that determines what constitutes an anomaly.
 
-week-over-week-delta: A metric that calculates the change in usage cost between the current and previous week. 
+* **week-over-week-delta**: A metric that calculates the change in usage cost between the current and previous week. 
