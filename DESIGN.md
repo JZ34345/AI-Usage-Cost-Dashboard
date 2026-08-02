@@ -15,16 +15,21 @@ Forecast: displays **costs as predictions using linear regression**. Allows fore
 ## TabView
 The view type can be switched using the TabView object at the very front, displaying all possible view types in one place. View switching occurs by pressing on the view users wish to select. 
 
-## Summary Information
- - Below the filters are a series of summary statistics for each chart, consisting of highlights such as the most dominant category, highest cost, or other important information.
+## Summaries
+### Chart Summaries
+ - Series of summary statistics below the filter. Consists of highlights such as the most dominant category, highest cost, daily average, or other relevant information.
    - Items marked in red indicate a high cost, while items in green are a low or negative cost.
- - Below the chart is the anomaly detection highlight, which contains information on the number of anomalies, highest/lowest anomalies, and more
-   - Above the anomaly detection summary is the threshold modifier which changes how many standard deviations above the mean a day's cost needs to be considered an anomaly.
+
+### Anomaly Detection
+#### Anomaly refers to any day when the cost is above or below a threshold, with the base set to the mean plus some standard deviations.
+ - Anomaly statistics: Set below the graph containing overall information on anomalies such as the number of high-cost and low-cost anomalies, and the highest and lowest cost anomalies.
+ - Anomaly threshold: Set on top of anomaly statistics. A threshold modifier that determines how many standard deviations above or below the mean the anomaly threshold is.
+   - Higher thresholds mean a lower likelihood of anomaly appearance. 
 
 ## Default View
 The app's default start view is the overview view, which displays the total cost for the last 7 days. This view is meant to provide a broad context for usage cost without delving too deeply into details. The date range was set to the last 7 days to provide the most relevant data to the user.
 
-## Chart types
+## Chart Types
 For each view, the data is visualized using a **line chart or multi-line chart**. This type of chart was chosen because it is easier and more practical for comparing categories over a set period of time than other chart types. 
 - The best alternative was an area graph. However, the line graph was chosen over an area graph due to the volatility and lack of clear trends in the data, with instances where multiple categories overlap the same area on a chart.
 
@@ -37,7 +42,7 @@ All filters are at the top of the page as menu buttons that display new views wh
   
 - CostType switch: Not included in overview view due to DataTypeSwitch. **Switches the usage cost of the graph between total cost and average cost**. Formatted as a segmented control because of only two active options.
   
-- ViewType switch: Available for all views. **Switches the method data is seen: between a chart or a table**. Formatted as a segmented control because of only two active options.
+- ViewType switch: Available for all views. **Switches the method between a chart or a table**. Formatted as a segmented control because of only two active options.
   
 - Anomaly switch: Included in every view. **Activates the anomaly detection feature and threshold picker**, below the graph.
   
@@ -55,7 +60,7 @@ All filters are at the top of the page as menu buttons that display new views wh
 #### Context: dates refer to the date filter custom date range option
 - When no date has been entered, the app will default the screen to displaying all provided data (90 days for sample).
 - If an incorrect date format has been provided, an error line will appear in the prompt, which will not close unless correct dates are inserted, and the graph will be replaced with an error page.
-- An error page will appear when there is no data provided in the graph or if the start and end date are the same or placed incorrectly.
+- An error page will appear when there is no data provided in the graph or if the start and end dates are the same or placed incorrectly.
   - The error page will have a line stating if there is a specific issue, but will default to "No data available" if none are found.
 
 #### Note: no viable solution has been found yet for custom date ranges with no data available. Please follow guidelines for dates with available data.
