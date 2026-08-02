@@ -2,13 +2,15 @@
 
 ## Description
 ### Core Functions
+
+#### Note: The data provided is a sample of AI usage records covering 90 days of queries across categories (cluster, node, query type) and global regions.
   This project is a dashboard that tracks AI usage costs and displays this **data in a line graph or table.**
   
   Comparisons of AI usage costs can be split into 5 views: **Overview (total and basic week-over-week delta comparisons), Aggregation (category comparisons), DrillDown (drilldown comparisons), WoW (aggregated week-over-week delta comparisons), and Forecast (cost predictions for 30 days).** 
   
   Secondary functions include **CSV data export, anomaly detection, and forecast predictions using linear regression.**
 
-#### Note: The data provided is a sample of AI usage records covering 90 days of queries across categories (cluster, node, query type) and global regions.
+
 
 ## Installation and Run Instructions
 #### Note: Have Xcode installed on macOS or a similar platform to run the dashboard.
@@ -23,6 +25,7 @@
 - macOS 15.0 (Sequoia)+
 - Swift 5.9+
 - Xcode 15+
+  
 ### License
 - MIT License 
 
