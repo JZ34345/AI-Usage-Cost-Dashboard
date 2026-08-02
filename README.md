@@ -78,7 +78,7 @@
 
 * **query type**: A term that refers to what type of information a person is asking AI for an answer to.
 
-* **R squared/R^2**: Coefficient of Determination. A measurement of goodness of fit and how trustworthy a regression model is. Scales from 0 to 1.
+* **R squared/R^2**: Coefficient of Determination. A measurement of goodness of fit and how trustworthy a regression model is. Scales from 0-1.
 
 * **threshold**: A value that determines what constitutes an anomaly.
 
