@@ -15,6 +15,12 @@ Forecast: displays **costs as predictions using linear regression**. Allows fore
 ## TabView
 The view type can be switched using the TabView object at the very front, displaying all possible view types in one place. View switching occurs by pressing on the view users wish to select. 
 
+## Summary Information
+ - Below the filters are a series of summary statistics for each chart, consisting of highlights such as the most dominant category, highest cost, or other important information.
+   - Items marked in red indicate a high cost, while items in green are a low or negative cost.
+ - Below the chart is the anomaly detection highlight, which contains information on the number of anomalies, highest/lowest anomalies, and more
+   - Above the anomaly detection summary is the threshold modifier which changes how many standard deviations above the mean a day's cost needs to be considered an anomaly.
+
 ## Default View
 The app's default start view is the overview view, which displays the total cost for the last 7 days. This view is meant to provide a broad context for usage cost without delving too deeply into details. The date range was set to the last 7 days to provide the most relevant data to the user.
 
