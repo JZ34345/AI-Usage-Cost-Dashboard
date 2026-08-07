@@ -6,48 +6,45 @@
 //
 import Foundation
 
-class ServerDataLoader {
+actor ServerDataLoader {
     private(set) var fileData: ServerFile?
     
-    init() {
-        do {
-            let fileOutput = try loadData()
-            // use fileOutput
-        } catch FileError.fileNotFound(let name) {
-            print("Couldn't find \(name).json")
-        } catch FileError.couldNotLoadData(let name) {
-            print("Couldn't load data from \(name).json")
-        } catch FileError.couldNotDecode(let name) {
-            print("Couldn't decode \(name).json")
-        } catch {
-            print("Unknown error: \(error)")
-        }
+    static func load() async throws -> ServerDataLoader {
+            let loader = ServerDataLoader()
+        try await loader.loadData()
+        return loader
     }
     
-    func loadData() throws -> FileOutput {
-        //Finds the file name based on information given and stores in a constant
-        guard let url = Bundle.main.url(forResource: "sample-data",
-                                        withExtension: "json")
-        else {
-            throw FileError.fileNotFound("sample-data")
-        }
-        
-        //Produces a constant of the data (undecoded) contained in url constant
-        guard let data = try? Data(contentsOf: url) else {
-            throw FileError.couldNotDecode("sample-data")
-        }
-        
-        let decoder = JSONDecoder()
-        //decode data constant of JSON file into File struct structure
-        do {
-            let decoded = try decoder.decode(FileOutput.self, from: data)
-            return decoded
-            
-        } catch {
-            throw FileError.couldNotLoadData("sample-data")
-        }
-    }
+    private init() {}
     
+    func loadData() async throws {
+        // Find sample-data.json relative to the executable
+        // Works for server targets where Bundle.main has no resources
+        let possiblePaths = [
+            "./sample-data.json",                           // same directory as executable
+            "../Resources/sample-data.json",               // Resources folder
+            "Buttery_Internship/sample-data.json"          // relative to project root
+        ]
+        
+        var fileURL: URL? = nil
+        for path in possiblePaths {
+            let url = URL(fileURLWithPath: path)
+            if FileManager.default.fileExists(atPath: url.path) {
+                fileURL = url
+                break
+            }
+        }
+        
+        guard let url = fileURL else {
+            print("Could not find sample-data.json — tried paths: \(possiblePaths)")
+            throw FileError.fileNotFound(" ")
+        }
+        
+        let data = try Data(contentsOf: url)
+        fileData = try JSONDecoder().decode(ServerFile.self, from: data)
+        print("Loaded \(fileData?.records.count ?? 0) records from \(url.path)")
+    }
+
     func aggregateRecords(
         _ records: [ServerRecord],
         groupBy: String,
@@ -66,9 +63,9 @@ class ServerDataLoader {
         }
         
         return grouped.flatMap {category, records in
-            let byDay = Dictionary(grouping: records) { $0.day }
-            return byDay.map { day, dayRecords in
-                CostSummaryOutput(day: day, category: category, totalCost: dayRecords.reduce(0.0) {$0 + $1.costCents},
+            Dictionary(grouping: records) { $0.day }.map { day, dayRecords in
+                CostSummaryOutput(day: day, category: category,
+                                  totalCost: dayRecords.reduce(0.0) {$0 + $1.costCents},
                                   queryCount: dayRecords.reduce(0) {$0 + $1.queryCount})
             }
         }.sorted {$0.day < $1.day}
@@ -87,6 +84,20 @@ class ServerDataLoader {
             if let end = endDate, record.day > end {return false}
             if let cluster = clusterId, record.clusterId != cluster {return false}
             if let node = nodeId, record.nodeId != node {return false}
+            return true
         }
+    }
+    
+    //Lookup tables
+    var clusterLookup: [String: String] {
+        Dictionary(uniqueKeysWithValues: (fileData?.clusters ?? []).map {($0.id, $0.name)})
+    }
+    
+    var modelLookup: [String: String] {
+        Dictionary(uniqueKeysWithValues: (fileData?.models ?? []).map {($0.id, $0.displayName)})
+    }
+    
+    var nodeLookup: [String: String] {
+        Dictionary(uniqueKeysWithValues: (fileData?.nodes ?? []).map {($0.id, $0.name)})
     }
 }

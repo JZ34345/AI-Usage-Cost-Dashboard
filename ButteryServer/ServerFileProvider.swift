@@ -13,7 +13,7 @@ protocol FileProvider: Sendable {
 }
 
 //Produces different types of errors based on the situation
-enum FileError: LocalizedError {
+enum FileError: LocalizedError, Sendable {
         case fileNotFound(String)
         case couldNotLoadData(String)
         case couldNotDecode(String)

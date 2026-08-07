@@ -7,35 +7,26 @@
 import Hummingbird
 import Foundation
 
-struct CostRoutes {
+struct CostRoutes: Sendable {
     let loader: ServerDataLoader
-    
-    //Lookup tables
-    var clusterLookup: [String: String] {
-        Dictionary(uniqueKeysWithValues: (loader.fileData?.clusters ?? []).map {($0.id, $0.name)})
-    }
-    
-    var modelLookup: [String: String] {
-        Dictionary(uniqueKeysWithValues: (loader.fileData?.models ?? []).map {($0.id, $0.displayName)})
-    }
-    
-    var nodeLookup: [String: String] {
-        Dictionary(uniqueKeysWithValues: (loader.fileData?.nodes ?? []).map {($0.id, $0.name)})
-    }
     
     //Test signal ping -> pong
     func ping(_ request: Request, context: BasicRequestContext) async throws -> String {return "pong"}
     
     //Get metadata from server
     func getMetaData(_ request: Request, context: BasicRequestContext) async throws -> Response {
+        let cluster =  await loader.fileData?.clusters ?? []
+        let node = await loader.fileData?.nodes ?? []
+        let model = await loader.fileData?.models ?? []
+        
         let output = FileOutput(
-            clusters: (loader.fileData?.clusters ?? []).map {
+            clusters: cluster.map {
                 ClusterOutput(id: $0.id, name: $0.name, region: $0.region)
             },
-            nodes: (loader.fileData?.nodes ?? []).map {
+            nodes: node.map {
                 NodeOutput(id: $0.id, clusterId: $0.clusterId, name: $0.name, size: $0.size)
             },
-            models: (loader.fileData?.models ?? []).map {
+            models: model.map {
                 ModelOutput(id: $0.id, displayName: $0.displayName, provider: $0.provider, isLocal: $0.isLocal)
             }
         )
@@ -53,9 +44,12 @@ struct CostRoutes {
         let clusterId = params["clusterId"].map(String.init)
         let nodeId = params["nodeId"].map(String.init)
         
-        let filtered = loader.filterRecords(startDate: startDate, endDate: endDate, clusterId: clusterId, nodeId: nodeId)
+        async let filtered = loader.filterRecords(startDate: startDate, endDate: endDate, clusterId: clusterId, nodeId: nodeId)
+        async let clusterLookup = loader.clusterLookup
+        async let nodeLookup = loader.nodeLookup
+        async let modelLookup = loader.modelLookup
         
-        let summaries = loader.aggregateRecords(filtered, groupBy: groupBy,
+        let summaries = await loader.aggregateRecords(filtered, groupBy: groupBy,
                                                 clusterLookup: clusterLookup,
                                                 modelLookup: modelLookup,
                                                 nodeLookup: nodeLookup
@@ -83,9 +77,13 @@ struct CostRoutes {
             groupBy = "cluster"
         }
         
-        let filtered = loader.filterRecords(startDate: startDate, endDate: endDate, clusterId: clusterId, nodeId: nodeId)
+        async let filtered = loader.filterRecords(startDate: startDate, endDate: endDate, clusterId: clusterId, nodeId: nodeId)
         
-        let summaries = loader.aggregateRecords(filtered, groupBy: groupBy,
+        async let clusterLookup = loader.clusterLookup
+        async let nodeLookup = loader.nodeLookup
+        async let modelLookup = loader.modelLookup
+        
+        let summaries = await loader.aggregateRecords(filtered, groupBy: groupBy,
                                                 clusterLookup: clusterLookup,
                                                 modelLookup: modelLookup,
                                                 nodeLookup: nodeLookup
