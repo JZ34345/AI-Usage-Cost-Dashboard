@@ -57,6 +57,7 @@
 		A84105C53012F24400AD06E9 /* sample-data.json in Resources */ = {isa = PBXBuildFile; fileRef = A841056A3012F24400AD06E9 /* sample-data.json */; };
 		A84105C63012F24400AD06E9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A84105943012F24400AD06E9 /* .gitignore */; };
 		A84105C73012F24400AD06E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A841056C3012F24400AD06E9 /* Assets.xcassets */; };
+		A8453C5930254EAA00491534 /* Hummingbird in Frameworks */ = {isa = PBXBuildFile; productRef = A8453C5830254EAA00491534 /* Hummingbird */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,18 @@
 			remoteInfo = Buttery_Internship;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A8453C4D30254B7200491534 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A84105523012F24400AD06E9 /* AICostTimeUsageAnalysisDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICostTimeUsageAnalysisDashboardApp.swift; sourceTree = "<group>"; };
@@ -127,6 +140,7 @@
 		A84105913012F24400AD06E9 /* View - Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - Overview.swift"; sourceTree = "<group>"; };
 		A84105923012F24400AD06E9 /* View - WoW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View - WoW.swift"; sourceTree = "<group>"; };
 		A84105943012F24400AD06E9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		A8453C4F30254B7200491534 /* ButteryServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ButteryServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2B952FE0C225003293EE /* AIUsageCostAnalysisDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIUsageCostAnalysisDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BA42FE0C227003293EE /* AIUsageCostAnalysisDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIUsageCostAnalysisDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88A2BAE2FE0C227003293EE /* AIUsageCostAnalysisDashboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIUsageCostAnalysisDashboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +164,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A8453C5030254B7200491534 /* ButteryServer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ButteryServer;
+			sourceTree = "<group>";
+		};
 		A88A2BA72FE0C227003293EE /* DashboardTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = DashboardTests;
@@ -167,6 +186,14 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A8453C4C30254B7200491534 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8453C5930254EAA00491534 /* Hummingbird in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A88A2B922FE0C225003293EE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -390,6 +417,7 @@
 				A84105953012F24400AD06E9 /* AIUsageCostAnalysisDashboard */,
 				A88A2BA72FE0C227003293EE /* DashboardTests */,
 				A88A2BB12FE0C227003293EE /* DashboardUITests */,
+				A8453C5030254B7200491534 /* ButteryServer */,
 				A88A2B962FE0C225003293EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -400,6 +428,7 @@
 				A88A2B952FE0C225003293EE /* AIUsageCostAnalysisDashboard.app */,
 				A88A2BA42FE0C227003293EE /* AIUsageCostAnalysisDashboardTests.xctest */,
 				A88A2BAE2FE0C227003293EE /* AIUsageCostAnalysisDashboardUITests.xctest */,
+				A8453C4F30254B7200491534 /* ButteryServer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -407,6 +436,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A8453C4E30254B7200491534 /* ButteryServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8453C5530254B7200491534 /* Build configuration list for PBXNativeTarget "ButteryServer" */;
+			buildPhases = (
+				A8453C4B30254B7200491534 /* Sources */,
+				A8453C4C30254B7200491534 /* Frameworks */,
+				A8453C4D30254B7200491534 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A8453C5030254B7200491534 /* ButteryServer */,
+			);
+			name = ButteryServer;
+			packageProductDependencies = (
+				A8453C5830254EAA00491534 /* Hummingbird */,
+			);
+			productName = ButteryServer;
+			productReference = A8453C4F30254B7200491534 /* ButteryServer */;
+			productType = "com.apple.product-type.tool";
+		};
 		A88A2B942FE0C225003293EE /* AIUsageCostAnalysisDashboard */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A88A2BB82FE0C227003293EE /* Build configuration list for PBXNativeTarget "AIUsageCostAnalysisDashboard" */;
@@ -479,9 +531,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2650;
+				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
+					A8453C4E30254B7200491534 = {
+						CreatedOnToolsVersion = 26.6;
+					};
 					A88A2B942FE0C225003293EE = {
 						CreatedOnToolsVersion = 26.5;
 					};
@@ -504,6 +559,9 @@
 			);
 			mainGroup = A88A2B8C2FE0C225003293EE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A8453C5630254E3800491534 /* XCRemoteSwiftPackageReference "hummingbird" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A88A2B962FE0C225003293EE /* Products */;
 			projectDirPath = "";
@@ -512,6 +570,7 @@
 				A88A2B942FE0C225003293EE /* AIUsageCostAnalysisDashboard */,
 				A88A2BA32FE0C227003293EE /* AIUsageCostAnalysisDashboardTests */,
 				A88A2BAD2FE0C227003293EE /* AIUsageCostAnalysisDashboardUITests */,
+				A8453C4E30254B7200491534 /* ButteryServer */,
 			);
 		};
 /* End PBXProject section */
@@ -544,6 +603,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A8453C4B30254B7200491534 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A88A2B912FE0C225003293EE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -628,6 +694,28 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A8453C5330254B7200491534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A8453C5430254B7200491534 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		A88A2BB62FE0C227003293EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -915,6 +1003,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A8453C5530254B7200491534 /* Build configuration list for PBXNativeTarget "ButteryServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8453C5330254B7200491534 /* Debug */,
+				A8453C5430254B7200491534 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A88A2B902FE0C225003293EE /* Build configuration list for PBXProject "AIUsageCostAnalysisDashboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -952,6 +1049,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A8453C5630254E3800491534 /* XCRemoteSwiftPackageReference "hummingbird" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hummingbird-project/hummingbird.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.26.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A8453C5830254EAA00491534 /* Hummingbird */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A8453C5630254E3800491534 /* XCRemoteSwiftPackageReference "hummingbird" */;
+			productName = Hummingbird;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A88A2B8D2FE0C225003293EE /* Project object */;
 }
